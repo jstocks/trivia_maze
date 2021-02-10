@@ -4,11 +4,11 @@ from gameboard import GameBoard
 class Controller:
     def __init__(self, view):
         self.__view = view
-        self.__gameboard = None
+        self.__game_board = None
         self.init_game()
 
-    def set_gameboard(self, x, y):
-        self.__gameboard = GameBoard(x, y)
+    def set_game_board(self, x, y):
+        self.__game_board = GameBoard(x, y)
 
     def get_valid_paths(self, x, y):
         """
@@ -16,13 +16,13 @@ class Controller:
         :return: List
         """
         options = []
-        if self.__gameboard.is_valid_room(x, y) is True and room.has_north_wall() is False:
+        if self.__game_board.is_valid_room(x, y) is True and room.has_north_wall() is False:
             options.append("u")
-        if self.__gameboard.is_valid_room(x, y) is True and room.has_south_wall() is False:
+        if self.__game_board.is_valid_room(x, y) is True and room.has_south_wall() is False:
             options.append("d")
-        if self.__gameboard.is_valid_room(x, y) is True and room.has_east_wall() is False:
+        if self.__game_board.is_valid_room(x, y) is True and room.has_east_wall() is False:
             options.append("r")
-        if self.__gameboard.is_valid_room(x, y) is True and room.has_west_wall() is False:
+        if self.__game_board.is_valid_room(x, y) is True and room.has_west_wall() is False:
             options.append("l")
         return options
 
@@ -39,26 +39,26 @@ class Controller:
             if file_option == 1:
                 level = self.__view.get_level()
                 if level == 1:
-                    self.set_gameboard(4, 4)
+                    self.set_game_board(4, 4)
                 elif level == 2:
-                    self.set_gameboard(5, 5)
+                    self.set_game_board(5, 5)
                 elif level == 3:
-                    self.set_gameboard(6, 6)
+                    self.set_game_board(6, 6)
                 self.play_game()
 
             # elif file_option == 2:
-            #     if self.__savedgameboard:
-            #         self.__gameboard = self.__savedgameboard
+            #     if self.__saved_game_board:
+            #         self.__game_board = self.__saved_game_board
             #         self.__play_game()
             #     else:
             #         self.__view.display_msg("No saved game. Choose another option.")
             #         self.__view.get_menu_option()
             #
             # elif file_option == 3:
-            #     if self.__gameboard:
-            #         self.__savedgameboard = self.__gameboard
+            #     if self.__game_board:
+            #         self.__saved_game_board = self.__game_board
             #         self.__view.display_msg("Game saved.")
-            #         self.__initgame()
+            #         self.init_game()
             #     else:
             #         self.__view.display_msg("No game to save. Choose another option.")
             #         self.__view.get_menu_option()
@@ -73,10 +73,10 @@ class Controller:
         """
         play = True
         while play:
-            x, y = self.__gameboard.current_room()
-            current_room = self.__gameboard.room_at(x, y)
+            x, y = self.__game_board.current_room()
+            current_room = self.__game_board.room_at(x, y)
             # Display game board and current room
-            self.__view.display_gameboard_map(self.__gameboard)
+            self.__view.display_gameboard_map(self.__game_board)
             self.__view.display_current_location(current_room)
             # if current room is exit You won!! else continue
             if current_room.is_exit:
@@ -87,10 +87,16 @@ class Controller:
                 paths = self.get_valid_paths(x, y)
                 if len(paths) > 0:
                     user_input = self.__view.get_user_command(paths)
+                    # retrieve question from database and instantiate question class.
+                    # q =
                     # display question
                     # get answer
+                    # if q.verify_ans(user_ans):
                     # if answer is right, update the player position
-                    # else lock the path
+                    #  pass
+                    # else:
+                    # lock the path
+                    pass
                 else:
                     # game lost as theres no way out!!
                     self.__view.display_game_lost()
