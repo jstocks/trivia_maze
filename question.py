@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
 
+
 class Question(ABC):
     """
        Abstract base class for a shape, should not be
        used for a concrete object.
     """
+
     def __init__(self, question="", correct_ans=""):
         self.question = question
         self.__correct_ans = correct_ans
