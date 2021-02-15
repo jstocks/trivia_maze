@@ -33,7 +33,7 @@ class View:
             try:
                 menu_input = input(f"Choose one of the menu options "
                                    f"by entering the corresponding "
-                                   f"number: \n {MENU}")
+                                   f"number \n {MENU} : ")
                 if menu_input in MENU:
                     return menu_input
                 else:
@@ -56,10 +56,11 @@ class View:
         }
         while True:
             try:
-                file_input = input(f"Choose one of the f"
-                                   f"ile menu options by entering "
-                                   f"the corresponding number: \n {FILE}")
+                file_input = input(f"Choose one of the file"
+                                   f" menu options by entering "
+                                   f"the corresponding number \n {FILE} : ")
                 if file_input in FILE:
+                    print(file_input)
                     return file_input
                 else:
                     print("Error: Invalid option")

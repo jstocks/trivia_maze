@@ -16,14 +16,14 @@ class Controller:
         :return: List
         """
         options = []
-        if self.__game_board.is_valid_room(x, y) is True and room.has_north_wall() is False:
-            options.append("u")
-        if self.__game_board.is_valid_room(x, y) is True and room.has_south_wall() is False:
-            options.append("d")
-        if self.__game_board.is_valid_room(x, y) is True and room.has_east_wall() is False:
-            options.append("r")
-        if self.__game_board.is_valid_room(x, y) is True and room.has_west_wall() is False:
-            options.append("l")
+        if self.__game_board.is_valid_room(x, y) is True and self.__game_board.__current_cell.has_north_path() is False:
+            options.append("n")
+        if self.__game_board.is_valid_room(x, y) is True and self.__game_board.__current_cell.has_south_path() is False:
+            options.append("s")
+        if self.__game_board.is_valid_room(x, y) is True and self.__game_board.__current_cell.has_east_path() is False:
+            options.append("e")
+        if self.__game_board.is_valid_room(x, y) is True and self.__game_board.__current_cell.has_west_path() is False:
+            options.append("w")
         return options
 
     def init_game(self):
@@ -34,15 +34,15 @@ class Controller:
         """
         self.__view.display_welcome_msg()
         menu_option = self.__view.get_menu_option()
-        if menu_option == 1:
+        if menu_option == "1":
             file_option = self.__view.get_file_option()
-            if file_option == 1:
+            if file_option == "1":
                 level = self.__view.get_level()
-                if level == 1:
+                if level == "1":
                     self.set_game_board(4, 4)
-                elif level == 2:
+                elif level == "2":
                     self.set_game_board(5, 5)
-                elif level == 3:
+                elif level == "3":
                     self.set_game_board(6, 6)
                 self.play_game()
 
@@ -64,6 +64,8 @@ class Controller:
             #         self.__view.get_menu_option()
             # ADD code for file option 4 - Exit
         # ADD code for menu option 2 -  Help
+        else:
+            pass
 
     def play_game(self):
         """
@@ -73,13 +75,13 @@ class Controller:
         """
         play = True
         while play:
-            x, y = self.__game_board.current_room()
-            current_room = self.__game_board.room_at(x, y)
+            x, y = self.__game_board.current_cell()
+            current_cell = self.__game_board.cell_at(x, y)
             # Display game board and current room
             self.__view.display_gameboard_map(self.__game_board)
-            self.__view.display_current_location(current_room)
+            self.__view.display_current_location(current_cell)
             # if current room is exit You won!! else continue
-            if current_room.is_exit:
+            if current_cell.get_exit is True:
                 self.__view.display_game_won()
                 play = False
             else:
@@ -109,3 +111,4 @@ class Controller:
             else:
                 # print Thanks for playing.
                 self.__view.display_closing_msg()
+                break
