@@ -155,9 +155,9 @@ class GameBoard:
 
         return '\n'.join(board_rows)
 
-    # def is_valid_room(self, x, y):
-    #     """helper method to keep cell pointer inside the confines of the board"""
-    #     return 0 <= x < self.__nx and 0 <= y < self.__ny
+    def is_valid_room(self, x, y):
+        """helper method to keep cell pointer inside the confines of the board"""
+        return 0 <= x < self.__nx and 0 <= y < self.__ny
 
     def traverse(self):
         pass

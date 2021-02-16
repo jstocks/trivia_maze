@@ -98,7 +98,7 @@ class View:
         :param gameboard: Gameboard
         :return: String rep of the gameboard(map)
         """
-        pass
+        print(gameboard)
 
     @staticmethod
     def display_current_location(room):

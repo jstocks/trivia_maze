@@ -85,6 +85,8 @@ class Controller:
                 self.__view.display_game_won()
                 play = False
             else:
+                # check if exit is reachable from current loc
+
                 # get valid paths possible depending on current loc
                 paths = self.get_valid_paths(x, y)
                 if len(paths) > 0:

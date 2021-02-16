@@ -6,6 +6,7 @@ class Cell:
     def __init__(self, x, y):
         self.__exit = False
         self.__entrance = False
+        self.__current_cell = False
         self.__impassable = False
         self.__visited = False
         self.x = x
@@ -27,6 +28,14 @@ class Cell:
     def set_entrance(self, add_entrance):
         """setter for entrance"""
         self.__entrance = add_entrance
+
+    def get_current_cell(self):
+        """getter for current cell"""
+        return self.__current_cell
+
+    def set_current_cell(self, update_current_cell):
+        """setter for current cell"""
+        self.__current_cell = update_current_cell
 
     def set_visited(self, add_visited):
         """setter for visited room, used for maze creation"""
@@ -74,9 +83,11 @@ class Cell:
 
     def get_letter(self):
         """getters for dungeon representation"""
-        if self.__entrance:
-            return "i"
+        # if self.__entrance:
+        #     return "i"
         if self.__exit:
             return "o"
+        if self.__current_cell:
+            return "x"
         else:
             return " "
