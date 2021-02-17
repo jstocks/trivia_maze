@@ -159,9 +159,62 @@ class GameBoard:
         """helper method to keep cell pointer inside the confines of the board"""
         return 0 <= x < self.__nx and 0 <= y < self.__ny
 
-    def traverse(self):
-        pass
+    def traverse(self, row, col):
+        # Code not tested
+        # Might contain bugs
+        """
+        Performs a DFS of the maze and checks exit is reachable from
+        the cell at row, col position.
+        To avoid going in cycles we maintain two colors
+        grey(indicates nodes in process) and
+        black(indicates nodes completed processing).
+        :param row: Int index
+        :param col: Int index
+        :return: Bool (if exit is reachable)
+        """
+        stack = [(row, col)]
+        found_Exit = False
+        grey = []
+        black = []
+        while len(stack) > 0:
+            node = stack.pop()
+            if node not in grey:
+                grey.append(node)
+            if self.__maze[node[0]][node[1]].is_exit:
+                found_Exit = True
+                return found_Exit
 
+            trav_neighbors = []
+            # if north cell is valid and its not in grey(to avoid cycles) and
+            # not in black(to avoid traversing a previously exhausted path)
+            # we add it to the trav_neighbors list for processing
+            if self.is_valid_room(node[0] - 1, node[1]):
+                if (node[0] - 1, node[1]) not in grey and (node[0] - 1, node[1]) not in black:
+                    trav_neighbors.append((node[0] - 1, node[1]))
+            # south cell
+            if self.is_valid_room(node[0] + 1, node[1]):
+                if (node[0] + 1, node[1]) not in grey and (node[0] + 1, node[1]) not in black:
+                    trav_neighbors.append((node[0] + 1, node[1]))
+            # east cell
+            if self.is_valid_room(node[0], node[1] - 1):
+                if (node[0], node[1] - 1) not in grey and (node[0], node[1] - 1) not in black:
+                    trav_neighbors.append((node[0], node[1] - 1))
+            # west cell
+            if self.is_valid_room(node[0], node[1] + 1):
+                if (node[0], node[1] + 1) not in grey and (node[0], node[1] + 1) not in black:
+                    trav_neighbors.append((node[0], node[1] + 1))
+
+            if len(trav_neighbors) > 0:
+                # We add the node and its valid neighbors to the stack
+                stack.append(node)
+                for neighbor in trav_neighbors:
+                    stack.append(neighbor)
+            else:
+                # no traversable neighbors and all path exhausted so we
+                # finished processing this node and add it to black.
+                grey.remove(node)
+                black.append(node)
+        return found_Exit
 
 # game_board = GameBoard()
 # game_board.place_entrance_exit()
