@@ -180,7 +180,7 @@ class GameBoard:
             node = stack.pop()
             if node not in grey:
                 grey.append(node)
-            if self.__maze[node[0]][node[1]].is_exit:
+            if self.__game_board[node[0]][node[1]].get_exit() is True:
                 found_Exit = True
                 return found_Exit
 
@@ -220,3 +220,4 @@ class GameBoard:
 # game_board = GameBoard()
 # game_board.place_entrance_exit()
 # print(game_board)
+# print(game_board.traverse(0,0))
