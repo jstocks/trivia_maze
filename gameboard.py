@@ -185,22 +185,23 @@ class GameBoard:
                 return found_Exit
 
             trav_neighbors = []
-            # if north cell is valid and its not in grey(to avoid cycles) and
+            # if north cell is valid and path to north cell is open and
+            # north cell is not in grey(to avoid cycles) and
             # not in black(to avoid traversing a previously exhausted path)
             # we add it to the trav_neighbors list for processing
-            if self.is_valid_room(node[0] - 1, node[1]):
+            if self.is_valid_room(node[0] - 1, node[1]) and self.cell_at(node[0], node[1]).has_north_path() is True:
                 if (node[0] - 1, node[1]) not in grey and (node[0] - 1, node[1]) not in black:
                     trav_neighbors.append((node[0] - 1, node[1]))
             # south cell
-            if self.is_valid_room(node[0] + 1, node[1]):
+            if self.is_valid_room(node[0] + 1, node[1]) and self.cell_at(node[0], node[1]).has_south_path() is True:
                 if (node[0] + 1, node[1]) not in grey and (node[0] + 1, node[1]) not in black:
                     trav_neighbors.append((node[0] + 1, node[1]))
             # east cell
-            if self.is_valid_room(node[0], node[1] - 1):
+            if self.is_valid_room(node[0], node[1] - 1) and self.cell_at(node[0], node[1]).has_east_path() is True:
                 if (node[0], node[1] - 1) not in grey and (node[0], node[1] - 1) not in black:
                     trav_neighbors.append((node[0], node[1] - 1))
             # west cell
-            if self.is_valid_room(node[0], node[1] + 1):
+            if self.is_valid_room(node[0], node[1] + 1) and self.cell_at(node[0], node[1]).has_west_path() is True:
                 if (node[0], node[1] + 1) not in grey and (node[0], node[1] + 1) not in black:
                     trav_neighbors.append((node[0], node[1] + 1))
 
