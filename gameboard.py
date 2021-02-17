@@ -43,6 +43,12 @@ class GameBoard:
 
     def move_to(self, x, y):
         """movement function in gameplay via user_input"""
+        old_x, old_y = self.__current_cell
+        # set property "current_cell" of the previous cell to False
+        self.__game_board[old_x][old_y].set_current_cell(False)
+        # and property "current_cell" of the current cell to True
+        self.__game_board[x][y].set_current_cell(True)
+        # set the current room to the right coordinate
         self.__current_cell = x, y
 
     # def find_neighbors(self, cell):
@@ -100,8 +106,8 @@ class GameBoard:
         x = 0
         y = 0
         self.__game_board[x][y].set_current_cell(True)
-        a = 3
-        b = 3
+        a = self.__nx - 1
+        b = self.__ny - 1
         self.__game_board[a][b].set_exit(True)
 
     def __repr__(self):
@@ -217,7 +223,7 @@ class GameBoard:
                 black.append(node)
         return found_Exit
 
-# game_board = GameBoard()
-# game_board.place_entrance_exit()
-# print(game_board)
-# print(game_board.traverse(0,0))
+game_board = GameBoard()
+game_board.place_entrance_exit()
+print(game_board)
+print(game_board.traverse(0,0))

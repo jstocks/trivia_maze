@@ -21,18 +21,18 @@ class Controller:
         cell = __game_board.cell_at(x, y)
         options = []
         # movement options based on available paths
-        if self.__game_board.is_valid_room(x, y) is True and cell.has_north_path() is True:
+        if self.__game_board.is_valid_room(x, y - 1) is True and cell.has_north_path() is True:
             options.append("u")
-        if self.__game_board.is_valid_room(x, y) is True and cell.has_south_path() is True:
+        if self.__game_board.is_valid_room(x, y + 1) is True and cell.has_south_path() is True:
             options.append("d")
-        if self.__game_board.is_valid_room(x, y) is True and cell.has_east_path() is True:
+        if self.__game_board.is_valid_room(x + 1, y) is True and cell.has_east_path() is True:
             options.append("r")
-        if self.__game_board.is_valid_room(x, y) is True and cell.has_west_path() is True:
+        if self.__game_board.is_valid_room(x - 1, y) is True and cell.has_west_path() is True:
             options.append("l")
         # save, load, quit options
-        options.append("s")
-        options.append("o")
-        options.append("q")
+        options.append("s")  # save game
+        options.append("o")  # load game
+        options.append("q")  # quit
         print(options)
         # return options
 
@@ -62,7 +62,7 @@ class Controller:
                 pass
                 # prompt for question
                 # if question answered correctly:
-                __game_board.move_to(x, y - 1)
+                self.__game_board.move_to(x, y - 1)
                 # else:
                 #     current_cell.remove_path(next_room, direction)
             else:
@@ -72,7 +72,7 @@ class Controller:
                 pass
                 # prompt for question
                 # if question answered correctly:
-                __game_board.move_to(x, y + 1)
+                self.__game_board.move_to(x, y + 1)
                 # else:
                 #     current_cell.remove_path(next_room, direction)
             else:
@@ -82,17 +82,17 @@ class Controller:
                 pass
                 # prompt for question
                 # if question answered correctly:
-                __game_board.move_to(x - 1, y)
+                self.__game_board.move_to(x - 1, y)
                 # else:
                 #     current_cell.remove_path(next_room, direction)
             else:
                 print("That is not a valid command.  Try again.")
         elif keystroke == "r":
-            if "l" in options:
+            if "r" in options:
                 pass
                 # prompt for question
                 # if question answered correctly:
-                __game_board.move_to(x + 1, y)
+                self.__game_board.move_to(x + 1, y)
                 # else:
                 #     current_cell.remove_path(next_room, direction)
             else:
@@ -116,7 +116,8 @@ class Controller:
                     self.set_game_board(5, 5)
                 elif level == "3":
                     self.set_game_board(6, 6)
-                self.play_game()
+            self.__game_board.place_entrance_exit()
+            self.play_game()
 
             # elif file_option == 2:
             #     if self.__saved_game_board:

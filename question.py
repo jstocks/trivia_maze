@@ -8,13 +8,22 @@ class Question(ABC):
     """
 
     def __init__(self, question="", correct_ans=""):
+
+        # connect to sqlite database file
+        # get question line
+        # question = conn.exec("select statement")
+        #
+
+        # with the data row from sqlite
+        # fill up the question and the answer to the class properties
         self.question = question
+        self.__answers = answers
         self.__correct_ans = correct_ans
 
     @abstractmethod
     def get_question(self):
-        pass
-
+        return self.question
+        
     def verify_ans(self, ans):
         return True if ans == self.__correct_ans else False
 
