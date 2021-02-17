@@ -5,7 +5,7 @@ class Cell:
 
     def __init__(self, x, y):
         self.__exit = False
-        self.__entrance = False
+        # self.__entrance = False
         self.__current_cell = False
         self.__impassable = False
         self.__visited = False
@@ -21,13 +21,13 @@ class Cell:
         """setter for exit"""
         self.__exit = add_exit
 
-    def get_entrance(self):
-        """getter for entrance"""
-        return self.__entrance
-
-    def set_entrance(self, add_entrance):
-        """setter for entrance"""
-        self.__entrance = add_entrance
+    # def get_entrance(self):
+    #     """getter for entrance"""
+    #     return self.__entrance
+    #
+    # def set_entrance(self, add_entrance):
+    #     """setter for entrance"""
+    #     self.__entrance = add_entrance
 
     def get_current_cell(self):
         """getter for current cell"""
@@ -76,15 +76,13 @@ class Cell:
         """getter for west path"""
         return self.paths["W"]
 
-    def connect(self, other, path):
+    def remove_path(self, other, path):
         """Removes the path between two adjacent cells."""
         self.paths[path] = False
-        other.paths[Room.path_pairs[path]] = False
+        other.paths[Cell.path_pairs[path]] = False
 
     def get_letter(self):
         """getters for dungeon representation"""
-        # if self.__entrance:
-        #     return "i"
         if self.__exit:
             return "o"
         if self.__current_cell:

@@ -1,30 +1,102 @@
 from gameboard import GameBoard
+from view import View
 
 
 class Controller:
-    def __init__(self, view):
-        self.__view = view
+    def __init__(self):
+        # self.__view = view
         self.__game_board = None
         self.init_game()
 
     def set_game_board(self, x, y):
         self.__game_board = GameBoard(x, y)
 
-    def get_valid_paths(self, x, y):
+    def player_input(self, __game_board):
         """
-        Returns a list containing the possible paths that the player can go in
-        :return: List
+        Allows a player to move based on available paths and options
+        :return: Action based on input
         """
+
+        x, y = __game_board.current_cell()
+        cell = __game_board.cell_at(x, y)
         options = []
-        if self.__game_board.is_valid_room(x, y) is True and self.__game_board.__current_cell.has_north_path() is False:
-            options.append("n")
-        if self.__game_board.is_valid_room(x, y) is True and self.__game_board.__current_cell.has_south_path() is False:
-            options.append("s")
-        if self.__game_board.is_valid_room(x, y) is True and self.__game_board.__current_cell.has_east_path() is False:
-            options.append("e")
-        if self.__game_board.is_valid_room(x, y) is True and self.__game_board.__current_cell.has_west_path() is False:
-            options.append("w")
-        return options
+        # movement options based on available paths
+        if self.__game_board.is_valid_room(x, y) is True and cell.has_north_path() is True:
+            options.append("u")
+        if self.__game_board.is_valid_room(x, y) is True and cell.has_south_path() is True:
+            options.append("d")
+        if self.__game_board.is_valid_room(x, y) is True and cell.has_east_path() is True:
+            options.append("r")
+        if self.__game_board.is_valid_room(x, y) is True and cell.has_west_path() is True:
+            options.append("l")
+        # save, load, quit options
+        options.append("s")
+        options.append("o")
+        options.append("q")
+        print(options)
+        # return options
+
+        keystroke = input("What would you like to do? Press \"1\" for all options: ")
+
+        if keystroke == "1":  # all available user options
+            return options
+
+        # exit, save, load a game
+        elif keystroke == "q":  # option to exit the game
+            a = input("Houston, you have a problem. Do you really want to exit? (y or n): ")
+            if a == "y":
+                print("***GAME OVER***")
+                # place 'exit game' method here
+            elif a == "n":
+                print("\nCarry on, space cowboy!\n")
+            else:
+                print("That is not a valid command. Try again.")
+        elif keystroke == "s":
+            pass  # insert 'save game' method here
+        elif keystroke == "o":
+            pass  # insert 'load game' method here
+
+        # move commands
+        elif keystroke == "u":
+            if "u" in options:
+                pass
+                # prompt for question
+                # if question answered correctly:
+                __game_board.move_to(x, y - 1)
+                # else:
+                #     current_cell.remove_path(next_room, direction)
+            else:
+                print("That is not a valid command.  Try again.")
+        elif keystroke == "d":
+            if "d" in options:
+                pass
+                # prompt for question
+                # if question answered correctly:
+                __game_board.move_to(x, y + 1)
+                # else:
+                #     current_cell.remove_path(next_room, direction)
+            else:
+                print("That is not a valid command.  Try again.")
+        elif keystroke == "l":
+            if "l" in options:
+                pass
+                # prompt for question
+                # if question answered correctly:
+                __game_board.move_to(x - 1, y)
+                # else:
+                #     current_cell.remove_path(next_room, direction)
+            else:
+                print("That is not a valid command.  Try again.")
+        elif keystroke == "r":
+            if "l" in options:
+                pass
+                # prompt for question
+                # if question answered correctly:
+                __game_board.move_to(x + 1, y)
+                # else:
+                #     current_cell.remove_path(next_room, direction)
+            else:
+                print("That is not a valid command.  Try again.")
 
     def init_game(self):
         """
@@ -32,12 +104,12 @@ class Controller:
         Gets the game level. Initialises the game board.
         :return: None
         """
-        self.__view.display_welcome_msg()
-        menu_option = self.__view.get_menu_option()
+        View.display_welcome_msg()
+        menu_option = View.get_menu_option()
         if menu_option == "1":
-            file_option = self.__view.get_file_option()
+            file_option = View.get_file_option()
             if file_option == "1":
-                level = self.__view.get_level()
+                level = View.get_level()
                 if level == "1":
                     self.set_game_board(4, 4)
                 elif level == "2":
@@ -78,19 +150,21 @@ class Controller:
             x, y = self.__game_board.current_cell()
             current_cell = self.__game_board.cell_at(x, y)
             # Display game board and current room
-            self.__view.display_gameboard_map(self.__game_board)
-            self.__view.display_current_location(current_cell)
+            View.display_gameboard_map(self.__game_board)
+            View.display_current_location(current_cell)
             # if current room is exit You won!! else continue
             if current_cell.get_exit is True:
-                self.__view.display_game_won()
+                View.display_game_won()
                 play = False
             else:
+                self.player_input(self.__game_board)
+
                 # check if exit is reachable from current loc
 
                 # get valid paths possible depending on current loc
-                paths = self.get_valid_paths(x, y)
-                if len(paths) > 0:
-                    user_input = self.__view.get_user_command(paths)
+                # paths = self.get_valid_paths(x, y)
+                # if len(paths) > 0:
+                #     user_input = self.__view.get_user_command(paths)
                     # retrieve question from database and instantiate question class.
                     # q =
                     # display question
@@ -100,11 +174,11 @@ class Controller:
                     #  pass
                     # else:
                     # lock the path
-                    pass
-                else:
-                    # game lost as theres no way out!!
-                    self.__view.display_game_lost()
-                    play = False
+                    # pass
+                # else:
+                #     # game lost as theres no way out!!
+                #     self.__view.display_game_lost()
+                #     play = False
 
         while True:
             user_input = self.__view.replay()
@@ -114,3 +188,8 @@ class Controller:
                 # print Thanks for playing.
                 self.__view.display_closing_msg()
                 break
+
+
+new = Controller()
+new.init_game()
+

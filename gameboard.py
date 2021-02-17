@@ -33,9 +33,9 @@ class GameBoard:
         """current cell pointer"""
         return self.__current_cell
 
-    def entrance_cell(self):
-        """entrance getter"""
-        return self.__entrance_cell
+    # def entrance_cell(self):
+    #     """entrance getter"""
+    #     return self.__entrance_cell
 
     def exit_cell(self):
         """exit getter"""
@@ -82,7 +82,7 @@ class GameBoard:
     #
     #         # Choose a random neighboring room and move to it
     #         direction, next_room = random.choice(neighbors)
-    #         current_room.connect(next_room, direction)
+    #         current_room.remove_path(next_room, direction)
     #         room_stack.append(current_room)
     #         current_room = next_room
     #         nv += 1
@@ -99,7 +99,7 @@ class GameBoard:
         """set exit in game board"""
         x = 0
         y = 0
-        self.__game_board[x][y].set_entrance(True)
+        self.__game_board[x][y].set_current_cell(True)
         a = 3
         b = 3
         self.__game_board[a][b].set_exit(True)
@@ -116,7 +116,7 @@ class GameBoard:
             for x in range(self.__nx - 1):
                 cell_row.append(self.__game_board[x][y].get_letter())
                 if self.__game_board[x][y].paths['E']:
-                    cell_row.append('|')
+                    cell_row.append('-')
                 else:
                     cell_row.append(' ')
             # creates eastern border of game board
@@ -128,7 +128,7 @@ class GameBoard:
             for x in range(self.__nx):
                 # creates a path if path to the east is true
                 if self.__game_board[x][y].paths['S']:
-                    cell_row.append('-*')
+                    cell_row.append('|*')
                 else:
                     cell_row.append(' *')
 
@@ -141,7 +141,7 @@ class GameBoard:
             for x in range(self.__nx - 1):
                 cell_row.append(self.__game_board[x][y].get_letter())
                 if self.__game_board[x][y].paths['E']:
-                    cell_row.append('|')
+                    cell_row.append('-')
                 else:
                     cell_row.append(' ')
             # creates eastern border of board
@@ -163,6 +163,6 @@ class GameBoard:
         pass
 
 
-game_board = GameBoard()
-game_board.place_entrance_exit()
-print(game_board)
+# game_board = GameBoard()
+# game_board.place_entrance_exit()
+# print(game_board)
