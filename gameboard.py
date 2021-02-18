@@ -167,8 +167,6 @@ class GameBoard:
         return 0 <= x < self.__nx and 0 <= y < self.__ny
 
     def traverse(self, row, col):
-        # Code not tested
-        # Might contain bugs
         """
         Performs a DFS of the maze and checks exit is reachable from
         the cell at row, col position.
@@ -199,15 +197,12 @@ class GameBoard:
             if self.is_valid_room(node[0] - 1, node[1]) and self.cell_at(node[0], node[1]).has_east_path() is True:
                 if (node[0] - 1, node[1]) not in grey and (node[0] - 1, node[1]) not in black:
                     trav_neighbors.append((node[0] - 1, node[1]))
-            # south cell
             if self.is_valid_room(node[0] + 1, node[1]) and self.cell_at(node[0], node[1]).has_west_path() is True:
                 if (node[0] + 1, node[1]) not in grey and (node[0] + 1, node[1]) not in black:
                     trav_neighbors.append((node[0] + 1, node[1]))
-            # east cell
             if self.is_valid_room(node[0], node[1] - 1) and self.cell_at(node[0], node[1]).has_north_path() is True:
                 if (node[0], node[1] - 1) not in grey and (node[0], node[1] - 1) not in black:
                     trav_neighbors.append((node[0], node[1] - 1))
-            # west cell
             if self.is_valid_room(node[0], node[1] + 1) and self.cell_at(node[0], node[1]).has_south_path() is True:
                 if (node[0], node[1] + 1) not in grey and (node[0], node[1] + 1) not in black:
                     trav_neighbors.append((node[0], node[1] + 1))
