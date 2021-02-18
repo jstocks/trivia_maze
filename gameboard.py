@@ -223,7 +223,8 @@ class GameBoard:
                 black.append(node)
         return found_Exit
 
-game_board = GameBoard()
-game_board.place_entrance_exit()
-print(game_board)
-print(game_board.traverse(0,0))
+# game_board = GameBoard()
+# game_board.place_entrance_exit()
+# print(game_board)
+# print(game_board.traverse(0,0))
+# print(game_board.cell_at(3, 3))

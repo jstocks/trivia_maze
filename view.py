@@ -107,7 +107,7 @@ class View:
         :param room: Object - current location
         :return: String rep of the current location.
         """
-        pass
+        print(room)
 
     @staticmethod
     def display_game_won():

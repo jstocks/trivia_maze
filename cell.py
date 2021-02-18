@@ -8,7 +8,7 @@ class Cell:
         # self.__entrance = False
         self.__current_cell = False
         self.__impassable = False
-        self.__visited = False
+        # self.__visited = False
         self.x = x
         self.y = y
         self.paths = {"N": True, "S": True, "E": True, "W": True}
@@ -52,9 +52,7 @@ class Cell:
     def __repr__(self):
         return "Paths: " + str(self.paths) + "\n" \
             + "Exit: " + str(self.__exit) + "\n" \
-            + "Entrance: " + str(self.__entrance) + "\n" \
-            + "Impassable: " + str(self.__impassable) + "\n" \
-            + "Visited: " + str(self.__visited)
+            + "Impassable: " + str(self.__impassable) + "\n"
 
     def has_all_paths(self):
         """returns True if Room has all 4 paths"""

@@ -154,14 +154,16 @@ class Controller:
             View.display_gameboard_map(self.__game_board)
             View.display_current_location(current_cell)
             # if current room is exit You won!! else continue
-            if current_cell.get_exit is True:
+            if current_cell.get_exit() is True:
                 View.display_game_won()
                 play = False
             else:
                 self.player_input(self.__game_board)
 
                 # check if exit is reachable from current loc
-
+                if self.__game_board.traverse(x, y) is False:
+                    View.display_game_lost()
+                    play = False
                 # get valid paths possible depending on current loc
                 # paths = self.get_valid_paths(x, y)
                 # if len(paths) > 0:
@@ -182,12 +184,12 @@ class Controller:
                 #     play = False
 
         while True:
-            user_input = self.__view.replay()
+            user_input = View.replay()
             if user_input == 'y' or user_input == 'yes':
                 self.init_game()
             else:
                 # print Thanks for playing.
-                self.__view.display_closing_msg()
+                View.display_closing_msg()
                 break
 
 
