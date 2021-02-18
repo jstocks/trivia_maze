@@ -110,6 +110,14 @@ class View:
         print(room)
 
     @staticmethod
+    def display_msg(msg):
+        """
+        Displays message
+        :return: None
+        """
+        print(msg)
+
+    @staticmethod
     def display_game_won():
         print("You have reached home. You won!!!!")
 

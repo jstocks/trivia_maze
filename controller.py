@@ -39,18 +39,18 @@ class Controller:
         keystroke = input("What would you like to do? Press \"1\" for all options: ")
 
         if keystroke == "1":  # all available user options
-            return options
+            return options, True
 
         # exit, save, load a game
         elif keystroke == "q":  # option to exit the game
             a = input("Houston, you have a problem. Do you really want to exit? (y or n): ")
             if a == "y":
-                print("***GAME OVER***")
+                return "***GAME OVER***", False
                 # place 'exit game' method here
             elif a == "n":
-                print("\nCarry on, space cowboy!\n")
+                return "\nCarry on, space cowboy!\n", True
             else:
-                print("That is not a valid command. Try again.")
+                return "That is not a valid command. Try again.", True
         elif keystroke == "s":
             pass  # insert 'save game' method here
         elif keystroke == "o":
@@ -63,40 +63,46 @@ class Controller:
                 # prompt for question
                 # if question answered correctly:
                 self.__game_board.move_to(x, y - 1)
+                return "", True
                 # else:
                 #     current_cell.remove_path(next_room, direction)
             else:
-                print("That is not a valid command.  Try again.")
+                return "That is not a valid command.  Try again.", True
         elif keystroke == "d":
             if "d" in options:
                 pass
                 # prompt for question
                 # if question answered correctly:
                 self.__game_board.move_to(x, y + 1)
+                return "", True
                 # else:
                 #     current_cell.remove_path(next_room, direction)
             else:
-                print("That is not a valid command.  Try again.")
+                return "That is not a valid command.  Try again.", True
         elif keystroke == "l":
             if "l" in options:
                 pass
                 # prompt for question
                 # if question answered correctly:
                 self.__game_board.move_to(x - 1, y)
+                return "", True
                 # else:
                 #     current_cell.remove_path(next_room, direction)
             else:
-                print("That is not a valid command.  Try again.")
+                return "That is not a valid command.  Try again.", True
         elif keystroke == "r":
             if "r" in options:
                 pass
                 # prompt for question
                 # if question answered correctly:
                 self.__game_board.move_to(x + 1, y)
+                return "", True
                 # else:
                 #     current_cell.remove_path(next_room, direction)
             else:
-                print("That is not a valid command.  Try again.")
+                return "That is not a valid command.  Try again.", True
+        else:
+            return "That is not a valid command.  Try again.", True
 
     def init_game(self):
         """
@@ -158,30 +164,13 @@ class Controller:
                 View.display_game_won()
                 play = False
             else:
-                self.player_input(self.__game_board)
-
+                statement, play = self.player_input(self.__game_board)
+                View.display_msg(statement)
                 # check if exit is reachable from current loc
                 if self.__game_board.traverse(x, y) is False:
+                    # game lost as theres no way out!!
                     View.display_game_lost()
                     play = False
-                # get valid paths possible depending on current loc
-                # paths = self.get_valid_paths(x, y)
-                # if len(paths) > 0:
-                #     user_input = self.__view.get_user_command(paths)
-                    # retrieve question from database and instantiate question class.
-                    # q =
-                    # display question
-                    # get answer
-                    # if q.verify_ans(user_ans):
-                    # if answer is right, update the player position
-                    #  pass
-                    # else:
-                    # lock the path
-                    # pass
-                # else:
-                #     # game lost as theres no way out!!
-                #     self.__view.display_game_lost()
-                #     play = False
 
         while True:
             user_input = View.replay()
@@ -190,7 +179,7 @@ class Controller:
             else:
                 # print Thanks for playing.
                 View.display_closing_msg()
-                break
+                exit()
 
 
 new = Controller()
