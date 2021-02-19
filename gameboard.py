@@ -219,7 +219,57 @@ class GameBoard:
                 black.append(node)
         return found_Exit
 
+    def update_border_paths(self):
+        delta = [('W', (-1, 0)),
+                 ('E', (1, 0)),
+                 ('S', (0, 1)),
+                 ('N', (0, -1))]
+        # current_cell = self.cell_at(self.__ix, self.__iy)
+        for i in range(self.__nx):
+            for j in range(self.__ny):
+                for direction, (dx, dy) in delta:
+                    current_cell = self.cell_at(i, j)
+                    x2, y2 = i + dx, j + dy
+                    try:
+                        next_cell = self.cell_at(x2, y2)
+                        if x2 < 0:
+                            current_cell.remove_path(next_cell, direction)
+                        if x2 > self.__nx - 1:
+                            current_cell.remove_path(next_cell, direction)
+                        if y2 < 0:
+                            current_cell.remove_path(next_cell, direction)
+                        if y2 > self.__ny - 1:
+                            current_cell.remove_path(next_cell, direction)
+                    except IndexError:
+                        pass
 
+
+# Test for update_border_paths
+# game_board = GameBoard()
+# game_board.place_entrance_exit()
+# game_board.update_border_paths()
+# print("0,0")
+# print(game_board.cell_at(0, 0))
+# print("0,1")
+# print(game_board.cell_at(0, 1))
+# print("0,2")
+# print(game_board.cell_at(0, 2))
+# print("0,3")
+# print(game_board.cell_at(0, 3))
+# print("1,0")
+# print(game_board.cell_at(1, 0))
+# print("2,0")
+# print(game_board.cell_at(2, 0))
+# print("3,0")
+# print(game_board.cell_at(3, 0))
+# print("3,0")
+# print(game_board.cell_at(3, 0))
+# print("3,1")
+# print(game_board.cell_at(3, 1))
+# print("3,2")
+# print(game_board.cell_at(3, 2))
+# print("3,3")
+# print(game_board.cell_at(3, 3))
 # game_board = GameBoard(3, 3)
 # game_board.place_entrance_exit()
 # print(game_board)
