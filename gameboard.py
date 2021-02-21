@@ -5,6 +5,7 @@ import random
 class GameBoard:
     """class creates an instance of a game board, creates 2D matrix, adds entrance
     & exit, and stores all of the locations and string representations"""
+
     def __init__(self, nx=4, ny=4, ix=0, iy=0):
         """initialize game board 2D matrix at (0,0)"""
         self.__nx = nx
@@ -109,32 +110,6 @@ class GameBoard:
         a = self.__nx - 1
         b = self.__ny - 1
         self.__game_board[a][b].set_exit(True)
-        # modify the paths on border of game board
-
-    def update_border_paths(self):
-        delta = [('W', (-1, 0)),
-                 ('E', (1, 0)),
-                 ('S', (0, 1)),
-                 ('N', (0, -1))]
-        # current_cell = self.cell_at(self.__ix, self.__iy)
-
-        for i in range(self.__nx):
-            for j in range(self.__ny):
-                for direction, (dx, dy) in delta:
-                    current_cell = self.cell_at(i, j)
-                    x2, y2 = i + dx, j + dy
-                    try:
-                        next_cell = self.cell_at(x2, y2)
-                        if x2 < 0:
-                            current_cell.remove_path(next_cell, direction)
-                        if x2 > self.__nx - 1:
-                            current_cell.remove_path(next_cell, direction)
-                        if y2 < 0:
-                            current_cell.remove_path(next_cell, direction)
-                        if y2 > self.__ny - 1:
-                            current_cell.remove_path(next_cell, direction)
-                    except IndexError:
-                        pass
 
     def __repr__(self):
         """Return a visual string representation of the game board."""
@@ -152,7 +127,7 @@ class GameBoard:
                 else:
                     cell_row.append(' ')
             # creates eastern border of game board
-            cell_row.append(self.__game_board[x+1][y].get_letter())
+            cell_row.append(self.__game_board[x + 1][y].get_letter())
             cell_row.append('*')
             board_rows.append(''.join(cell_row))
             # C: adds rows of paths between cells if S wall is True
@@ -177,7 +152,7 @@ class GameBoard:
                 else:
                     cell_row.append(' ')
             # creates eastern border of board
-            cell_row.append(self.__game_board[x+1][y].get_letter())
+            cell_row.append(self.__game_board[x + 1][y].get_letter())
             cell_row.append('*')
             board_rows.append(''.join(cell_row))
             # C: adds rows of paths between cells if S path is True
@@ -192,8 +167,6 @@ class GameBoard:
         return 0 <= x < self.__nx and 0 <= y < self.__ny
 
     def traverse(self, row, col):
-        # Code not tested
-        # Might contain bugs
         """
         Performs a DFS of the maze and checks exit is reachable from
         the cell at row, col position.
@@ -221,19 +194,16 @@ class GameBoard:
             # north cell is not in grey(to avoid cycles) and
             # not in black(to avoid traversing a previously exhausted path)
             # we add it to the trav_neighbors list for processing
-            if self.is_valid_room(node[0] - 1, node[1]) and self.cell_at(node[0], node[1]).has_north_path() is True:
+            if self.is_valid_room(node[0] - 1, node[1]) and self.cell_at(node[0], node[1]).has_east_path() is True:
                 if (node[0] - 1, node[1]) not in grey and (node[0] - 1, node[1]) not in black:
                     trav_neighbors.append((node[0] - 1, node[1]))
-            # south cell
-            if self.is_valid_room(node[0] + 1, node[1]) and self.cell_at(node[0], node[1]).has_south_path() is True:
+            if self.is_valid_room(node[0] + 1, node[1]) and self.cell_at(node[0], node[1]).has_west_path() is True:
                 if (node[0] + 1, node[1]) not in grey and (node[0] + 1, node[1]) not in black:
                     trav_neighbors.append((node[0] + 1, node[1]))
-            # east cell
-            if self.is_valid_room(node[0], node[1] - 1) and self.cell_at(node[0], node[1]).has_east_path() is True:
+            if self.is_valid_room(node[0], node[1] - 1) and self.cell_at(node[0], node[1]).has_north_path() is True:
                 if (node[0], node[1] - 1) not in grey and (node[0], node[1] - 1) not in black:
                     trav_neighbors.append((node[0], node[1] - 1))
-            # west cell
-            if self.is_valid_room(node[0], node[1] + 1) and self.cell_at(node[0], node[1]).has_west_path() is True:
+            if self.is_valid_room(node[0], node[1] + 1) and self.cell_at(node[0], node[1]).has_south_path() is True:
                 if (node[0], node[1] + 1) not in grey and (node[0], node[1] + 1) not in black:
                     trav_neighbors.append((node[0], node[1] + 1))
 
@@ -249,29 +219,79 @@ class GameBoard:
                 black.append(node)
         return found_Exit
 
+    def update_border_paths(self):
+        delta = [('W', (-1, 0)),
+                 ('E', (1, 0)),
+                 ('S', (0, 1)),
+                 ('N', (0, -1))]
+        # current_cell = self.cell_at(self.__ix, self.__iy)
+        for i in range(self.__nx):
+            for j in range(self.__ny):
+                for direction, (dx, dy) in delta:
+                    current_cell = self.cell_at(i, j)
+                    x2, y2 = i + dx, j + dy
+                    try:
+                        next_cell = self.cell_at(x2, y2)
+                        if x2 < 0:
+                            current_cell.remove_path(next_cell, direction)
+                        if x2 > self.__nx - 1:
+                            current_cell.remove_path(next_cell, direction)
+                        if y2 < 0:
+                            current_cell.remove_path(next_cell, direction)
+                        if y2 > self.__ny - 1:
+                            current_cell.remove_path(next_cell, direction)
+                    except IndexError:
+                        pass
 
-game_board = GameBoard()
-game_board.place_entrance_exit()
-game_board.update_border_paths()
-print("0,0")
-print(game_board.cell_at(0, 0))
-print("0,1")
-print(game_board.cell_at(0, 1))
-print("0,2")
-print(game_board.cell_at(0, 2))
-print("0,3")
-print(game_board.cell_at(0, 3))
-print("1,0")
-print(game_board.cell_at(1, 0))
-print("2,0")
-print(game_board.cell_at(2, 0))
-print("3,0")
-print(game_board.cell_at(3, 0))
-print("3,0")
-print(game_board.cell_at(3, 0))
-print("3,1")
-print(game_board.cell_at(3, 1))
-print("3,2")
-print(game_board.cell_at(3, 2))
-print("3,3")
-print(game_board.cell_at(3, 3))
+
+# Test for update_border_paths
+# game_board = GameBoard()
+# game_board.place_entrance_exit()
+# game_board.update_border_paths()
+# print("0,0")
+# print(game_board.cell_at(0, 0))
+# print("0,1")
+# print(game_board.cell_at(0, 1))
+# print("0,2")
+# print(game_board.cell_at(0, 2))
+# print("0,3")
+# print(game_board.cell_at(0, 3))
+# print("1,0")
+# print(game_board.cell_at(1, 0))
+# print("2,0")
+# print(game_board.cell_at(2, 0))
+# print("3,0")
+# print(game_board.cell_at(3, 0))
+# print("3,0")
+# print(game_board.cell_at(3, 0))
+# print("3,1")
+# print(game_board.cell_at(3, 1))
+# print("3,2")
+# print(game_board.cell_at(3, 2))
+# print("3,3")
+# print(game_board.cell_at(3, 3))
+# game_board = GameBoard(3, 3)
+# game_board.place_entrance_exit()
+# print(game_board)
+# # print(game_board.traverse(0, 0))
+# def test_traverse_exit_blocked(gameboard):
+#     # block exit
+#     gameboard.cell_at(2, 2).remove_path(gameboard.cell_at(2, 1), "N")
+#     gameboard.cell_at(2, 2).remove_path(gameboard.cell_at(1, 2), "E")
+#     print("Traversal with exit blocked:", gameboard.traverse(0, 0))
+#
+# def test_traverse_entrance_blocked(gameboard):
+#     # block entrance
+#     gameboard.cell_at(0, 0).remove_path(gameboard.cell_at(0, 1), "S")
+#     gameboard.cell_at(0, 0).remove_path(gameboard.cell_at(1, 0), "W")
+#     print("Traversal with entrance blocked:", gameboard.traverse(0, 0))
+#
+# def test_traverse_path_blocked(gameboard):
+#     gameboard.cell_at(2, 0).remove_path(gameboard.cell_at(1, 0), "E")
+#     gameboard.cell_at(1, 1).remove_path(gameboard.cell_at(2, 1), "W")
+#     gameboard.cell_at(1, 1).remove_path(gameboard.cell_at(1, 2), "S")
+#     gameboard.cell_at(1, 2).remove_path(gameboard.cell_at(0, 2), "E")
+#     print("Traversal with path blocked:", gameboard.traverse(0, 2))
+#
+#
+# test_traverse_path_blocked(game_board)

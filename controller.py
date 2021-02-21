@@ -6,7 +6,7 @@ class Controller:
     def __init__(self):
         # self.__view = view
         self.__game_board = None
-        self.init_game()
+        # self.init_game()
 
     def set_game_board(self, x, y):
         self.__game_board = GameBoard(x, y)
@@ -179,7 +179,7 @@ class Controller:
             else:
                 # print Thanks for playing.
                 View.display_closing_msg()
-                exit()
+                break
 
 
 new = Controller()
