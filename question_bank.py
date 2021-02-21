@@ -3,7 +3,7 @@ Questions pulled from https://www.britannica.com/quiz/astronomy-and-space-quiz
 
 MULTIPLE CHOICE
 
-The day on which the Sun’s direct rays cross the celestial equator is called, the equinox, the aphelion, the solstice, the ecliptic
+The day on which the Sun’s direct rays cross the celestial equator is called?, the equinox, the aphelion, the solstice, the ecliptic
 
 Who invented the telescope?, Hans Lippershey, Galileo, Hypatia, Johannes Kepler
 
