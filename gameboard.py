@@ -224,7 +224,6 @@ class GameBoard:
                  ('E', (1, 0)),
                  ('S', (0, 1)),
                  ('N', (0, -1))]
-        # current_cell = self.cell_at(self.__ix, self.__iy)
         for i in range(self.__nx):
             for j in range(self.__ny):
                 for direction, (dx, dy) in delta:
@@ -241,7 +240,7 @@ class GameBoard:
                         if y2 > self.__ny - 1:
                             current_cell.remove_path(next_cell, direction)
                     except IndexError:
-                        pass
+                        continue
 
 
 # Test for update_border_paths

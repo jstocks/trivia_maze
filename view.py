@@ -3,7 +3,7 @@ WELCOME = "Welcome to the Trivia Space Adventure game. \n"
 INTRO = "Find your way back to Earth by answering questions to board the space shuttle \n " \
         "from one planet to the next. Wrong answers result in you missing the space shuttle. \n " \
         "Too many wrong answers and you miss all available space shuttles and \n " \
-        "find yourself stranded and lost in space with no way to return back home."
+        "find yourself stranded and lost in space with no way to return back home.\n"
 
 
 class View:
