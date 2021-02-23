@@ -269,28 +269,3 @@ class GameBoard:
 # print(game_board.cell_at(3, 2))
 # print("3,3")
 # print(game_board.cell_at(3, 3))
-# game_board = GameBoard(3, 3)
-# game_board.place_entrance_exit()
-# print(game_board)
-# # print(game_board.traverse(0, 0))
-# def test_traverse_exit_blocked(gameboard):
-#     # block exit
-#     gameboard.cell_at(2, 2).remove_path(gameboard.cell_at(2, 1), "N")
-#     gameboard.cell_at(2, 2).remove_path(gameboard.cell_at(1, 2), "E")
-#     print("Traversal with exit blocked:", gameboard.traverse(0, 0))
-#
-# def test_traverse_entrance_blocked(gameboard):
-#     # block entrance
-#     gameboard.cell_at(0, 0).remove_path(gameboard.cell_at(0, 1), "S")
-#     gameboard.cell_at(0, 0).remove_path(gameboard.cell_at(1, 0), "W")
-#     print("Traversal with entrance blocked:", gameboard.traverse(0, 0))
-#
-# def test_traverse_path_blocked(gameboard):
-#     gameboard.cell_at(2, 0).remove_path(gameboard.cell_at(1, 0), "E")
-#     gameboard.cell_at(1, 1).remove_path(gameboard.cell_at(2, 1), "W")
-#     gameboard.cell_at(1, 1).remove_path(gameboard.cell_at(1, 2), "S")
-#     gameboard.cell_at(1, 2).remove_path(gameboard.cell_at(0, 2), "E")
-#     print("Traversal with path blocked:", gameboard.traverse(0, 2))
-#
-#
-# test_traverse_path_blocked(game_board)
