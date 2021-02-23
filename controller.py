@@ -6,7 +6,7 @@ class Controller:
     def __init__(self):
         # self.__view = view
         self.__game_board = None
-        # self.init_game()
+        self.init_game()
 
     def set_game_board(self, x, y):
         self.__game_board = GameBoard(x, y)
@@ -111,19 +111,20 @@ class Controller:
         :return: None
         """
         View.display_welcome_msg()
-        menu_option = View.get_menu_option()
-        if menu_option == "1":
-            file_option = View.get_file_option()
-            if file_option == "1":
-                level = View.get_level()
-                if level == "1":
-                    self.set_game_board(4, 4)
-                elif level == "2":
-                    self.set_game_board(5, 5)
-                elif level == "3":
-                    self.set_game_board(6, 6)
-            self.__game_board.place_entrance_exit()
-            self.play_game()
+        # menu_option = View.get_menu_option()
+        # if menu_option == "1":
+        #     file_option = View.get_file_option()
+        #     if file_option == "1":
+        level = View.get_level()
+        if level == "1":
+            self.set_game_board(4, 4)
+        elif level == "2":
+            self.set_game_board(5, 5)
+        elif level == "3":
+            self.set_game_board(6, 6)
+        self.__game_board.place_entrance_exit()
+        self.__game_board.update_border_paths()
+        self.play_game()
 
             # elif file_option == 2:
             #     if self.__saved_game_board:
@@ -143,8 +144,8 @@ class Controller:
             #         self.__view.get_menu_option()
             # ADD code for file option 4 - Exit
         # ADD code for menu option 2 -  Help
-        else:
-            pass
+        # else:
+        #     pass
 
     def play_game(self):
         """
@@ -167,10 +168,10 @@ class Controller:
                 statement, play = self.player_input(self.__game_board)
                 View.display_msg(statement)
                 # check if exit is reachable from current loc
-                if self.__game_board.traverse(x, y) is False:
-                    # game lost as theres no way out!!
-                    View.display_game_lost()
-                    play = False
+                # if self.__game_board.traverse(x, y) is False:
+                #     # game lost as theres no way out!!
+                #     View.display_game_lost()
+                #     play = False
 
         while True:
             user_input = View.replay()
