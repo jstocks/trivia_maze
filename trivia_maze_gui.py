@@ -1,199 +1,176 @@
-# from tkinter import *
-#
-# # create the canvas, size in pixels
-# canvas = Canvas(width=300, height=200, bg='black')
-#
-# # pack the canvas into a frame/form
-# canvas.pack(expand=YES, fill=BOTH)
-#
-# # load the .gif image file
-# gif1 = PhotoImage(file='rocket_man.gif')
-#
-# # put gif image on canvas
-# # pic's upper left corner (NW) on the canvas is at x=50 y=10
-# canvas.create_image(50, 10, image=gif1, anchor=NW)
-#
-# # run it ...
-# mainloop()
-
 import tkinter as tk
-from tkinter.filedialog import askopenfilename, asksaveasfilename, Tk
+# from tkinter.filedialog import askopenfilename, asksaveasfilename, Tk
+# from PIL import ImageTk, Image
+# from gameboard import GameBoard
+# from view import View, INTRO
+# from controller import Controller
 from tkinter import *
-from PIL import ImageTk, Image
-from gameboard import GameBoard
-from view import View, INTRO
-from controller import Controller
 
-from tkinter import Tk, Canvas, Frame, BOTH
+class TriviaGUI(Frame):
 
+    def widgets(self):
+        # quit = Button(self, text="Quit", command=self.quit, anchor=W)
+        # quit.configure(width=7)
+        # quit_window = self.canvas.create_window(5, 5, anchor=NW, window=quit)
+        self.new = Button(self, text="NEW", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.new)
+        self.new.place(x=4, y=4)
+        self.load = Button(self, text="LOAD", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.load)
+        self.load.place(x=49, y=4)
+        self.save = Button(self, text="SAVE", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.save)
+        self.save.place(x=94, y=4)
+        self.help = Button(self, text="HELP", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.help)
+        self.help.place(x=139, y=4)
+        self.exit = Button(self, text="EXIT", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.exit)
+        self.exit.place(x=184, y=4)
 
-class Example(Frame):
-
-    def __init__(self):
-        super().__init__()
-
-        self.IMAGE_BACKGROUND = PhotoImage(file='rocket_man.gif')
-
-        self.init_gui()
-
-
-    def init_gui(self):
-
+    def __init__(self, dimension, master=None):
+        Frame.__init__(self, master)
+        Pack.config(self)
         self.master.title("Rocket Man Trivia Game")
-        self.pack(fill=BOTH, expand=1)
 
-        self.canvas = Canvas(self)
-        self.canvas.pack(expand=YES, fill=BOTH)
-        # self.canvas.create_line(15, 25, 200, 25)
-        # Room_A = self.canvas.create_line(300, 35, 300, 200, dash=(4, 2))
-        # self.canvas.create_line(55, 85, 155, 85, 105, 180, 55, 85)
-        # self.canvas.create_text(20, 30, anchor="w", font="Purisa", text="Most relationships seem so transitory")
-        # self.canvas.create_image(50, 10, image=background, anchor=NW)
+        self.dimension = dimension
+        self.canvas = Canvas(self, width=dimension, height = dimension, bg="steelblue2")
+        self.canvas.pack()
+        self.show_board()
+        self.show_cell()
+        self.widgets()
 
-        self.canvas.create_image(50, 10, image=self.IMAGE_BACKGROUND, anchor=NW)
+    def show_board(self):
+        origin_x = 75
+        origin_y = 75
+        size = 50
+        x1 = origin_x
+        x2 = x1 + size
+        x3 = x2 + size
+        x4 = x3 + size
+        x5 = x4 + size
+        x6 = x5 + size
+        x7 = x6 + size
+        x8 = x7 + size
+        y1 = origin_y
+        y2 = y1 + size
+        y3 = y2 + size
+        y4 = y3 + size
+        y5 = y4 + size
+        y6 = y5 + size
+        y7 = y6 + size
+        y8 = y7 + size
+
+        # Row 1
+        cell_1 = self.canvas.create_rectangle(x1, y1, x2, y2, fill='ivory2')
+        path_1_2 = self.canvas.create_rectangle(x2, y1, x3, y2, fill='red')
+        cell_2 = self.canvas.create_rectangle(x3, y1, x4, y2, fill='ivory2')
+        path_2_3 = self.canvas.create_rectangle(x4, y1, x5, y2, fill='red')
+        cell_3 = self.canvas.create_rectangle(x5, y1, x6, y2, fill='ivory2')
+        path_3_4 = self.canvas.create_rectangle(x6, y1, x7, y2, fill='red')
+        cell_4 = self.canvas.create_rectangle(x7, y1, x8, y2, fill='ivory2')
+
+        # # Row 2
+        path_1_5 = self.canvas.create_rectangle(x1, y2, x2, y3, fill='red')
+        empty_1 = self.canvas.create_rectangle(x2, y2, x3, y3, fill='gray')
+        path_2__6 = self.canvas.create_rectangle(x3, y2, x4, y3, fill='red')
+        empty_2 = self.canvas.create_rectangle(x4, y2, x5, y3, fill='gray')
+        path_3_7 = self.canvas.create_rectangle(x5, y2, x6, y3, fill='red')
+        empty_3 = self.canvas.create_rectangle(x6, y2, x7, y3, fill='gray')
+        path_4_8 = self.canvas.create_rectangle(x7, y2, x8, y3, fill='red')
+
+        # Row 3
+        cell_5 = self.canvas.create_rectangle(x1, y3, x2, y4, fill='ivory2')
+        path_5_6 = self.canvas.create_rectangle(x2, y3, x3, y4, fill='red')
+        cell_6 = self.canvas.create_rectangle(x3, y3, x4, y4, fill='ivory2')
+        path_6_7 = self.canvas.create_rectangle(x4, y3, x5, y4, fill='red')
+        cell_7 = self.canvas.create_rectangle(x5, y3, x6, y4, fill='ivory2')
+        path_7_8 = self.canvas.create_rectangle(x6, y3, x7, y4, fill='red')
+        cell_8 = self.canvas.create_rectangle(x7, y3, x8, y4, fill='ivory2')
+
+        # Row 4
+        path_5_9 = self.canvas.create_rectangle(x1, y4, x2, y5, fill='red')
+        empty_4 = self.canvas.create_rectangle(x2, y4, x3, y5, fill='gray')
+        path_6_10 = self.canvas.create_rectangle(x3, y4, x4, y5, fill='red')
+        empty_5 = self.canvas.create_rectangle(x4, y4, x5, y5, fill='gray')
+        path_7_11 = self.canvas.create_rectangle(x5, y4, x6, y5, fill='red')
+        empty_6 = self.canvas.create_rectangle(x6, y4, x7, y5, fill='gray')
+        path_8_12 = self.canvas.create_rectangle(x7, y4, x8, y5, fill='red')
+
+        # Row 5
+        cell_9 = self.canvas.create_rectangle(x1, y5, x2, y6, fill='ivory2')
+        path_9_10 = self.canvas.create_rectangle(x2, y5, x3, y6, fill='red')
+        cell_10 = self.canvas.create_rectangle(x3, y5, x4, y6, fill='ivory2')
+        path_10_11 = self.canvas.create_rectangle(x4, y5, x5, y6, fill='red')
+        cell_11 = self.canvas.create_rectangle(x5, y5, x6, y6, fill='ivory2')
+        path_11_12= self.canvas.create_rectangle(x6, y5, x7, y6, fill='red')
+        cell_12 = self.canvas.create_rectangle(x7, y5, x8, y6, fill='ivory2')
+
+        # # Row 6
+        path_9_13 = self.canvas.create_rectangle(x1, y6, x2, y7, fill='red')
+        empty_7 = self.canvas.create_rectangle(x2, y6, x3, y7, fill='gray')
+        path_10_14 = self.canvas.create_rectangle(x3, y6, x4, y7, fill='red')
+        empty_8 = self.canvas.create_rectangle(x4, y6, x5, y7, fill='gray')
+        path_11_15 = self.canvas.create_rectangle(x5, y6, x6, y7, fill='red')
+        empty_9 = self.canvas.create_rectangle(x6, y6, x7, y7, fill='gray')
+        path_12_16 = self.canvas.create_rectangle(x7, y6, x8, y7, fill='red')
+
+        # Row 7
+        cell_13 = self.canvas.create_rectangle(x1, y7, x2, y8, fill='ivory2')
+        path_13_14 = self.canvas.create_rectangle(x2, y7, y8, y8, fill='red')
+        cell_14 = self.canvas.create_rectangle(x3, y7, x4, y8, fill='ivory2')
+        path_14_15 = self.canvas.create_rectangle(x4, y7, x5, y8, fill='red')
+        cell_15 = self.canvas.create_rectangle(x5, y7, x6, y8, fill='ivory2')
+        path_15_16 = self.canvas.create_rectangle(x6, y7, x7, y8, fill='red')
+        cell_16 = self.canvas.create_rectangle(x7, y7, x8, y8, fill='ivory2')
+
+    def show_cell(self):
+        label = Label(self.canvas, text='CURRENT LOCATION', fg='black', bg='steelblue2', font="bold")
+        self.canvas.create_window(625, 125, window=label)
 
 
+        origin_x = 550
+        origin_y = 175
+        size = 50
+        x1 = origin_x
+        x2 = x1 + size
+        x3 = x2 + size
+        x4 = x3 + size
+        y1 = origin_y
+        y2 = y1 + size
+        y3 = y2 + size
+        y4 = y3 + size
 
-        # print(self.canvas.find_all())
-        #
-        self.menu_bar = self.create_menu(self.master)
-        self.master.config(menu=self.menu_bar)
+        # Row 1
+        nw = self.canvas.create_rectangle(x1, y1, x2, y2, fill='gray')
+        n = self.canvas.create_rectangle(x2, y1, x3, y2, fill='red')
+        ne = self.canvas.create_rectangle(x3, y1, x4, y2, fill='gray')
 
-        self.canvas.pack(fill=BOTH, expand=1)
+        # Row 2
+        w = self.canvas.create_rectangle(x1, y2, x2, y3, fill='red')
+        center = self.canvas.create_rectangle(x2, y2, x3, y3, fill='ivory2')
+        e = self.canvas.create_rectangle(x3, y2, x4, y3, fill='red')
 
-        self.mainloop()
+        # Row 3
+        sw = self.canvas.create_rectangle(x1, y3, x2, y4, fill='gray')
+        s = self.canvas.create_rectangle(x2, y3, x3, y4, fill='red')
+        se = self.canvas.create_rectangle(x3, y3, x4, y4, fill='gray')
 
-    def create_menu(self, main):
-        menu_bar = Menu(main)
-        menu_file = Menu(menu_bar, tearoff=0)
-        menu_file.add_command(label="New", command=self.command_new_game)
-        menu_bar.add_cascade(label="File", menu=menu_file)
-        return menu_bar
 
-    # def draw_background(self):
-    #     self.canvas.create_image(50, 10, image=self.IMAGE_BACKGROUND, anchor=NW)
+    def show_question(self):
+        pass
 
-    def command_new_game(self):
-        print("NEW GAME")
+    def new(self):
+        pass
 
-def main():
+    def load(self):
+        pass
 
-    root = Tk()
-    ex = Example()
-    root.mainloop()
+    def save(self):
+        pass
+
+    def help(self):
+        pass
+
+    def exit(self):
+        pass
 
 
 if __name__ == '__main__':
-    main()
-
-# class TriviaMazeGUI(Frame):
-#
-#     def __init__(self):
-#         super().__init__()
-#         self.master.title("Rocket Man Trivia Game")
-#
-#         self.canvas = Canvas(self)
-#         self.canvas.create_line(0, 0, 500, 500)
-#         self.pack()
-#         #self.canvas.grid(row=0, column=0, sticky="nw")
-#
-#         self.maze_menu = self.create_menu(self.master)
-#         self.master.config(menu=self.maze_menu)
-#         self.master.mainloop()
-#
-#         # # window grid configurations
-#         # self.top_frame = ttk.Frame(main)
-#         # self.top_frame.grid(column=0, row=0, sticky="N, S, E, W")
-#         # self.main.columnconfigure(0, weight=1)
-#         # self.main.rowconfigure(0, weight=1)
-#
-#         # # menu buttons config
-#         # self.frame_a_buttons = ttk.Frame(self.top_frame, relief=tk.RAISED, borderwidth=0)
-#         # self.button_new = ttk.Button(self.frame_a_buttons, text="New", command=self.new_game)
-#         # self.button_load = ttk.Button(self.frame_a_buttons, text="Load", command=self.load_game)
-#         # self.button_save = ttk.Button(self.frame_a_buttons, text="Save", command=self.save_game)
-#         # self.button_help = ttk.Button(self.frame_a_buttons, text="Help", command=self.help_menu)
-#         # self.button_exit = ttk.Button(self.frame_a_buttons, text="Exit", command=self.exit_game)
-#         #
-#         # # menu buttons grid
-#         # self.button_new.grid(row=0, column=0, sticky="ew")
-#         # self.button_load.grid(row=0, column=1, sticky="ew")
-#         # self.button_save.grid(row=0, column=2, sticky="ew")
-#         # self.button_help.grid(row=0, column=3, sticky="ew")
-#         # self.button_exit.grid(row=0, column=4, sticky="ew")
-#         #
-#         # self.frame_a_buttons.grid(row=0, column=0, sticky="nw")
-#         # self.button_new.focus()  # cursor starts on New button
-#
-#
-#
-#         # intro picture
-#         # self.splash = ImageTk.PhotoImage(Image.open("rocket_man.jpeg"))
-#         #
-#         # self.rocket_man_frame = tk.Label(image=self.splash)
-#         # self.rocket_man_frame.image = self.splash
-#         # self.rocket_man_frame.grid(row=1, column=0, sticky="nw")
-#
-#         #self.main.mainloop()
-#
-#     def create_menu(self, main):
-#         menu_bar = Menu(main)
-#         menu_file = Menu(menu_bar, tearoff=0)
-#         menu_file.add_command(label="New", command=self.new_game)
-#         menu_bar.add_cascade(label="File", menu=menu_file)
-#         return menu_bar
-#
-#     def new_game(self):
-#         """start a new game"""
-#
-#         #new = Controller()
-#         #new.init_game()
-#
-#         welcome_frame = ttk.Frame(self.main, relief=tk.RAISED, borderwidth=0)
-#         #welcome = ttk.Label(welcome_frame, text=View.display_welcome_msg())
-#         welcome = ttk.Label(welcome_frame, text=INTRO)
-#         welcome.grid(row=1, column=0)
-#
-#         # self.rocket_man_frame.grid_forget()
-#         self.rocket_man_frame.config(image='', text=INTRO)
-#
-#     @staticmethod
-#     def load_game(self):
-#         """Load a game from a previously saved game."""
-#         filepath = askopenfilename(
-#             filetypes=[("All Files", "*.*")]
-#         )
-#         if not filepath:
-#             return
-#         with open(filepath, "r") as input_file:
-#             pass
-#
-#     @staticmethod
-#     def save_game(self):
-#         """Save the current game as a new file."""
-#         filepath = asksaveasfilename(
-#             defaultextension="",
-#             filetypes=[("All Files", "*.*")],
-#         )
-#         if not filepath:
-#             return
-#         with open(filepath, "w") as output_file:
-#             # info = x
-#             # output_file.write(info)
-#             pass
-#
-#     def help_menu(self):
-#         """Display the help menu and instructions of the game."""
-#         pass
-#
-#     def exit_game(self):
-#
-#         pass
-#
-#     def select_level(self):
-#         pass
-#
-#
-# root = Tk()
-# TriviaMazeGUI()
-# root.mainloop()  # run the event loop
+    main = TriviaGUI(800)
+    main.mainloop()
