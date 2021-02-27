@@ -1,39 +1,96 @@
 import tkinter as tk
 # from tkinter.filedialog import askopenfilename, asksaveasfilename, Tk
-# from PIL import ImageTk, Image
+from PIL import ImageTk, Image
 # from gameboard import GameBoard
 # from view import View, INTRO
 # from controller import Controller
 from tkinter import *
 
+
 class TriviaGUI(Frame):
 
-    def widgets(self):
-        # quit = Button(self, text="Quit", command=self.quit, anchor=W)
-        # quit.configure(width=7)
-        # quit_window = self.canvas.create_window(5, 5, anchor=NW, window=quit)
-        self.new = Button(self, text="NEW", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.new)
+    # def menu_bar(self):
+    #     menu_bar = Menu(self)
+    #     file_menu = Menu(menu_bar, tearoff=0)
+    #     file_menu.add_command(label="New")
+    #     file_menu.add_command(label="Load")
+    #     file_menu.add_command(label="Save")
+    #     file_menu.add_command(label="Exit")
+    #     file_menu.add_cascade(label="File", menu=file_menu)
+    #
+    #     help_menu = Menu(self)
+    #     help_menu.add_command(label="Help")
+    #     help_menu.add_command(label="About")
+    #     help_menu.add_cascade(label="Help", menu=help_menu)
+    #
+    #     return menu_bar
+
+    def menu_widgets(self):
+        self.new = Button(self, text="NEW", height=1, width=5, bg="gold",
+                          fg="black", relief="raised", command=self.new)
         self.new.place(x=4, y=4)
-        self.load = Button(self, text="LOAD", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.load)
+        self.load = Button(self, text="LOAD", height=1, width=5, bg="gold",
+                           fg="black", relief="raised", command=self.load)
         self.load.place(x=49, y=4)
-        self.save = Button(self, text="SAVE", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.save)
+        self.save = Button(self, text="SAVE", height=1, width=5, bg="gold",
+                           fg="black", relief="raised", command=self.save)
         self.save.place(x=94, y=4)
-        self.help = Button(self, text="HELP", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.help)
+        self.help = Button(self, text="HELP", height=1, width=5, bg="gold",
+                           fg="black", relief="raised", command=self.help)
         self.help.place(x=139, y=4)
-        self.exit = Button(self, text="EXIT", height=1, width=5, bg="gold", fg="black", relief="raised", command=self.exit)
+        self.exit = Button(self, text="EXIT", height=1, width=5, bg="gold",
+                           fg="black", relief="raised", command=self.exit)
         self.exit.place(x=184, y=4)
+
+    def move_widgets(self):
+        self.move_up = Button(self, text="MOVE UP", height=1, width=10, bg="gold",
+                              fg="black", relief="raised", command=self.move_up)
+        self.move_up.place(x=585, y=140)
+        self.move_down = Button(self, text="MOVE DOWN", height=1, width=10, bg="gold",
+                              fg="black", relief="raised", command=self.move_down)
+        self.move_down.place(x=585, y=340)
+        self.move_left = Button(self, text="MOVE\nLEFT", height=2, width=6, bg="gold",
+                              fg="black", relief="raised", command=self.move_left)
+        self.move_left.place(x=490, y=230)
+        self.move_right = Button(self, text="MOVE\nRIGHT", height=2, width=6, bg="gold",
+                              fg="black", relief="raised", command=self.move_right)
+        self.move_right.place(x=710, y=230)
+
+    def legend(self):
+        label = Label(self.canvas, text='LEGEND', fg='black', bg='lightskyblue1', font="bold")
+        self.canvas.create_window(80, 500, window=label)
+        # player token
+        self.img = ImageTk.PhotoImage(file="player_token.png")
+        self.canvas.create_image(80, 545, image=self.img)
+        label = Label(self.canvas, text='Player Token', fg='black', bg='lightskyblue1', font="bold")
+        self.canvas.create_window(180, 540, window=label)
+        # available paths
+        self.img2 = ImageTk.PhotoImage(file="path_horiz.png")
+        self.canvas.create_image(50, 600, image=self.img2)
+        self.img3 = ImageTk.PhotoImage(file="path_vert.png")
+        self.canvas.create_image(100, 600, image=self.img3)
+        label2 = Label(self.canvas, text='Available Paths', fg='black', bg='lightskyblue1', font="bold")
+        self.canvas.create_window(190, 600, window=label2)
+        # finish
+        self.img4 = ImageTk.PhotoImage(file="finish.png")
+        self.canvas.create_image(80, 660, image=self.img4)
+        label3 = Label(self.canvas, text='Finish', fg='black', bg='lightskyblue1', font="bold")
+        self.canvas.create_window(160, 660, window=label3)
 
     def __init__(self, dimension, master=None):
         Frame.__init__(self, master)
         Pack.config(self)
         self.master.title("Rocket Man Trivia Game")
-
+        self.master = master
         self.dimension = dimension
-        self.canvas = Canvas(self, width=dimension, height = dimension, bg="steelblue2")
+        self.canvas = Canvas(self, width=dimension, height=dimension, bg="lightskyblue1")
         self.canvas.pack()
         self.show_board()
         self.show_cell()
-        self.widgets()
+        self.menu_widgets()
+        self.move_widgets()
+        self.legend()
+        # self.menu_bar()
 
     def show_board(self):
         origin_x = 75
@@ -67,11 +124,11 @@ class TriviaGUI(Frame):
 
         # # Row 2
         path_1_5 = self.canvas.create_rectangle(x1, y2, x2, y3, fill='red')
-        empty_1 = self.canvas.create_rectangle(x2, y2, x3, y3, fill='gray')
+        empty_1 = self.canvas.create_rectangle(x2, y2, x3, y3, fill='lightskyblue1')
         path_2__6 = self.canvas.create_rectangle(x3, y2, x4, y3, fill='red')
-        empty_2 = self.canvas.create_rectangle(x4, y2, x5, y3, fill='gray')
+        empty_2 = self.canvas.create_rectangle(x4, y2, x5, y3, fill='lightskyblue1')
         path_3_7 = self.canvas.create_rectangle(x5, y2, x6, y3, fill='red')
-        empty_3 = self.canvas.create_rectangle(x6, y2, x7, y3, fill='gray')
+        empty_3 = self.canvas.create_rectangle(x6, y2, x7, y3, fill='lightskyblue1')
         path_4_8 = self.canvas.create_rectangle(x7, y2, x8, y3, fill='red')
 
         # Row 3
@@ -85,11 +142,11 @@ class TriviaGUI(Frame):
 
         # Row 4
         path_5_9 = self.canvas.create_rectangle(x1, y4, x2, y5, fill='red')
-        empty_4 = self.canvas.create_rectangle(x2, y4, x3, y5, fill='gray')
+        empty_4 = self.canvas.create_rectangle(x2, y4, x3, y5, fill='lightskyblue1')
         path_6_10 = self.canvas.create_rectangle(x3, y4, x4, y5, fill='red')
-        empty_5 = self.canvas.create_rectangle(x4, y4, x5, y5, fill='gray')
+        empty_5 = self.canvas.create_rectangle(x4, y4, x5, y5, fill='lightskyblue1')
         path_7_11 = self.canvas.create_rectangle(x5, y4, x6, y5, fill='red')
-        empty_6 = self.canvas.create_rectangle(x6, y4, x7, y5, fill='gray')
+        empty_6 = self.canvas.create_rectangle(x6, y4, x7, y5, fill='lightskyblue1')
         path_8_12 = self.canvas.create_rectangle(x7, y4, x8, y5, fill='red')
 
         # Row 5
@@ -103,11 +160,11 @@ class TriviaGUI(Frame):
 
         # # Row 6
         path_9_13 = self.canvas.create_rectangle(x1, y6, x2, y7, fill='red')
-        empty_7 = self.canvas.create_rectangle(x2, y6, x3, y7, fill='gray')
+        empty_7 = self.canvas.create_rectangle(x2, y6, x3, y7, fill='lightskyblue1')
         path_10_14 = self.canvas.create_rectangle(x3, y6, x4, y7, fill='red')
-        empty_8 = self.canvas.create_rectangle(x4, y6, x5, y7, fill='gray')
+        empty_8 = self.canvas.create_rectangle(x4, y6, x5, y7, fill='lightskyblue1')
         path_11_15 = self.canvas.create_rectangle(x5, y6, x6, y7, fill='red')
-        empty_9 = self.canvas.create_rectangle(x6, y6, x7, y7, fill='gray')
+        empty_9 = self.canvas.create_rectangle(x6, y6, x7, y7, fill='lightskyblue1')
         path_12_16 = self.canvas.create_rectangle(x7, y6, x8, y7, fill='red')
 
         # Row 7
@@ -120,8 +177,8 @@ class TriviaGUI(Frame):
         cell_16 = self.canvas.create_rectangle(x7, y7, x8, y8, fill='ivory2')
 
     def show_cell(self):
-        label = Label(self.canvas, text='CURRENT LOCATION', fg='black', bg='steelblue2', font="bold")
-        self.canvas.create_window(625, 125, window=label)
+        label = Label(self.canvas, text='CURRENT LOCATION', fg='black', bg='lightskyblue1', font="bold")
+        self.canvas.create_window(625, 100, window=label)
 
 
         origin_x = 550
@@ -137,9 +194,9 @@ class TriviaGUI(Frame):
         y4 = y3 + size
 
         # Row 1
-        nw = self.canvas.create_rectangle(x1, y1, x2, y2, fill='gray')
+        nw = self.canvas.create_rectangle(x1, y1, x2, y2, fill='lightskyblue1')
         n = self.canvas.create_rectangle(x2, y1, x3, y2, fill='red')
-        ne = self.canvas.create_rectangle(x3, y1, x4, y2, fill='gray')
+        ne = self.canvas.create_rectangle(x3, y1, x4, y2, fill='lightskyblue1')
 
         # Row 2
         w = self.canvas.create_rectangle(x1, y2, x2, y3, fill='red')
@@ -147,9 +204,9 @@ class TriviaGUI(Frame):
         e = self.canvas.create_rectangle(x3, y2, x4, y3, fill='red')
 
         # Row 3
-        sw = self.canvas.create_rectangle(x1, y3, x2, y4, fill='gray')
+        sw = self.canvas.create_rectangle(x1, y3, x2, y4, fill='lightskyblue1')
         s = self.canvas.create_rectangle(x2, y3, x3, y4, fill='red')
-        se = self.canvas.create_rectangle(x3, y3, x4, y4, fill='gray')
+        se = self.canvas.create_rectangle(x3, y3, x4, y4, fill='lightskyblue1')
 
 
     def show_question(self):
@@ -168,6 +225,18 @@ class TriviaGUI(Frame):
         pass
 
     def exit(self):
+        pass
+
+    def move_up(self):
+        pass
+
+    def move_down(self):
+        pass
+
+    def move_left(self):
+        pass
+
+    def move_right(self):
         pass
 
 
