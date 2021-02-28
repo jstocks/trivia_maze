@@ -269,7 +269,11 @@ class TriviaGUI(Frame):
                 self.canvas.create_image((x1 + x2) / 2, (y2 + y3) / 2, image=self.paths_horizontal)
             else:
                 self.canvas.create_image((x1 + x2) / 2, (y2 + y3) / 2, image=self.paths_blocked)
+
         center = self.canvas.create_rectangle(x2, y2, x3, y3, fill='ivory2', outline="")
+        self.img_token = ImageTk.PhotoImage(file="player_token.png")
+        self.canvas.create_image((x2+x3)/2, (y2+y3)/2, image=self.img_token)
+
         e = self.canvas.create_rectangle(x3, y2, x4, y3, fill='lightskyblue1', outline="")
         if a + 1 <= self.board.get_nx() - 1:
             if self.board.cell_at(a, b).has_east_path():
