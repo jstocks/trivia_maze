@@ -89,6 +89,8 @@ class TriviaGUI(Frame):
         # self.menu_bar()
 
     def show_board(self):
+        self.canvas.create_rectangle(70, 70, 430, 430, fill='')
+
         origin_x = 75
         origin_y = 75
         size = 50
@@ -111,65 +113,65 @@ class TriviaGUI(Frame):
 
         # Row 1
         cell_1 = self.canvas.create_rectangle(x1, y1, x2, y2, fill='ivory2', outline="")
-        path_1_2 = self.canvas.create_rectangle(x2, y1, x3, y2, fill='red', outline="")
+        path_1_2 = self.canvas.create_rectangle(x2, y1, x3, y2, fill='lightskyblue1', outline="")
         cell_2 = self.canvas.create_rectangle(x3, y1, x4, y2, fill='ivory2', outline="")
-        path_2_3 = self.canvas.create_rectangle(x4, y1, x5, y2, fill='red', outline="")
+        path_2_3 = self.canvas.create_rectangle(x4, y1, x5, y2, fill='lightskyblue1', outline="")
         cell_3 = self.canvas.create_rectangle(x5, y1, x6, y2, fill='ivory2', outline="")
-        path_3_4 = self.canvas.create_rectangle(x6, y1, x7, y2, fill='red', outline="")
+        path_3_4 = self.canvas.create_rectangle(x6, y1, x7, y2, fill='lightskyblue1', outline="")
         cell_4 = self.canvas.create_rectangle(x7, y1, x8, y2, fill='ivory2', outline="")
 
         # # Row 2
-        path_1_5 = self.canvas.create_rectangle(x1, y2, x2, y3, fill='red', outline="")
+        path_1_5 = self.canvas.create_rectangle(x1, y2, x2, y3, fill='lightskyblue1', outline="")
         empty_1 = self.canvas.create_rectangle(x2, y2, x3, y3, fill='lightskyblue1', outline="")
-        path_2__6 = self.canvas.create_rectangle(x3, y2, x4, y3, fill='red', outline="")
+        path_2__6 = self.canvas.create_rectangle(x3, y2, x4, y3, fill='lightskyblue1', outline="")
         empty_2 = self.canvas.create_rectangle(x4, y2, x5, y3, fill='lightskyblue1', outline="")
-        path_3_7 = self.canvas.create_rectangle(x5, y2, x6, y3, fill='red', outline="")
+        path_3_7 = self.canvas.create_rectangle(x5, y2, x6, y3, fill='lightskyblue1', outline="")
         empty_3 = self.canvas.create_rectangle(x6, y2, x7, y3, fill='lightskyblue1', outline="")
-        path_4_8 = self.canvas.create_rectangle(x7, y2, x8, y3, fill='red', outline="")
+        path_4_8 = self.canvas.create_rectangle(x7, y2, x8, y3, fill='lightskyblue1', outline="")
 
         # Row 3
         cell_5 = self.canvas.create_rectangle(x1, y3, x2, y4, fill='ivory2', outline="")
-        path_5_6 = self.canvas.create_rectangle(x2, y3, x3, y4, fill='red', outline="")
+        path_5_6 = self.canvas.create_rectangle(x2, y3, x3, y4, fill='lightskyblue1', outline="")
         cell_6 = self.canvas.create_rectangle(x3, y3, x4, y4, fill='ivory2', outline="")
-        path_6_7 = self.canvas.create_rectangle(x4, y3, x5, y4, fill='red', outline="")
+        path_6_7 = self.canvas.create_rectangle(x4, y3, x5, y4, fill='lightskyblue1', outline="")
         cell_7 = self.canvas.create_rectangle(x5, y3, x6, y4, fill='ivory2', outline="")
-        path_7_8 = self.canvas.create_rectangle(x6, y3, x7, y4, fill='red', outline="")
+        path_7_8 = self.canvas.create_rectangle(x6, y3, x7, y4, fill='lightskyblue1', outline="")
         cell_8 = self.canvas.create_rectangle(x7, y3, x8, y4, fill='ivory2', outline="")
 
         # Row 4
-        path_5_9 = self.canvas.create_rectangle(x1, y4, x2, y5, fill='red', outline="")
+        path_5_9 = self.canvas.create_rectangle(x1, y4, x2, y5, fill='lightskyblue1', outline="")
         empty_4 = self.canvas.create_rectangle(x2, y4, x3, y5, fill='lightskyblue1', outline="")
-        path_6_10 = self.canvas.create_rectangle(x3, y4, x4, y5, fill='red', outline="")
+        path_6_10 = self.canvas.create_rectangle(x3, y4, x4, y5, fill='lightskyblue1', outline="")
         empty_5 = self.canvas.create_rectangle(x4, y4, x5, y5, fill='lightskyblue1', outline="")
-        path_7_11 = self.canvas.create_rectangle(x5, y4, x6, y5, fill='red', outline="")
+        path_7_11 = self.canvas.create_rectangle(x5, y4, x6, y5, fill='lightskyblue1', outline="")
         empty_6 = self.canvas.create_rectangle(x6, y4, x7, y5, fill='lightskyblue1', outline="")
-        path_8_12 = self.canvas.create_rectangle(x7, y4, x8, y5, fill='red', outline="")
+        path_8_12 = self.canvas.create_rectangle(x7, y4, x8, y5, fill='lightskyblue1', outline="")
 
         # Row 5
         cell_9 = self.canvas.create_rectangle(x1, y5, x2, y6, fill='ivory2', outline="")
-        path_9_10 = self.canvas.create_rectangle(x2, y5, x3, y6, fill='red', outline="")
+        path_9_10 = self.canvas.create_rectangle(x2, y5, x3, y6, fill='lightskyblue1', outline="")
         cell_10 = self.canvas.create_rectangle(x3, y5, x4, y6, fill='ivory2', outline="")
-        path_10_11 = self.canvas.create_rectangle(x4, y5, x5, y6, fill='red', outline="")
+        path_10_11 = self.canvas.create_rectangle(x4, y5, x5, y6, fill='lightskyblue1', outline="")
         cell_11 = self.canvas.create_rectangle(x5, y5, x6, y6, fill='ivory2', outline="")
-        path_11_12= self.canvas.create_rectangle(x6, y5, x7, y6, fill='red', outline="")
+        path_11_12= self.canvas.create_rectangle(x6, y5, x7, y6, fill='lightskyblue1', outline="")
         cell_12 = self.canvas.create_rectangle(x7, y5, x8, y6, fill='ivory2', outline="")
 
         # # Row 6
-        path_9_13 = self.canvas.create_rectangle(x1, y6, x2, y7, fill='red', outline="")
+        path_9_13 = self.canvas.create_rectangle(x1, y6, x2, y7, fill='lightskyblue1', outline="")
         empty_7 = self.canvas.create_rectangle(x2, y6, x3, y7, fill='lightskyblue1', outline="")
-        path_10_14 = self.canvas.create_rectangle(x3, y6, x4, y7, fill='red', outline="")
+        path_10_14 = self.canvas.create_rectangle(x3, y6, x4, y7, fill='lightskyblue1', outline="")
         empty_8 = self.canvas.create_rectangle(x4, y6, x5, y7, fill='lightskyblue1', outline="")
-        path_11_15 = self.canvas.create_rectangle(x5, y6, x6, y7, fill='red', outline="")
+        path_11_15 = self.canvas.create_rectangle(x5, y6, x6, y7, fill='lightskyblue1', outline="")
         empty_9 = self.canvas.create_rectangle(x6, y6, x7, y7, fill='lightskyblue1', outline="")
-        path_12_16 = self.canvas.create_rectangle(x7, y6, x8, y7, fill='red', outline="")
+        path_12_16 = self.canvas.create_rectangle(x7, y6, x8, y7, fill='lightskyblue1', outline="")
 
         # Row 7
         cell_13 = self.canvas.create_rectangle(x1, y7, x2, y8, fill='ivory2', outline="")
-        path_13_14 = self.canvas.create_rectangle(x2, y7, y8, y8, fill='red', outline="")
+        path_13_14 = self.canvas.create_rectangle(x2, y7, y8, y8, fill='lightskyblue1', outline="")
         cell_14 = self.canvas.create_rectangle(x3, y7, x4, y8, fill='ivory2', outline="")
-        path_14_15 = self.canvas.create_rectangle(x4, y7, x5, y8, fill='red', outline="")
+        path_14_15 = self.canvas.create_rectangle(x4, y7, x5, y8, fill='lightskyblue1', outline="")
         cell_15 = self.canvas.create_rectangle(x5, y7, x6, y8, fill='ivory2', outline="")
-        path_15_16 = self.canvas.create_rectangle(x6, y7, x7, y8, fill='red', outline="")
+        path_15_16 = self.canvas.create_rectangle(x6, y7, x7, y8, fill='lightskyblue1', outline="")
         cell_16 = self.canvas.create_rectangle(x7, y7, x8, y8, fill='ivory2', outline="")
 
         # draw the current position of the player
@@ -251,7 +253,7 @@ class TriviaGUI(Frame):
         a, b = self.board.current_cell()
 
         # Row 1
-        n = self.canvas.create_rectangle(x2, y1, x3, y2, fill='red', outline="")
+        n = self.canvas.create_rectangle(x2, y1, x3, y2, fill='lightskyblue1', outline="")
         if b - 1 >= 0:
             if self.board.cell_at(a, b).has_north_path():
                 self.canvas.create_image((x2 + x3) / 2, (y1 + y2) / 2, image=self.paths_vertical)
@@ -261,14 +263,14 @@ class TriviaGUI(Frame):
         #self.canvas.create_image((x2 + x3) / 2, (y1 + y2) / 2, image=self.paths_blocked2)
 
         # Row 2
-        w = self.canvas.create_rectangle(x1, y2, x2, y3, fill='red', outline="")
+        w = self.canvas.create_rectangle(x1, y2, x2, y3, fill='lightskyblue1', outline="")
         if a - 1 >= 0:
             if self.board.cell_at(a, b).has_west_path():
                 self.canvas.create_image((x1 + x2) / 2, (y2 + y3) / 2, image=self.paths_horizontal)
             else:
                 self.canvas.create_image((x1 + x2) / 2, (y2 + y3) / 2, image=self.paths_blocked)
         center = self.canvas.create_rectangle(x2, y2, x3, y3, fill='ivory2', outline="")
-        e = self.canvas.create_rectangle(x3, y2, x4, y3, fill='red', outline="")
+        e = self.canvas.create_rectangle(x3, y2, x4, y3, fill='lightskyblue1', outline="")
         if a + 1 <= self.board.get_nx() - 1:
             if self.board.cell_at(a, b).has_east_path():
                 self.canvas.create_image((x3 + x4) / 2, (y3 + y2) / 2, image=self.paths_horizontal)
@@ -276,7 +278,7 @@ class TriviaGUI(Frame):
                 self.canvas.create_image((x3 + x4) / 2, (y3 + y2) / 2, image=self.paths_blocked)
 
         # Row 3
-        s = self.canvas.create_rectangle(x2, y3, x3, y4, fill='red', outline="")
+        s = self.canvas.create_rectangle(x2, y3, x3, y4, fill='lightskyblue1', outline="")
         if b + 1 <= self.board.get_ny() - 1:
             if self.board.cell_at(a, b).has_south_path():
                 self.canvas.create_image((x2 + x3) / 2, (y3 + y4) / 2, image=self.paths_vertical)
