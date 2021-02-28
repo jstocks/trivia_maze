@@ -3,6 +3,7 @@ from PIL import ImageTk
 # from gameboard import GameBoard
 # from view import View, INTRO
 # from controller import Controller
+from gameboard import GameBoard
 
 
 class TriviaGUI(Frame):
@@ -70,11 +71,12 @@ class TriviaGUI(Frame):
 
         self.canvas.create_rectangle(360, 525, 750, 750, fill='lightskyblue1')
 
-    def __init__(self, dimension, master=None):
+    def __init__(self, dimension, master=None, gameboard=None):
         Frame.__init__(self, master)
         Pack.config(self)
         self.master.title("Rocket Man Trivia Game")
         self.master = master
+        self.board = gameboard
         self.dimension = dimension
         self.canvas = Canvas(self, width=dimension, height=dimension, bg="lightskyblue1")
         self.canvas.pack()
@@ -170,6 +172,64 @@ class TriviaGUI(Frame):
         path_15_16 = self.canvas.create_rectangle(x6, y7, x7, y8, fill='red', outline="")
         cell_16 = self.canvas.create_rectangle(x7, y7, x8, y8, fill='ivory2', outline="")
 
+        # draw the current position of the player
+        x, y = self.board.current_cell()
+        self.img6 = ImageTk.PhotoImage(file="player_token.png")
+        self.canvas.create_image(100 + x * 100, 100 + y * 100, image=self.img6)
+
+        x, y = self.board.exit_cell()
+        self.image_exit = ImageTk.PhotoImage(file="finish.png")
+        self.canvas.create_image(100 + x * 100, 100 + y * 100, image=self.image_exit)
+
+        self.paths_vertical = ImageTk.PhotoImage(file="path_vert.png")
+        self.paths_horizontal = ImageTk.PhotoImage(file="path_horiz.png")
+        self.paths_blocked = ImageTk.PhotoImage(file="blocked.png")
+        for a in range(0, self.board.get_nx(), 2):
+            for b in range(0, self.board.get_ny(), 2):
+                if a-1 >= 0:
+                    if self.board.cell_at(a, b).has_west_path():
+                        self.canvas.create_image(50 + a * 100, 100 + b * 100, image=self.paths_horizontal)
+                    else:
+                        self.canvas.create_image(50 + a * 100, 100 + b * 100, image=self.paths_blocked)
+                if a + 1 <= self.board.get_nx() - 1:
+                    if self.board.cell_at(a, b).has_east_path():
+                        self.canvas.create_image(150 + a * 100, 100 + b * 100, image=self.paths_horizontal)
+                    else:
+                        self.canvas.create_image(150 + a * 100, 100 + b * 100, image=self.paths_blocked)
+                if b + 1 <= self.board.get_ny() - 1:
+                    if self.board.cell_at(a, b).has_south_path():
+                        self.canvas.create_image(100 + a * 100, 150 + b * 100, image=self.paths_vertical)
+                    else:
+                        self.canvas.create_image(100 + a * 100, 150 + b * 100, image=self.paths_blocked)
+                if b - 1 >= 0:
+                    if self.board.cell_at(a, b).has_north_path():
+                        self.canvas.create_image(100 + a * 100, 50 + b * 100, image=self.paths_vertical)
+                    else:
+                        self.canvas.create_image(100 + a * 100, 50 + b * 100, image=self.paths_blocked)
+
+        for a in range(1, self.board.get_nx(), 2):
+            for b in range(1, self.board.get_ny(), 2):
+                if a - 1 >= 0:
+                    if self.board.cell_at(a, b).has_west_path():
+                        self.canvas.create_image(50 + a * 100, 100 + b * 100, image=self.paths_horizontal)
+                    else:
+                        self.canvas.create_image(50 + a * 100, 100 + b * 100, image=self.paths_blocked)
+                if a + 1 <= self.board.get_nx() - 1:
+                    if self.board.cell_at(a, b).has_east_path():
+                        self.canvas.create_image(150 + a * 100, 100 + b * 100, image=self.paths_horizontal)
+                    else:
+                        self.canvas.create_image(150 + a * 100, 100 + b * 100, image=self.paths_blocked)
+                if b + 1 <= self.board.get_ny() - 1:
+                    if self.board.cell_at(a, b).has_south_path():
+                        self.canvas.create_image(100 + a * 100, 150 + b * 100, image=self.paths_vertical)
+                    else:
+                        self.canvas.create_image(100 + a * 100, 150 + b * 100, image=self.paths_blocked)
+                if b - 1 >= 0:
+                    if self.board.cell_at(a, b).has_north_path():
+                        self.canvas.create_image(100 + a * 100, 50 + b * 100, image=self.paths_vertical)
+                    else:
+                        self.canvas.create_image(100 + a * 100, 50 + b * 100, image=self.paths_blocked)
+
     def show_cell(self):
         label = Label(self.canvas, text='CURRENT LOCATION', fg='black', bg='lightskyblue1', font="bold")
         self.canvas.create_window(625, 100, window=label)
@@ -187,20 +247,41 @@ class TriviaGUI(Frame):
         y3 = y2 + size
         y4 = y3 + size
 
+        self.paths_blocked2 = ImageTk.PhotoImage(file="blocked.png")
+        a, b = self.board.current_cell()
+
         # Row 1
-        nw = self.canvas.create_rectangle(x1, y1, x2, y2, fill='lightskyblue1', outline="")
         n = self.canvas.create_rectangle(x2, y1, x3, y2, fill='red', outline="")
-        ne = self.canvas.create_rectangle(x3, y1, x4, y2, fill='lightskyblue1', outline="")
+        if b - 1 >= 0:
+            if self.board.cell_at(a, b).has_north_path():
+                self.canvas.create_image((x2 + x3) / 2, (y1 + y2) / 2, image=self.paths_vertical)
+            else:
+                self.canvas.create_image((x2 + x3) / 2, (y1 + y2) / 2, image=self.paths_blocked)
+
+        #self.canvas.create_image((x2 + x3) / 2, (y1 + y2) / 2, image=self.paths_blocked2)
 
         # Row 2
         w = self.canvas.create_rectangle(x1, y2, x2, y3, fill='red', outline="")
+        if a - 1 >= 0:
+            if self.board.cell_at(a, b).has_west_path():
+                self.canvas.create_image((x1 + x2) / 2, (y2 + y3) / 2, image=self.paths_horizontal)
+            else:
+                self.canvas.create_image((x1 + x2) / 2, (y2 + y3) / 2, image=self.paths_blocked)
         center = self.canvas.create_rectangle(x2, y2, x3, y3, fill='ivory2', outline="")
         e = self.canvas.create_rectangle(x3, y2, x4, y3, fill='red', outline="")
+        if a + 1 <= self.board.get_nx() - 1:
+            if self.board.cell_at(a, b).has_east_path():
+                self.canvas.create_image((x3 + x4) / 2, (y3 + y2) / 2, image=self.paths_horizontal)
+            else:
+                self.canvas.create_image((x3 + x4) / 2, (y3 + y2) / 2, image=self.paths_blocked)
 
         # Row 3
-        sw = self.canvas.create_rectangle(x1, y3, x2, y4, fill='lightskyblue1', outline="")
         s = self.canvas.create_rectangle(x2, y3, x3, y4, fill='red', outline="")
-        se = self.canvas.create_rectangle(x3, y3, x4, y4, fill='lightskyblue1', outline="")
+        if b + 1 <= self.board.get_ny() - 1:
+            if self.board.cell_at(a, b).has_south_path():
+                self.canvas.create_image((x2 + x3) / 2, (y3 + y4) / 2, image=self.paths_vertical)
+            else:
+                self.canvas.create_image((x2 + x3) / 2, (y3 + y4) / 2, image=self.paths_blocked)
 
 
     def show_question(self):
@@ -222,16 +303,36 @@ class TriviaGUI(Frame):
         pass
 
     def move_up(self):
-        pass
+        x, y = self.board.current_cell()
+        if y - 1 < 0:
+            return
+        self.board.move_to(x, y - 1)
+        self.show_board()
+        self.show_cell()
 
     def move_down(self):
-        pass
+        x, y = self.board.current_cell()
+        if y + 1 >= self.board.get_ny():
+            return
+        self.board.move_to(x, y + 1)
+        self.show_board()
+        self.show_cell()
 
     def move_left(self):
-        pass
+        x, y = self.board.current_cell()
+        if x - 1 < 0:
+            return
+        self.board.move_to(x - 1, y)
+        self.show_board()
+        self.show_cell()
 
     def move_right(self):
-        pass
+        x, y = self.board.current_cell()
+        if x + 1 >= self.board.get_nx():
+            return
+        self.board.move_to(x + 1, y)
+        self.show_board()
+        self.show_cell()
 
     # def menu_bar(self):
     #     menu_bar = Menu(self)
@@ -251,5 +352,11 @@ class TriviaGUI(Frame):
 
 
 if __name__ == '__main__':
-    main = TriviaGUI(800)
+    game = GameBoard()
+
+    # initiate the game board with blocked paths
+    game.place_entrance_exit()
+    game.update_border_paths()
+
+    main = TriviaGUI(800, gameboard=game)
     main.mainloop()

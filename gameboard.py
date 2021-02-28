@@ -109,6 +109,7 @@ class GameBoard:
         self.__game_board[x][y].set_current_cell(True)
         a = self.__nx - 1
         b = self.__ny - 1
+        self.__exit_cell = a, b
         self.__game_board[a][b].set_exit(True)
 
     def __repr__(self):
@@ -162,7 +163,7 @@ class GameBoard:
 
         return '\n'.join(board_rows)
 
-    def is_valid_room(self, x, y):
+    def is_valid_cell(self, x, y):
         """helper method to keep cell pointer inside the confines of the board"""
         return 0 <= x < self.__nx and 0 <= y < self.__ny
 
