@@ -1,7 +1,8 @@
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk
 # from gameboard import GameBoard
-# from view import View, INTRO
+from view import View, INTRO
 # from controller import Controller
 from gameboard import GameBoard
 
@@ -22,7 +23,7 @@ class TriviaGUI(Frame):
                            fg="black", relief="raised", command=self.help)
         self.help.place(x=139, y=4)
         self.exit = Button(self, text="EXIT", height=1, width=5, bg="gold",
-                           fg="black", relief="raised", command=self.exit)
+                           fg="black", relief="raised", command=self.quit)
         self.exit.place(x=184, y=4)
 
     def move_widgets(self):
@@ -289,7 +290,6 @@ class TriviaGUI(Frame):
             else:
                 self.canvas.create_image((x2 + x3) / 2, (y3 + y4) / 2, image=self.paths_blocked)
 
-
     def show_question(self):
         pass
 
@@ -303,10 +303,17 @@ class TriviaGUI(Frame):
         pass
 
     def help(self):
-        pass
+        intro = View.display_welcome_msg()
+        messagebox.showinfo(title='Directions', message=intro)
 
-    def exit(self):
-        pass
+
+    def quit(self):
+        mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
+        if mbox == 'yes':
+            self.destroy()
+        else:
+            return
+
 
     def move_up(self):
         x, y = self.board.current_cell()
@@ -341,8 +348,8 @@ class TriviaGUI(Frame):
         self.show_cell()
 
     # def menu_bar(self):
-    #     menu_bar = Menu(self)
-    #     file_menu = Menu(menu_bar, tearoff=0)
+    #     menubar = Menu(self)
+    #     file_menu = Menu(menubar, tearoff=0)
     #     file_menu.add_command(label="New")
     #     file_menu.add_command(label="Load")
     #     file_menu.add_command(label="Save")
@@ -353,16 +360,16 @@ class TriviaGUI(Frame):
     #     help_menu.add_command(label="Help")
     #     help_menu.add_command(label="About")
     #     help_menu.add_cascade(label="Help", menu=help_menu)
-    #
-    #     return menu_bar
+    #     self.config(file_menu, menu=menubar)
 
 
 if __name__ == '__main__':
-    game = GameBoard()
 
     # initiate the game board with blocked paths
+    game = GameBoard()
     game.place_entrance_exit()
     game.update_border_paths()
 
+    # GUI
     main = TriviaGUI(800, gameboard=game)
     main.mainloop()
