@@ -14,4 +14,7 @@ class ShortAnsQuestion(Question):
         Returns the Question and options
         :return: String
         """
-        return self.question, None
+        return self.question
+
+    def verify_ans(self, ans):
+        return True if ans == self.__correct_ans.lower() else False

@@ -1,5 +1,5 @@
 from question import Question
-
+import random
 
 class MultipleChoiceQuestion(Question):
     """
@@ -8,7 +8,7 @@ class MultipleChoiceQuestion(Question):
 
     def __init__(self, question, correct_ans, options):
         super().__init__(question, correct_ans)
-        self.options = options
+        self.options = random.sample(options, len(options))
 
     def get_question(self):
         """

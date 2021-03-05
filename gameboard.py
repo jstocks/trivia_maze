@@ -17,6 +17,30 @@ class GameBoard:
         self.__entrance_cell = 0, 0
         self.__exit_cell = 0, 0
         self.original_map = ""
+        self.question_stat = []
+
+    def set_question_stat(self, c):
+        """
+        Initializes the question_stat to keep track of what questions have been previously asked.
+        :param c: Int - Number of questions
+        :return: None
+        """
+        self.question_stat = [0 for elem in range(c)]
+
+    def update_question_stat(self, a, value):
+        """
+        Updates the value at index "a" in the question stat.
+        :param a: index
+        :param value: Value
+        :return: None
+        """
+        self.question_stat[a] = value
+
+    # def get_question_stat(self):
+    #     """
+    #     :return: list
+    #     """
+    #     return self.__question_stat
 
     def cell_at(self, x, y):
         """Return the Room string at (x,y)"""

@@ -17,7 +17,7 @@ class Question(ABC):
         # with the data row from sqlite
         # fill up the question and the answer to the class properties
         self.question = question
-        self.__answers = answers
+        self.__answers = None
         self.__correct_ans = correct_ans
 
     @abstractmethod
