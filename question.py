@@ -25,7 +25,10 @@ class Question(ABC):
         return self.question
         
     def verify_ans(self, ans):
-        return True if ans == self.__correct_ans else False
+        if type(ans) is str:
+            return True if ans.lower().strip() == self.__correct_ans.lower().strip() else False
+        else:
+            return True if ans == self.__correct_ans else False
 
     @classmethod
     def __subclasshook__(cls, subclass):

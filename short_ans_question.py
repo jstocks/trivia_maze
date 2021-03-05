@@ -15,6 +15,3 @@ class ShortAnsQuestion(Question):
         :return: String
         """
         return self.question
-
-    def verify_ans(self, ans):
-        return True if ans == self.__correct_ans.lower() else False

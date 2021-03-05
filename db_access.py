@@ -66,6 +66,6 @@ if __name__ == '__main__':
     database = r"python_sqlite.db"
     # getallquestions(database)
     # print(get_question_count(database))
-    q = get_q_a(database, 65)
+    q = get_q_a(database, 66)
     print("q: ", q)
     # print(q[0], q[1], q[2])

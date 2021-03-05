@@ -178,8 +178,8 @@ class View:
     def ask_short_ans_question(question):
         while True:
             try:
-                answer_input = input(f"Answer the following question: \n {question[0]}")
-                return answer_input.lower()
+                answer_input = input(f"Answer the following question: \n {question}")
+                return answer_input
             except ValueError:
                 print("Error: Invalid option")
 ##########

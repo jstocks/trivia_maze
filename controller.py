@@ -47,6 +47,7 @@ class Controller:
             elif q_a[0][0] == 'SHORT ANSWER':
                 question = ShortAnsQuestion(q_a[0][1], q_a[1])
                 ans = View.ask_short_ans_question(question.get_question())
+            __game_board.update_question_stat(rand_question - 1, 1)
             return question.verify_ans(ans)
 
     def player_input(self, __game_board):
@@ -99,40 +100,41 @@ class Controller:
             if "u" in options:
                 if self.prompt_question(self.__game_board) is True:
                     self.__game_board.move_to(x, y - 1)
-                    return "", True
+                    return "Correct!!", True
                 else:
                     self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y - 1), "N")
-                    return "", True
+                    return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
         elif keystroke == "d":
             if "d" in options:
                 if self.prompt_question(self.__game_board) is True:
                     self.__game_board.move_to(x, y + 1)
-                    return "", True
+                    return "Correct!!", True
                 else:
                     self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y + 1), "S")
-                    return "", True
+                    return "" \
+                           "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
         elif keystroke == "l":
             if "l" in options:
                 if self.prompt_question(self.__game_board) is True:
                     self.__game_board.move_to(x - 1, y)
-                    return "", True
+                    return "Correct!!", True
                 else:
                     self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x - 1, y), "E")
-                    return "", True
+                    return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
         elif keystroke == "r":
             if "r" in options:
                 if self.prompt_question(self.__game_board) is True:
                     self.__game_board.move_to(x + 1, y)
-                    return "", True
+                    return "Correct!!", True
                 else:
                     self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y + 1), "W")
-                    return "", True
+                    return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
         else:
