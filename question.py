@@ -17,15 +17,18 @@ class Question(ABC):
         # with the data row from sqlite
         # fill up the question and the answer to the class properties
         self.question = question
-        self.__answers = answers
+        self.__answers = None
         self.__correct_ans = correct_ans
 
     @abstractmethod
     def get_question(self):
         return self.question
-        
+
     def verify_ans(self, ans):
-        return True if ans == self.__correct_ans else False
+        if type(ans) is str:
+            return True if ans.lower().strip() == self.__correct_ans.lower().strip() else False
+        else:
+            return True if ans == self.__correct_ans else False
 
     @classmethod
     def __subclasshook__(cls, subclass):

@@ -17,6 +17,30 @@ class GameBoard:
         self.__entrance_cell = 0, 0
         self.__exit_cell = 0, 0
         self.original_map = ""
+        self.question_stat = []
+
+    def set_question_stat(self, c):
+        """
+        Initializes the question_stat to keep track of what questions have been previously asked.
+        :param c: Int - Number of questions
+        :return: None
+        """
+        self.question_stat = [0 for elem in range(c)]
+
+    def update_question_stat(self, a, value):
+        """
+        Updates the value at index "a" in the question stat.
+        :param a: index
+        :param value: Value
+        :return: None
+        """
+        self.question_stat[a] = value
+
+    # def get_question_stat(self):
+    #     """
+    #     :return: list
+    #     """
+    #     return self.__question_stat
 
     def cell_at(self, x, y):
         """Return the Room string at (x,y)"""
@@ -109,7 +133,6 @@ class GameBoard:
         self.__game_board[x][y].set_current_cell(True)
         a = self.__nx - 1
         b = self.__ny - 1
-        self.__exit_cell = a, b
         self.__game_board[a][b].set_exit(True)
 
     def __repr__(self):
@@ -195,16 +218,16 @@ class GameBoard:
             # north cell is not in grey(to avoid cycles) and
             # not in black(to avoid traversing a previously exhausted path)
             # we add it to the trav_neighbors list for processing
-            if self.is_valid_room(node[0] - 1, node[1]) and self.cell_at(node[0], node[1]).has_east_path() is True:
+            if self.is_valid_cell(node[0] - 1, node[1]) and self.cell_at(node[0], node[1]).has_east_path() is True:
                 if (node[0] - 1, node[1]) not in grey and (node[0] - 1, node[1]) not in black:
                     trav_neighbors.append((node[0] - 1, node[1]))
-            if self.is_valid_room(node[0] + 1, node[1]) and self.cell_at(node[0], node[1]).has_west_path() is True:
+            if self.is_valid_cell(node[0] + 1, node[1]) and self.cell_at(node[0], node[1]).has_west_path() is True:
                 if (node[0] + 1, node[1]) not in grey and (node[0] + 1, node[1]) not in black:
                     trav_neighbors.append((node[0] + 1, node[1]))
-            if self.is_valid_room(node[0], node[1] - 1) and self.cell_at(node[0], node[1]).has_north_path() is True:
+            if self.is_valid_cell(node[0], node[1] - 1) and self.cell_at(node[0], node[1]).has_north_path() is True:
                 if (node[0], node[1] - 1) not in grey and (node[0], node[1] - 1) not in black:
                     trav_neighbors.append((node[0], node[1] - 1))
-            if self.is_valid_room(node[0], node[1] + 1) and self.cell_at(node[0], node[1]).has_south_path() is True:
+            if self.is_valid_cell(node[0], node[1] + 1) and self.cell_at(node[0], node[1]).has_south_path() is True:
                 if (node[0], node[1] + 1) not in grey and (node[0], node[1] + 1) not in black:
                     trav_neighbors.append((node[0], node[1] + 1))
 
@@ -225,6 +248,7 @@ class GameBoard:
                  ('E', (1, 0)),
                  ('S', (0, 1)),
                  ('N', (0, -1))]
+        # current_cell = self.cell_at(self.__ix, self.__iy)
         for i in range(self.__nx):
             for j in range(self.__ny):
                 for direction, (dx, dy) in delta:
@@ -241,7 +265,7 @@ class GameBoard:
                         if y2 > self.__ny - 1:
                             current_cell.remove_path(next_cell, direction)
                     except IndexError:
-                        continue
+                        pass
 
 
 # Test for update_border_paths

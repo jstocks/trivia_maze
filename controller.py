@@ -1,15 +1,54 @@
 from gameboard import GameBoard
 from view import View
-
+from db_access import *
+import random
+from multiple_choice_question import MultipleChoiceQuestion
+from short_ans_question import ShortAnsQuestion
+from true_false_question import TrueFalseQuestion
 
 class Controller:
     def __init__(self):
         # self.__view = view
         self.__game_board = None
-        self.init_game()
+        # self.init_game()
+        self.database = r"python_sqlite.db"
+        self.q_count = get_question_count(self.database)
 
     def set_game_board(self, x, y):
         self.__game_board = GameBoard(x, y)
+
+    def pick_question(self, stat):
+        """
+        Randomly selects a new question from the database.
+        :return: Int
+        """
+        while True:
+            rand_q = random.randint(1, self.q_count)
+            if stat[rand_q-1] == 0:
+                return rand_q
+
+    def prompt_question(self, __game_board):
+        # initialize question stat for a new gameboard
+        if len(__game_board.question_stat) == 0:
+            __game_board.set_question_stat(self.q_count)
+
+        # in case all the questions in the database have been used.
+        if __game_board.question_stat.count(0) == 0:
+            __game_board.set_question_stat(self.q_count)
+        else:
+            rand_question = self.pick_question(__game_board.question_stat)
+            q_a = get_q_a(self.database, rand_question)
+            if q_a[0][0] == 'MULTIPLE CHOICE':
+                question = MultipleChoiceQuestion(q_a[0][1], q_a[1], q_a[2])
+                ans = View.ask_m_question(question.get_question())
+            elif q_a[0][0] == 'TRUE / FALSE':
+                question = TrueFalseQuestion(q_a[0][1], q_a[1])
+                ans = View.ask_true_false_question(question.get_question())
+            elif q_a[0][0] == 'SHORT ANSWER':
+                question = ShortAnsQuestion(q_a[0][1], q_a[1])
+                ans = View.ask_short_ans_question(question.get_question())
+            __game_board.update_question_stat(rand_question - 1, 1)
+            return question.verify_ans(ans)
 
     def player_input(self, __game_board):
         """
@@ -21,13 +60,13 @@ class Controller:
         cell = __game_board.cell_at(x, y)
         options = []
         # movement options based on available paths
-        if self.__game_board.is_valid_room(x, y - 1) is True and cell.has_north_path() is True:
+        if self.__game_board.is_valid_cell(x, y - 1) is True and cell.has_north_path() is True:
             options.append("u")
-        if self.__game_board.is_valid_room(x, y + 1) is True and cell.has_south_path() is True:
+        if self.__game_board.is_valid_cell(x, y + 1) is True and cell.has_south_path() is True:
             options.append("d")
-        if self.__game_board.is_valid_room(x + 1, y) is True and cell.has_east_path() is True:
+        if self.__game_board.is_valid_cell(x + 1, y) is True and cell.has_east_path() is True:
             options.append("r")
-        if self.__game_board.is_valid_room(x - 1, y) is True and cell.has_west_path() is True:
+        if self.__game_board.is_valid_cell(x - 1, y) is True and cell.has_west_path() is True:
             options.append("l")
         # save, load, quit options
         options.append("s")  # save game
@@ -59,46 +98,43 @@ class Controller:
         # move commands
         elif keystroke == "u":
             if "u" in options:
-                pass
-                # prompt for question
-                # if question answered correctly:
-                self.__game_board.move_to(x, y - 1)
-                return "", True
-                # else:
-                #     current_cell.remove_path(next_room, direction)
+                if self.prompt_question(self.__game_board) is True:
+                    self.__game_board.move_to(x, y - 1)
+                    return "Correct!!", True
+                else:
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y - 1), "N")
+                    return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
         elif keystroke == "d":
             if "d" in options:
-                pass
-                # prompt for question
-                # if question answered correctly:
-                self.__game_board.move_to(x, y + 1)
-                return "", True
-                # else:
-                #     current_cell.remove_path(next_room, direction)
+                if self.prompt_question(self.__game_board) is True:
+                    self.__game_board.move_to(x, y + 1)
+                    return "Correct!!", True
+                else:
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y + 1), "S")
+                    return "" \
+                           "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
         elif keystroke == "l":
             if "l" in options:
-                pass
-                # prompt for question
-                # if question answered correctly:
-                self.__game_board.move_to(x - 1, y)
-                return "", True
-                # else:
-                #     current_cell.remove_path(next_room, direction)
+                if self.prompt_question(self.__game_board) is True:
+                    self.__game_board.move_to(x - 1, y)
+                    return "Correct!!", True
+                else:
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x - 1, y), "E")
+                    return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
         elif keystroke == "r":
             if "r" in options:
-                pass
-                # prompt for question
-                # if question answered correctly:
-                self.__game_board.move_to(x + 1, y)
-                return "", True
-                # else:
-                #     current_cell.remove_path(next_room, direction)
+                if self.prompt_question(self.__game_board) is True:
+                    self.__game_board.move_to(x + 1, y)
+                    return "Correct!!", True
+                else:
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y + 1), "W")
+                    return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
         else:
@@ -111,20 +147,13 @@ class Controller:
         :return: None
         """
         View.display_welcome_msg()
-        # menu_option = View.get_menu_option()
-        # if menu_option == "1":
-        #     file_option = View.get_file_option()
-        #     if file_option == "1":
-        level = View.get_level()
-        if level == "1":
-            self.set_game_board(4, 4)
-        elif level == "2":
-            self.set_game_board(5, 5)
-        elif level == "3":
-            self.set_game_board(6, 6)
-        self.__game_board.place_entrance_exit()
-        self.__game_board.update_border_paths()
-        self.play_game()
+        menu_option = View.get_menu_option()
+        if menu_option == "1":
+            file_option = View.get_file_option()
+            if file_option == "1":
+                self.set_game_board(4, 4)
+            self.__game_board.place_entrance_exit()
+            self.play_game()
 
             # elif file_option == 2:
             #     if self.__saved_game_board:
@@ -144,8 +173,8 @@ class Controller:
             #         self.__view.get_menu_option()
             # ADD code for file option 4 - Exit
         # ADD code for menu option 2 -  Help
-        # else:
-        #     pass
+        else:
+            pass
 
     def play_game(self):
         """
@@ -168,10 +197,10 @@ class Controller:
                 statement, play = self.player_input(self.__game_board)
                 View.display_msg(statement)
                 # check if exit is reachable from current loc
-                # if self.__game_board.traverse(x, y) is False:
-                #     # game lost as theres no way out!!
-                #     View.display_game_lost()
-                #     play = False
+                if self.__game_board.traverse(x, y) is False:
+                    # game lost as theres no way out!!
+                    View.display_game_lost()
+                    play = False
 
         while True:
             user_input = View.replay()
@@ -185,4 +214,3 @@ class Controller:
 
 new = Controller()
 new.init_game()
-

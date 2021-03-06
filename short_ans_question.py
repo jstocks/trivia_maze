@@ -14,4 +14,4 @@ class ShortAnsQuestion(Question):
         Returns the Question and options
         :return: String
         """
-        return self.question, None
+        return self.question
