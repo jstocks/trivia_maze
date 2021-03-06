@@ -3,7 +3,7 @@ from tkinter import messagebox
 from PIL import ImageTk
 # from gameboard import GameBoard
 from view import View, INTRO
-# from controller import Controller
+from controller import Controller
 from gameboard import GameBoard
 
 
@@ -369,7 +369,7 @@ if __name__ == '__main__':
     game = GameBoard()
     game.place_entrance_exit()
     game.update_border_paths()
-
     # GUI
     main = TriviaGUI(800, gameboard=game)
     main.mainloop()
+

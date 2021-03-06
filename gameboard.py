@@ -133,6 +133,7 @@ class GameBoard:
         self.__game_board[x][y].set_current_cell(True)
         a = self.__nx - 1
         b = self.__ny - 1
+        self.__exit_cell = a, b
         self.__game_board[a][b].set_exit(True)
 
     def __repr__(self):

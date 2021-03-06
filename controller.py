@@ -123,7 +123,7 @@ class Controller:
                     self.__game_board.move_to(x - 1, y)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x - 1, y), "E")
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x - 1, y), "W")
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
@@ -133,7 +133,7 @@ class Controller:
                     self.__game_board.move_to(x + 1, y)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y + 1), "W")
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x + 1, y), "E")
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
@@ -146,14 +146,15 @@ class Controller:
         Gets the game level. Initialises the game board.
         :return: None
         """
-        View.display_welcome_msg()
-        menu_option = View.get_menu_option()
-        if menu_option == "1":
-            file_option = View.get_file_option()
-            if file_option == "1":
-                self.set_game_board(4, 4)
-            self.__game_board.place_entrance_exit()
-            self.play_game()
+        # View.display_welcome_msg()
+        # menu_option = View.get_menu_option()
+        # if menu_option == "1":
+        #     file_option = View.get_file_option()
+        #     if file_option == "1":
+        self.set_game_board(4, 4)
+        self.__game_board.place_entrance_exit()
+        # self.__game_board.update_border_paths()
+        self.play_game()
 
             # elif file_option == 2:
             #     if self.__saved_game_board:
@@ -173,8 +174,8 @@ class Controller:
             #         self.__view.get_menu_option()
             # ADD code for file option 4 - Exit
         # ADD code for menu option 2 -  Help
-        else:
-            pass
+        # else:
+        #     pass
 
     def play_game(self):
         """
@@ -212,5 +213,5 @@ class Controller:
                 break
 
 
-new = Controller()
-new.init_game()
+# new = Controller()
+# new.init_game()
