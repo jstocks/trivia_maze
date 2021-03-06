@@ -133,7 +133,7 @@ class Controller:
                     self.__game_board.move_to(x + 1, y)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y + 1), "W")
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x + 1, y), "W")
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
