@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ddebccde-dc58-437e-85f3-213fba8eb1f6" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="f1db9da3-af31-4920-b2be-d781872c5299" />
+  <component name="ProjectId" id="1oGP5Vk6ypEFRYR0AIlGBU15UpQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager" selected="Python.controller">
+    <configuration name="controller" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Trivia_Maze" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/controller.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="controller_tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../502/DungeonAdventure" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../502/DungeonAdventure/controller_tests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="db_access" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="trivia_maze" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db_access.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="db_creation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db_creation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gameboard_tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gameboard_tests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.controller" />
+        <item itemvalue="Python.gameboard_tests" />
+        <item itemvalue="Python.controller_tests" />
+        <item itemvalue="Python.db_creation" />
+        <item itemvalue="Python.db_access" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ddebccde-dc58-437e-85f3-213fba8eb1f6" name="Default Changelist" comment="" />
+      <created>1612909775830</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612909775830</updated>
+      <workItem from="1612909778065" duration="17516000" />
+      <workItem from="1613428360934" duration="3811000" />
+      <workItem from="1613445465461" duration="2377000" />
+      <workItem from="1613506873366" duration="619000" />
+      <workItem from="1613510479474" duration="924000" />
+      <workItem from="1613586725670" duration="4586000" />
+      <workItem from="1613593209267" duration="1373000" />
+      <workItem from="1613606692698" duration="1817000" />
+      <workItem from="1613608743467" duration="3869000" />
+      <workItem from="1613627239289" duration="3442000" />
+      <workItem from="1613701798208" duration="1599000" />
+      <workItem from="1613705082373" duration="2619000" />
+      <workItem from="1614024265602" duration="9697000" />
+      <workItem from="1614053771066" duration="6354000" />
+      <workItem from="1614066037319" duration="888000" />
+      <workItem from="1614067553892" duration="335000" />
+      <workItem from="1614754635153" duration="2869000" />
+      <workItem from="1614836371558" duration="14536000" />
+      <workItem from="1615065088956" duration="5523000" />
+      <workItem from="1615245387093" duration="387000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="463" y="125" width="643" height="530" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1613706555126">
+      <screen x="0" y="25" width="1280" height="730" />
+    </state>
+    <state x="463" y="125" width="643" height="530" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.25.1280.730@0.25.1280.730" timestamp="1613706555126" />
+    <state width="1238" height="196" key="GridCell.Tab.0.bottom" timestamp="1615245646486">
+      <screen x="0" y="25" width="1920" height="1010" />
+    </state>
+    <state width="1238" height="268" key="GridCell.Tab.0.bottom/0.25.1280.730@0.25.1280.730" timestamp="1615083869494" />
+    <state width="1238" height="196" key="GridCell.Tab.0.bottom/0.25.1920.1010@0.25.1920.1010" timestamp="1615245646486" />
+    <state width="1238" height="196" key="GridCell.Tab.0.center" timestamp="1615245646485">
+      <screen x="0" y="25" width="1920" height="1010" />
+    </state>
+    <state width="1238" height="268" key="GridCell.Tab.0.center/0.25.1280.730@0.25.1280.730" timestamp="1615083869493" />
+    <state width="1238" height="196" key="GridCell.Tab.0.center/0.25.1920.1010@0.25.1920.1010" timestamp="1615245646485" />
+    <state width="1238" height="196" key="GridCell.Tab.0.left" timestamp="1615245646484">
+      <screen x="0" y="25" width="1920" height="1010" />
+    </state>
+    <state width="1238" height="268" key="GridCell.Tab.0.left/0.25.1280.730@0.25.1280.730" timestamp="1615083869493" />
+    <state width="1238" height="196" key="GridCell.Tab.0.left/0.25.1920.1010@0.25.1920.1010" timestamp="1615245646484" />
+    <state width="1238" height="196" key="GridCell.Tab.0.right" timestamp="1615245646485">
+      <screen x="0" y="25" width="1920" height="1010" />
+    </state>
+    <state width="1238" height="268" key="GridCell.Tab.0.right/0.25.1280.730@0.25.1280.730" timestamp="1615083869494" />
+    <state width="1238" height="196" key="GridCell.Tab.0.right/0.25.1920.1010@0.25.1920.1010" timestamp="1615245646485" />
+    <state width="1238" height="224" key="GridCell.Tab.1.bottom" timestamp="1615245362749">
+      <screen x="0" y="25" width="1920" height="1010" />
+    </state>
+    <state width="1018" height="224" key="GridCell.Tab.1.bottom/0.25.1280.730@0.25.1280.730" timestamp="1613704936996" />
+    <state width="1238" height="224" key="GridCell.Tab.1.bottom/0.25.1920.1010@0.25.1920.1010" timestamp="1615245362749" />
+    <state width="1238" height="224" key="GridCell.Tab.1.center" timestamp="1615245362749">
+      <screen x="0" y="25" width="1920" height="1010" />
+    </state>
+    <state width="1018" height="224" key="GridCell.Tab.1.center/0.25.1280.730@0.25.1280.730" timestamp="1613704936995" />
+    <state width="1238" height="224" key="GridCell.Tab.1.center/0.25.1920.1010@0.25.1920.1010" timestamp="1615245362749" />
+    <state width="1238" height="224" key="GridCell.Tab.1.left" timestamp="1615245362748">
+      <screen x="0" y="25" width="1920" height="1010" />
+    </state>
+    <state width="1018" height="224" key="GridCell.Tab.1.left/0.25.1280.730@0.25.1280.730" timestamp="1613704936995" />
+    <state width="1238" height="224" key="GridCell.Tab.1.left/0.25.1920.1010@0.25.1920.1010" timestamp="1615245362748" />
+    <state width="1238" height="224" key="GridCell.Tab.1.right" timestamp="1615245362749">
+      <screen x="0" y="25" width="1920" height="1010" />
+    </state>
+    <state width="1018" height="224" key="GridCell.Tab.1.right/0.25.1280.730@0.25.1280.730" timestamp="1613704936996" />
+    <state width="1238" height="224" key="GridCell.Tab.1.right/0.25.1920.1010@0.25.1920.1010" timestamp="1615245362749" />
+    <state x="431" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1614065815718">
+      <screen x="0" y="25" width="1280" height="730" />
+    </state>
+    <state x="431" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1280.730@0.25.1280.730" timestamp="1614065815718" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/gameboard_py$gameboard.coverage" NAME="gameboard Coverage Results" MODIFIED="1614025115996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/db_creation_py$db_access.coverage" NAME="db_access Coverage Results" MODIFIED="1614970902723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gameboard_py$Unittests_in_gameboard_tests_py.coverage" NAME="Unittests in gameboard_tests.py Coverage Results" MODIFIED="1613706520975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/db_creation_py$controller.coverage" NAME="controller Coverage Results" MODIFIED="1615245003184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gameboard_tests_py$controller.coverage" NAME="controller Coverage Results" MODIFIED="1615245559713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/trivia_maze$gameboard.coverage" NAME="gameboard Coverage Results" MODIFIED="1613428607215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gameboard_tests_py$controller_tests.coverage" NAME="controller_tests Coverage Results" MODIFIED="1615245461747" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../502/DungeonAdventure" />
+    <SUITE FILE_PATH="coverage/trivia_maze$view.coverage" NAME="view Coverage Results" MODIFIED="1613429062040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gameboard_tests_py$gameboard_tests.coverage" NAME="gameboard_tests Coverage Results" MODIFIED="1615245550443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/trivia_maze$controller.coverage" NAME="controller Coverage Results" MODIFIED="1613429303563" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gameboard_py$controller.coverage" NAME="controller Coverage Results" MODIFIED="1614055100129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/db_creation_py$gameboard_tests.coverage" NAME="gameboard_tests Coverage Results" MODIFIED="1615245219893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gameboard_py$dungeon.coverage" NAME="dungeon Coverage Results" MODIFIED="1613628277478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../502/DungeonAdventure" />
+    <SUITE FILE_PATH="coverage/gameboard_py$db_access.coverage" NAME="db_access Coverage Results" MODIFIED="1614064736687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gameboard_py$trivia.coverage" NAME="trivia Coverage Results" MODIFIED="1613618088897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/db_creation_py$db_creation.coverage" NAME="db_creation Coverage Results" MODIFIED="1615082645032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/trivia_maze$trivia.coverage" NAME="trivia Coverage Results" MODIFIED="1613430127910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
