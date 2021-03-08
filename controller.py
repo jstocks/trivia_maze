@@ -123,7 +123,7 @@ class Controller:
                     self.__game_board.move_to(x - 1, y)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x - 1, y), "E")
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x - 1, y), "W")
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
@@ -133,7 +133,7 @@ class Controller:
                     self.__game_board.move_to(x + 1, y)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x + 1, y), "W")
+                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x + 1, y), "E")
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
@@ -153,6 +153,7 @@ class Controller:
             if file_option == "1":
                 self.set_game_board(4, 4)
             self.__game_board.place_entrance_exit()
+            self.__game_board.update_border_paths()
             self.play_game()
 
             # elif file_option == 2:
@@ -199,6 +200,7 @@ class Controller:
                 # check if exit is reachable from current loc
                 if self.__game_board.traverse(x, y) is False:
                     # game lost as theres no way out!!
+                    View.display_current_location(current_cell)
                     View.display_game_lost()
                     play = False
 
