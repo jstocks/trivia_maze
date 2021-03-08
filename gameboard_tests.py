@@ -1,15 +1,18 @@
 import unittest
 from gameboard import GameBoard
 
+
 def set_up():
     gameboard = GameBoard(3, 3)
     gameboard.place_entrance_exit()
     return gameboard
 
-class GameboardTests(unittest.TestCase):
+
+class GameBoardTests(unittest.TestCase):
     """
-    Tests for Gameboard class
+    Tests for GameBoard class
     """
+
     def test_traverse_exit_blocked(self):
         # block exit
         gameboard = set_up()
@@ -33,3 +36,5 @@ class GameboardTests(unittest.TestCase):
         self.assertEqual(False, gameboard.traverse(0, 0), "Error: Unknown Bug in Traverse method")
 
 
+if __name__ == '__main__':
+    unittest.main()
