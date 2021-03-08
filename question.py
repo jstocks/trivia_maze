@@ -23,7 +23,7 @@ class Question(ABC):
     @abstractmethod
     def get_question(self):
         return self.question
-        
+
     def verify_ans(self, ans):
         if type(ans) is str:
             return True if ans.lower().strip() == self.__correct_ans.lower().strip() else False

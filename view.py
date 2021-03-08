@@ -139,6 +139,7 @@ class View:
     @staticmethod
     def display_closing_msg():
         print("Thanks for playing! See you soon")
+<<<<<<< HEAD
 
     @staticmethod
     def ask_m_question(question):
@@ -183,4 +184,48 @@ class View:
             except ValueError:
                 print("Error: Invalid option")
 ##########
+=======
+>>>>>>> master
 
+    @staticmethod
+    def ask_m_question(question):
+        OPTIONS = {
+            "1" : question[1][0],
+            "2" : question[1][1],
+            "3" : question[1][2],
+            "4" : question[1][3]
+        }
+        while True:
+            try:
+                answer_input = input(f"Answer the following question: \n {question[0]} \n {OPTIONS}")
+                if answer_input in OPTIONS:
+                    return OPTIONS[answer_input]
+                else:
+                    print("Error: Invalid option")
+            except ValueError:
+                print("Error: Invalid option")
+
+    @staticmethod
+    def ask_true_false_question(question):
+        OPTIONS = {
+            "1": question[1][0],
+            "2": question[1][1]
+        }
+        while True:
+            try:
+                answer_input = input(f"Answer the following question: \n {question[0]} \n {OPTIONS}")
+                if answer_input in OPTIONS:
+                    return OPTIONS[answer_input]
+                else:
+                    print("Error: Invalid option")
+            except ValueError:
+                print("Error: Invalid option")
+
+    @staticmethod
+    def ask_short_ans_question(question):
+        while True:
+            try:
+                answer_input = input(f"Answer the following question: \n {question}")
+                return answer_input
+            except ValueError:
+                print("Error: Invalid option")
