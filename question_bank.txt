@@ -108,7 +108,7 @@ TRUE / FALSE, Sir Issac Newton was the first to suggest the idea of an artificia
 
 TRUE / FALSE, Peggy Whitson was the first female commander of the International Space Station (ISS)?, True, False
 
-TRUE / FALSE, Albert Einstein developed the theory of auroral phenomena?,  False, True (Fredrik Stormer)
+TRUE / FALSE, Albert Einstein developed the theory of auroral phenomena?, False, True (Fredrik Stormer)
 
 TRUE / FALSE, In 1921, Albert Einstein received the Nobel Prize for Physics for Relativity Theory, False, True (Photoelectric Effect)
 

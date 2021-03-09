@@ -8,7 +8,7 @@ class TrueFalseQuestion(Question):
 
     def __init__(self, question, correct_ans):
         super().__init__(question, correct_ans)
-        self.options = [True, False]
+        self.options = ["True", "False"]
 
     def get_question(self):
         """
