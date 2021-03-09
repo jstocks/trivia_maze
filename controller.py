@@ -153,7 +153,7 @@ class Controller:
         #     if file_option == "1":
         self.set_game_board(4, 4)
         self.__game_board.place_entrance_exit()
-        # self.__game_board.update_border_paths()
+        self.__game_board.update_border_paths()
         self.play_game()
 
             # elif file_option == 2:
