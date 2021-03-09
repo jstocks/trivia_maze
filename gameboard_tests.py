@@ -13,6 +13,11 @@ class GameBoardTests(unittest.TestCase):
     """
     Tests for GameBoard class
     """
+    def test_traverse_path_exists(self):
+        #path exists
+        gameboard = set_up()
+        gameboard.cell_at(3, 3).remove_path(gameboard.cell_at(3, 2), "N")
+        self.assertEqual(True, gameboard.traverse(0, 0), "Error: Unknown Bug in Traverse method")
 
     def test_traverse_exit_blocked(self):
         # block exit
