@@ -1,9 +1,10 @@
 WELCOME = "Welcome to the Trivia Space Adventure game. \n"
 
-INTRO = "Find your way back to Earth by answering questions to board the space shuttle \n " \
-        "from one planet to the next. Wrong answers result in you missing the space shuttle. \n " \
-        "Too many wrong answers and you miss all available space shuttles and \n " \
-        "find yourself stranded and lost in space with no way to return back home."
+INTRO = "Find your way to Mars by answering questions along the game board. \n\n" \
+        "Correct answers allow you to continue along your journey.  Wrong answers "\
+        "require you to seek an alternate orbit.  If you find yourself without a "\
+        "path to Mars, you will run out of oxygen and meet your ultimate demise...\n\n"\
+        "So, are you as smart as a Rocket Scientist.... let's find out!"
 
 
 class View:
@@ -16,8 +17,8 @@ class View:
         Displays welcome message
         :return: None
         """
-        print(WELCOME)
-        print(INTRO)
+        # print(WELCOME)
+        return INTRO
 
     @staticmethod
     def get_menu_option():
@@ -183,46 +184,3 @@ class View:
             except ValueError:
                 print("Error: Invalid option")
 ##########
-
-    @staticmethod
-    def ask_m_question(question):
-        OPTIONS = {
-            "1" : question[1][0],
-            "2" : question[1][1],
-            "3" : question[1][2],
-            "4" : question[1][3]
-        }
-        while True:
-            try:
-                answer_input = input(f"Answer the following question: \n {question[0]} \n {OPTIONS}")
-                if answer_input in OPTIONS:
-                    return OPTIONS[answer_input]
-                else:
-                    print("Error: Invalid option")
-            except ValueError:
-                print("Error: Invalid option")
-
-    @staticmethod
-    def ask_true_false_question(question):
-        OPTIONS = {
-            "1": question[1][0],
-            "2": question[1][1]
-        }
-        while True:
-            try:
-                answer_input = input(f"Answer the following question: \n {question[0]} \n {OPTIONS}")
-                if answer_input in OPTIONS:
-                    return OPTIONS[answer_input]
-                else:
-                    print("Error: Invalid option")
-            except ValueError:
-                print("Error: Invalid option")
-
-    @staticmethod
-    def ask_short_ans_question(question):
-        while True:
-            try:
-                answer_input = input(f"Answer the following question: \n {question}")
-                return answer_input
-            except ValueError:
-                print("Error: Invalid option")

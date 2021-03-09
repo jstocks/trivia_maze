@@ -72,6 +72,11 @@ class TriviaGUI(Frame):
 
         self.canvas.create_rectangle(360, 525, 750, 750, fill='lightskyblue1')
 
+        """
+        1) create a label text=reference to the question"
+        2) create answer radio buttons / text box / 
+        """
+
     def __init__(self, dimension, master=None, gameboard=None):
         Frame.__init__(self, master)
         Pack.config(self)
@@ -306,10 +311,10 @@ class TriviaGUI(Frame):
         intro = View.display_welcome_msg()
         messagebox.showinfo(title='Directions', message=intro)
 
-
     def quit(self):
         mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
         if mbox == 'yes':
+            # self.destroy()
             self.destroy()
         else:
             return
@@ -317,6 +322,7 @@ class TriviaGUI(Frame):
 
     def move_up(self):
         x, y = self.board.current_cell()
+        # question logic
         if y - 1 < 0:
             return
         self.board.move_to(x, y - 1)
