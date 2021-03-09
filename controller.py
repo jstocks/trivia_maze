@@ -146,8 +146,6 @@ class Controller:
         Gets the game level. Initialises the game board.
         :return: None
         """
-<<<<<<< HEAD
-=======
         # View.display_welcome_msg()
         # menu_option = View.get_menu_option()
         # if menu_option == "1":
@@ -157,7 +155,6 @@ class Controller:
         self.__game_board.place_entrance_exit()
         self.__game_board.update_border_paths()
         self.play_game()
->>>>>>> master
 
             # elif file_option == 2:
             #     if self.__saved_game_board:
@@ -217,5 +214,5 @@ class Controller:
                 break
 
 
-# new = Controller()
-# new.init_game()
+new = Controller()
+new.init_game()

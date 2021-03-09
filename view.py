@@ -139,7 +139,6 @@ class View:
     @staticmethod
     def display_closing_msg():
         print("Thanks for playing! See you soon")
-<<<<<<< HEAD
 
     @staticmethod
     def ask_m_question(question):
@@ -184,8 +183,6 @@ class View:
             except ValueError:
                 print("Error: Invalid option")
 ##########
-=======
->>>>>>> master
 
     @staticmethod
     def ask_m_question(question):

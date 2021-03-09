@@ -68,7 +68,4 @@ if __name__ == '__main__':
     # print(get_question_count(database))
     q = get_q_a(database, 66)
     print("q: ", q)
-<<<<<<< HEAD
-=======
     # print(q[0], q[1], q[2])
->>>>>>> master
