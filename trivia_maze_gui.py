@@ -351,19 +351,39 @@ class TriviaGUI(Canvas):
 
     def plan_to_move_up(self):
         self.moving_to = 1
-        self.show_question()
+        x, y = self.board.current_cell()
+        cell = self.board.cell_at(x, y)
+        if self.board.is_valid_cell(x, y - 1) is True and cell.has_north_path() is True:
+            self.show_question()
+        else:
+            self.question()
 
     def plan_to_move_down(self):
         self.moving_to = 2
-        self.show_question()
+        x, y = self.board.current_cell()
+        cell = self.board.cell_at(x, y)
+        if self.board.is_valid_cell(x, y + 1) is True and cell.has_south_path() is True:
+            self.show_question()
+        else:
+            self.question()
 
     def plan_to_move_left(self):
         self.moving_to = 3
-        self.show_question()
+        x, y = self.board.current_cell()
+        cell = self.board.cell_at(x, y)
+        if self.board.is_valid_cell(x - 1, y) is True and cell.has_west_path() is True:
+            self.show_question()
+        else:
+            self.question()
 
     def plan_to_move_right(self):
         self.moving_to = 4
-        self.show_question()
+        x, y = self.board.current_cell()
+        cell = self.board.cell_at(x, y)
+        if self.board.is_valid_cell(x + 1, y) is True and cell.has_east_path() is True:
+            self.show_question()
+        else:
+            self.question()
 
     def pick_question(self, stat):
         """
@@ -373,7 +393,7 @@ class TriviaGUI(Canvas):
         while True:
             rand_q = random.randint(1, 2)
             if stat[rand_q - 1] == 0:
-                return 1
+                return 61
 
     def prompt_question(self, __game_board):
         # initialize question stat for a new gameboard
@@ -397,24 +417,79 @@ class TriviaGUI(Canvas):
 
     def show_question(self):
         question = self.prompt_question(self.board)
-        # print(question.__class__.__name__)
         q = question.get_question()
         var = StringVar()
+        widget_holder = []
 
-        def get_ans():
-            ans = (str(var.get()))
-            self.verify_answer(question.verify_ans(ans))
+        if question.__class__.__name__ == "MultipleChoiceQuestion":
+            label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=400,
+                           justify="center")
+            widget_holder.append(label1)
+            def get_ans():
+                ans = (str(var.get()))
+                self.verify_answer(question.verify_ans(ans))
+                for widget in widget_holder:
+                    widget.destroy()
 
-        label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=400,
-                       justify="center")
-        Radiobutton(self.canvas, text=q[1][0], padx=20, fg='black', bg='lightskyblue1',
-                    font="bold", variable=var, value=q[1][0], command=get_ans).place(x=400, y=600)
-        Radiobutton(self.canvas, text=q[1][1], padx=20, fg='black', bg='lightskyblue1',
-                    font="bold", variable=var, value=q[1][1], command=get_ans).place(x=400, y=625)
-        Radiobutton(self.canvas, text=q[1][2], padx=20, fg='black', bg='lightskyblue1',
-                    font="bold", variable=var, value=q[1][2], command=get_ans).place(x=400, y=650)
-        Radiobutton(self.canvas, text=q[1][3], padx=20, fg='black', bg='lightskyblue1',
-                    font="bold", variable=var, value=q[1][3], command=get_ans).place(x=400, y=675)
+            r1 = Radiobutton(self.canvas, text=q[1][0], padx=20, fg='black', bg='lightskyblue1',
+                             font="bold", variable=var, value=q[1][0], command=get_ans)
+            r1.place(x=400, y=600)
+            r2 = Radiobutton(self.canvas, text=q[1][1], padx=20, fg='black', bg='lightskyblue1',
+                             font="bold", variable=var, value=q[1][1], command=get_ans)
+            r2.place(x=400, y=625)
+            r3 = Radiobutton(self.canvas, text=q[1][2], padx=20, fg='black', bg='lightskyblue1',
+                             font="bold", variable=var, value=q[1][2], command=get_ans)
+            r3.place(x=400, y=650)
+            r4 = Radiobutton(self.canvas, text=q[1][3], padx=20, fg='black', bg='lightskyblue1',
+                             font="bold", variable=var, value=q[1][3], command=get_ans)
+            r4.place(x=400, y=675)
+            widget_holder.append(r1)
+            widget_holder.append(r2)
+            widget_holder.append(r3)
+            widget_holder.append(r4)
+
+
+        elif question.__class__.__name__ == "TrueFalseQuestion":
+            label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=400,
+                           justify="center")
+            widget_holder.append(label1)
+
+            def get_ans():
+                ans = (str(var.get()))
+                self.verify_answer(question.verify_ans(ans))
+                for widget in widget_holder:
+                    widget.destroy()
+
+            r1 = Radiobutton(self.canvas, text=q[1][0], padx=20, fg='black', bg='lightskyblue1',
+                        font="bold", variable=var, value=q[1][0], command=get_ans)
+            r1.place(x=400, y=600)
+            r2 = Radiobutton(self.canvas, text=q[1][1], padx=20, fg='black', bg='lightskyblue1',
+                        font="bold", variable=var, value=q[1][1], command=get_ans)
+            r2.place(x=400, y=625)
+            widget_holder.append(r1)
+            widget_holder.append(r2)
+
+
+        else:
+            label1 = Label(self.canvas, text=q, fg='black', bg='lightskyblue1', font="bold", wraplength=400,
+                           justify="center")
+            widget_holder.append(label1)
+
+            def take_input():
+                INPUT = inputtxt.get("1.0", "end-1c")
+                self.verify_answer(question.verify_ans(INPUT))
+                for widget in widget_holder:
+                    widget.destroy()
+
+            inputtxt = Text(self.canvas, height=2,
+                            width=25,
+                            bg="white")
+            inputtxt.place(x=400, y=600)
+            widget_holder.append(inputtxt)
+            b = Button(self.canvas, height=2, width=20, text="Enter", command=lambda: take_input())
+            b.place(x=400, y=640)
+            widget_holder.append(b)
+
         self.canvas.create_window(550, 570, window=label1)
 
     def verify_answer(self, answer):
@@ -431,7 +506,7 @@ class TriviaGUI(Canvas):
             elif self.moving_to == 4:  # right
                 self.now_move_right()
         else:
-            if self.moving_to == 1: # up
+            if self.moving_to == 1:  # up
                 self.board.cell_at(x, y).remove_path(self.board.cell_at(x, y - 1), "N")
             elif self.moving_to == 2:  # down
                 self.board.cell_at(x, y).remove_path(self.board.cell_at(x, y + 1), "S")
