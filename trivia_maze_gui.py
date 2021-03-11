@@ -16,14 +16,13 @@ from playsound import playsound
 
 class TriviaGUI(Canvas):
 
-    def __init__(self, dimension, master=None, gameboard=None, controller=None):
+    def __init__(self, dimension, master=None, gameboard=None):
         Canvas.__init__(self, master)
         Pack.config(self)
         self.master.title("Rocket Man Trivia Game")
         self.master = master
         self.board = gameboard
         self.dimension = dimension
-        # self.controller = controller
         self.database = r"python_sqlite.db"
         self.moving_to = 0  # 1 up 2 down 3 left 4 right
         self.canvas = Canvas(self, width=dimension, height=dimension, bg="lightskyblue1")
@@ -34,8 +33,6 @@ class TriviaGUI(Canvas):
         self.move_widgets()
         self.legend()
         self.question()
-        # self.controller.init_game()
-        # self.menu_bar()
 
     def new(self):
         mbox = messagebox.askquestion('Start a new game?', icon='warning')
@@ -80,7 +77,6 @@ class TriviaGUI(Canvas):
         self.sound_quit()
         mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
         if mbox == 'yes':
-            # self.destroy()
             self.destroy()
         else:
             return
@@ -405,9 +401,9 @@ class TriviaGUI(Canvas):
         :return: Int
         """
         while True:
-            rand_q = random.randint(1, 2)
+            rand_q = random.randint(1, 62)
             if stat[rand_q - 1] == 0:
-                return 61
+                return rand_q
 
     def prompt_question(self, __game_board):
         # initialize question stat for a new gameboard
@@ -436,8 +432,8 @@ class TriviaGUI(Canvas):
         widget_holder = []
 
         if question.__class__.__name__ == "MultipleChoiceQuestion":
-            label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=400,
-                           justify="center")
+            label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1',
+                           font="bold", wraplength=375, justify="center", anchor="e")
             widget_holder.append(label1)
 
             def get_ans():
@@ -448,23 +444,23 @@ class TriviaGUI(Canvas):
 
             r1 = Radiobutton(self.canvas, text=q[1][0], padx=20, fg='black', bg='lightskyblue1',
                              font="bold", variable=var, value=q[1][0], command=get_ans)
-            r1.place(x=400, y=600)
+            r1.place(x=400, y=620)
             r2 = Radiobutton(self.canvas, text=q[1][1], padx=20, fg='black', bg='lightskyblue1',
                              font="bold", variable=var, value=q[1][1], command=get_ans)
-            r2.place(x=400, y=625)
+            r2.place(x=400, y=650)
             r3 = Radiobutton(self.canvas, text=q[1][2], padx=20, fg='black', bg='lightskyblue1',
                              font="bold", variable=var, value=q[1][2], command=get_ans)
-            r3.place(x=400, y=650)
+            r3.place(x=400, y=680)
             r4 = Radiobutton(self.canvas, text=q[1][3], padx=20, fg='black', bg='lightskyblue1',
                              font="bold", variable=var, value=q[1][3], command=get_ans)
-            r4.place(x=400, y=675)
+            r4.place(x=400, y=710)
             widget_holder.append(r1)
             widget_holder.append(r2)
             widget_holder.append(r3)
             widget_holder.append(r4)
 
         elif question.__class__.__name__ == "TrueFalseQuestion":
-            label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=400,
+            label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=375,
                            justify="center")
             widget_holder.append(label1)
 
@@ -479,12 +475,12 @@ class TriviaGUI(Canvas):
             r1.place(x=400, y=600)
             r2 = Radiobutton(self.canvas, text=q[1][1], padx=20, fg='black', bg='lightskyblue1',
                              font="bold", variable=var, value=q[1][1], command=get_ans)
-            r2.place(x=400, y=625)
+            r2.place(x=400, y=630)
             widget_holder.append(r1)
             widget_holder.append(r2)
 
         else:
-            label1 = Label(self.canvas, text=q, fg='black', bg='lightskyblue1', font="bold", wraplength=400,
+            label1 = Label(self.canvas, text=q, fg='black', bg='lightskyblue1', font="bold", wraplength=375,
                            justify="center")
             widget_holder.append(label1)
 
@@ -494,13 +490,11 @@ class TriviaGUI(Canvas):
                 for widget in widget_holder:
                     widget.destroy()
 
-            inputtxt = Text(self.canvas, height=2,
-                            width=25,
-                            bg="white")
-            inputtxt.place(x=400, y=600)
+            inputtxt = Text(self.canvas, height=1, width=25, bg="white")
+            inputtxt.place(x=400, y=655)
             widget_holder.append(inputtxt)
-            b = Button(self.canvas, height=2, width=20, text="Enter", command=lambda: take_input())
-            b.place(x=400, y=640)
+            b = Button(self.canvas, height=1, width=10, text="Enter", command=lambda: take_input())
+            b.place(x=400, y=680)
             widget_holder.append(b)
 
         self.canvas.create_window(550, 570, window=label1)
