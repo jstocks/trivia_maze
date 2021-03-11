@@ -1,13 +1,65 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk
-# from gameboard import GameBoard
-from view import View, INTRO
+from view import View
 from controller import Controller
 from gameboard import GameBoard
+import os
+from db_access import *
+import random
+from multiple_choice_question import MultipleChoiceQuestion
+from short_ans_question import ShortAnsQuestion
+from true_false_question import TrueFalseQuestion
 
 
-class TriviaGUI(Frame):
+class TriviaGUI(Canvas):
+
+    def __init__(self, dimension, master=None, gameboard=None, controller=None):
+        Canvas.__init__(self, master)
+        Pack.config(self)
+        self.master.title("Rocket Man Trivia Game")
+        self.master = master
+        self.board = gameboard
+        self.dimension = dimension
+        # self.controller = controller
+        self.database = r"python_sqlite.db"
+        self.moving_to = 0  # 1 up 2 down 3 left 4 right
+        self.canvas = Canvas(self, width=dimension, height=dimension, bg="lightskyblue1")
+        self.canvas.pack()
+        self.show_board()
+        self.show_cell()
+        self.menu_widgets()
+        self.move_widgets()
+        self.legend()
+        self.question()
+        # self.controller.init_game()
+        # self.menu_bar()
+
+    def new(self):
+        mbox = messagebox.askquestion('Start a new game?', icon='warning')
+        if mbox == 'yes':
+            program = sys.executable
+            os.execl(program, program, *sys.argv)
+        else:
+            return
+
+    def load(self):
+        pass
+
+    def save(self):
+        pass
+
+    def help(self):
+        intro = View.display_welcome_msg()
+        messagebox.showinfo(title='Directions', message=intro)
+
+    def quit(self):
+        mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
+        if mbox == 'yes':
+            # self.destroy()
+            self.destroy()
+        else:
+            return
 
     def menu_widgets(self):
         self.new = Button(self, text="NEW", height=1, width=5, bg="gold",
@@ -28,17 +80,19 @@ class TriviaGUI(Frame):
 
     def move_widgets(self):
         self.move_up = Button(self, text="MOVE UP", height=1, width=10, bg="gold",
-                              fg="black", relief="raised", command=self.move_up)
+                              fg="black", relief="raised", command=self.plan_to_move_up)
         self.move_up.place(x=585, y=140)
         self.move_down = Button(self, text="MOVE DOWN", height=1, width=10, bg="gold",
-                              fg="black", relief="raised", command=self.move_down)
+                              fg="black", relief="raised", command=self.plan_to_move_down)
         self.move_down.place(x=585, y=340)
         self.move_left = Button(self, text="MOVE\nLEFT", height=2, width=6, bg="gold",
-                              fg="black", relief="raised", command=self.move_left)
+                              fg="black", relief="raised", command=self.plan_to_move_left)
         self.move_left.place(x=490, y=230)
         self.move_right = Button(self, text="MOVE\nRIGHT", height=2, width=6, bg="gold",
-                              fg="black", relief="raised", command=self.move_right)
+                              fg="black", relief="raised", command=self.plan_to_move_right)
         self.move_right.place(x=710, y=230)
+
+
 
     def legend(self):
         label = Label(self.canvas, text='LEGEND', fg='black', bg='lightskyblue1', font="bold")
@@ -67,32 +121,11 @@ class TriviaGUI(Frame):
         self.canvas.create_window(160, 720, window=label4)
 
     def question(self):
+        # question box
         label = Label(self.canvas, text='QUESTION', fg='black', bg='lightskyblue1', font="bold")
-        self.canvas.create_window(400, 490, window=label)
+        self.canvas.create_window(550, 490, window=label)
 
         self.canvas.create_rectangle(360, 525, 750, 750, fill='lightskyblue1')
-
-        """
-        1) create a label text=reference to the question"
-        2) create answer radio buttons / text box / 
-        """
-
-    def __init__(self, dimension, master=None, gameboard=None):
-        Frame.__init__(self, master)
-        Pack.config(self)
-        self.master.title("Rocket Man Trivia Game")
-        self.master = master
-        self.board = gameboard
-        self.dimension = dimension
-        self.canvas = Canvas(self, width=dimension, height=dimension, bg="lightskyblue1")
-        self.canvas.pack()
-        self.show_board()
-        self.show_cell()
-        self.menu_widgets()
-        self.move_widgets()
-        self.legend()
-        self.question()
-        # self.menu_bar()
 
     def show_board(self):
         self.canvas.create_rectangle(70, 70, 430, 430, fill='')
@@ -185,10 +218,17 @@ class TriviaGUI(Frame):
         self.img6 = ImageTk.PhotoImage(file="player_token.png")
         self.canvas.create_image(100 + x * 100, 100 + y * 100, image=self.img6)
 
+        # draw Mars / exit
         x, y = self.board.exit_cell()
         self.image_exit = ImageTk.PhotoImage(file="finish.png")
         self.canvas.create_image(100 + x * 100, 100 + y * 100, image=self.image_exit)
 
+        # land the rocket on the exit
+        if self.board.current_cell() == self.board.exit_cell():
+            self.canvas.create_image(100 + x * 100, 100 + y * 100, image=self.image_exit)
+            self.canvas.create_image(100 + x * 100, 100 + y * 100, image=self.img6)
+
+        # set path icons
         self.paths_vertical = ImageTk.PhotoImage(file="path_vert.png")
         self.paths_horizontal = ImageTk.PhotoImage(file="path_horiz.png")
         self.paths_blocked = ImageTk.PhotoImage(file="blocked.png")
@@ -295,63 +335,141 @@ class TriviaGUI(Frame):
             else:
                 self.canvas.create_image((x2 + x3) / 2, (y3 + y4) / 2, image=self.paths_blocked)
 
-    def show_question(self):
-        pass
+    def plan_to_move_up(self):
+        self.moving_to = 1
+        self.show_question()
 
-    def new(self):
-        pass
+    def plan_to_move_down(self):
+        self.moving_to = 2
+        self.show_question()
 
-    def load(self):
-        pass
+    def plan_to_move_left(self):
+        self.moving_to = 3
+        self.show_question()
 
-    def save(self):
-        pass
+    def plan_to_move_right(self):
+        self.moving_to = 4
+        self.show_question()
 
-    def help(self):
-        intro = View.display_welcome_msg()
-        messagebox.showinfo(title='Directions', message=intro)
+    def pick_question(self, stat):
+        """
+        Randomly selects a new question from the database.
+        :return: Int
+        """
+        while True:
+            rand_q = random.randint(1, 2)
+            if stat[rand_q - 1] == 0:
+                return 1
 
-    def quit(self):
-        mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
-        if mbox == 'yes':
-            # self.destroy()
-            self.destroy()
+    def prompt_question(self, __game_board):
+        # initialize question stat for a new gameboard
+        if len(__game_board.question_stat) == 0:
+            __game_board.set_question_stat(65)
+        # in case all the questions in the database have been used.
+        if __game_board.question_stat.count(0) == 0:
+            __game_board.set_question_stat(65)
         else:
-            return
+            rand_question = self.pick_question(__game_board.question_stat)
+            q_a = get_q_a(self.database, rand_question)
+            if q_a[0][0] == 'MULTIPLE CHOICE':
+                question = MultipleChoiceQuestion(q_a[0][1], q_a[1], q_a[2])
+            elif q_a[0][0] == 'TRUE / FALSE':
+                question = TrueFalseQuestion(q_a[0][1], q_a[1])
+            elif q_a[0][0] == 'SHORT ANSWER':
+                question = ShortAnsQuestion(q_a[0][1], q_a[1])
+            __game_board.update_question_stat(rand_question - 1, 1)
+            # return question.verify_ans(ans)
+            return question
 
+    def show_question(self):
+        question = self.prompt_question(self.board)
+        # print(question.__class__.__name__)
+        q = question.get_question()
+        var = StringVar()
 
-    def move_up(self):
+        def get_ans():
+            ans = (str(var.get()))
+            self.verify_answer(question.verify_ans(ans))
+
+        label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=400,
+                       justify="center")
+        Radiobutton(self.canvas, text=q[1][0], padx=20, fg='black', bg='lightskyblue1',
+                    font="bold", variable=var, value=q[1][0], command=get_ans).place(x=400, y=600)
+        Radiobutton(self.canvas, text=q[1][1], padx=20, fg='black', bg='lightskyblue1',
+                    font="bold", variable=var, value=q[1][1], command=get_ans).place(x=400, y=625)
+        Radiobutton(self.canvas, text=q[1][2], padx=20, fg='black', bg='lightskyblue1',
+                    font="bold", variable=var, value=q[1][2], command=get_ans).place(x=400, y=650)
+        Radiobutton(self.canvas, text=q[1][3], padx=20, fg='black', bg='lightskyblue1',
+                    font="bold", variable=var, value=q[1][3], command=get_ans).place(x=400, y=675)
+        self.canvas.create_window(550, 570, window=label1)
+
+    def verify_answer(self, answer):
+
         x, y = self.board.current_cell()
-        # question logic
-        if y - 1 < 0:
-            return
-        self.board.move_to(x, y - 1)
+        # simulate the question system
+        if answer is True:
+            if self.moving_to == 1:  # up
+                self.now_move_up()
+            elif self.moving_to == 2:  # down
+                self.now_move_down()
+            elif self.moving_to == 3:  # left
+                self.now_move_left()
+            elif self.moving_to == 4:  # right
+                self.now_move_right()
+        else:
+            if self.moving_to == 1: # up
+                self.board.cell_at(x, y).remove_path(self.board.cell_at(x, y - 1), "N")
+            elif self.moving_to == 2:  # down
+                self.board.cell_at(x, y).remove_path(self.board.cell_at(x, y + 1), "S")
+            elif self.moving_to == 3:  # left
+                self.board.cell_at(x, y).remove_path(self.board.cell_at(x - 1, y), "W")
+            elif self.moving_to == 4:  # right
+                self.board.cell_at(x, y).remove_path(self.board.cell_at(x + 1, y), "E")
+            self.losing()
+
+        # update canvas whether the answer correct or not
         self.show_board()
         self.show_cell()
 
-    def move_down(self):
+    def now_move_up(self):
+        x, y = self.board.current_cell()
+        if y - 1 < 0:
+            return
+        self.board.move_to(x, y - 1)
+        self.winning()
+
+    def now_move_down(self):
         x, y = self.board.current_cell()
         if y + 1 >= self.board.get_ny():
             return
         self.board.move_to(x, y + 1)
-        self.show_board()
-        self.show_cell()
+        self.winning()
 
-    def move_left(self):
+    def now_move_left(self):
         x, y = self.board.current_cell()
         if x - 1 < 0:
             return
         self.board.move_to(x - 1, y)
-        self.show_board()
-        self.show_cell()
+        self.winning()
 
-    def move_right(self):
+    def now_move_right(self):
         x, y = self.board.current_cell()
         if x + 1 >= self.board.get_nx():
             return
         self.board.move_to(x + 1, y)
-        self.show_board()
-        self.show_cell()
+        self.winning()
+
+    # check for exit
+    def winning(self):
+        x, y = self.board.current_cell()
+        if self.board.cell_at(x, y).get_exit() is True:
+            messagebox.showinfo(title='You made it to Mars!', message="Congratulations,"
+                                                                      "you won the game!")
+
+    def losing(self):
+        x, y = self.board.current_cell()
+        if self.board.traverse(x, y) is False:
+            messagebox.showinfo(title='GAME OVER', message="Sorry, you lose!")
 
     # def menu_bar(self):
     #     menubar = Menu(self)
@@ -369,13 +487,21 @@ class TriviaGUI(Frame):
     #     self.config(file_menu, menu=menubar)
 
 
-if __name__ == '__main__':
-
+def start_main():
     # initiate the game board with blocked paths
     game = GameBoard()
     game.place_entrance_exit()
     game.update_border_paths()
-    # GUI
-    main = TriviaGUI(800, gameboard=game)
-    main.mainloop()
+
+    # initialize a new game
+    # ctrl = Controller()
+    root = TriviaGUI(800, gameboard=game)
+
+    root.mainloop()
+
+
+if __name__ == '__main__':
+    start_main()
+
+
 

@@ -6,11 +6,11 @@ from multiple_choice_question import MultipleChoiceQuestion
 from short_ans_question import ShortAnsQuestion
 from true_false_question import TrueFalseQuestion
 
+
 class Controller:
     def __init__(self):
         # self.__view = view
         self.__game_board = None
-        # self.init_game()
         self.database = r"python_sqlite.db"
         self.q_count = get_question_count(self.database)
 
@@ -184,33 +184,33 @@ class Controller:
         user would like to play again.
         """
         play = True
-        while play:
-            x, y = self.__game_board.current_cell()
-            current_cell = self.__game_board.cell_at(x, y)
-            # Display game board and current room
-            View.display_gameboard_map(self.__game_board)
-            View.display_current_location(current_cell)
-            # if current room is exit You won!! else continue
-            if current_cell.get_exit() is True:
-                View.display_game_won()
-                play = False
-            else:
-                statement, play = self.player_input(self.__game_board)
-                View.display_msg(statement)
-                # check if exit is reachable from current loc
-                if self.__game_board.traverse(x, y) is False:
-                    # game lost as theres no way out!!
-                    View.display_game_lost()
-                    play = False
+        # while play:
+        #     x, y = self.__game_board.current_cell()
+        #     current_cell = self.__game_board.cell_at(x, y)
+        #     # Display game board and current room
+        #     View.display_gameboard_map(self.__game_board)
+        #     View.display_current_location(current_cell)
+        #     # if current room is exit You won!! else continue
+        #     if current_cell.get_exit() is True:
+        #         View.display_game_won()
+        #         play = False
+        #     else:
+        #         statement, play = self.player_input(self.__game_board)
+        #         View.display_msg(statement)
+        #         # check if exit is reachable from current loc
+        #         if self.__game_board.traverse(x, y) is False:
+        #             # game lost as theres no way out!!
+        #             View.display_game_lost()
+        #             play = False
 
-        while True:
-            user_input = View.replay()
-            if user_input == 'y' or user_input == 'yes':
-                self.init_game()
-            else:
-                # print Thanks for playing.
-                View.display_closing_msg()
-                break
+        # while True:
+        #     user_input = View.replay()
+        #     if user_input == 'y' or user_input == 'yes':
+        #         self.init_game()
+        #     else:
+        #         # print Thanks for playing.
+        #         View.display_closing_msg()
+        #         break
 
 
 # new = Controller()
