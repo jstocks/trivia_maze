@@ -33,6 +33,8 @@ class TriviaGUI(Canvas):
         self.move_widgets()
         self.legend()
         self.question()
+        self.move_up["state"] = "normal"
+
 
     def new(self):
         mbox = messagebox.askquestion('Start a new game?', icon='warning')
@@ -116,14 +118,17 @@ class TriviaGUI(Canvas):
                                  fg="black", relief="raised", state=NORMAL, command=self.plan_to_move_right)
         self.move_right.place(x=710, y=230)
 
-    # def disable(self):
-    #     self.move_widgets["state"] = "DISABLED"
-    #
-    # def enable():
-    #     self.move_up["state"] = "NORMAL"
-    #     self.move_down["state"] = "NORMAL"
-    #     self.move_left["state"] = "NORMAL"
-    #     self.move_right["state"] = "NORMAL"
+    def disable(self):
+        self.move_up["state"] = "disabled"
+        self.move_down["state"] = "disabled"
+        self.move_left["state"] = "disabled"
+        self.move_right["state"] = "disabled"
+
+    def enable(self):
+        self.move_up["state"] = "normal"
+        self.move_down["state"] = "normal"
+        self.move_left["state"] = "normal"
+        self.move_right["state"] = "normal"
 
     def legend(self):
         label = Label(self.canvas, text='LEGEND', fg='black', bg='lightskyblue1', font="bold")
@@ -437,6 +442,7 @@ class TriviaGUI(Canvas):
             return question
 
     def show_question(self):
+        self.disable()
         question = self.prompt_question(self.board)
         q = question.get_question()
         var = StringVar()
@@ -539,6 +545,7 @@ class TriviaGUI(Canvas):
 
         self.show_board()
         self.show_cell()
+        self.enable()
 
     def now_move_up(self):
         x, y = self.board.current_cell()
