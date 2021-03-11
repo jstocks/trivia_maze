@@ -10,7 +10,8 @@ from multiple_choice_question import MultipleChoiceQuestion
 from short_ans_question import ShortAnsQuestion
 from true_false_question import TrueFalseQuestion
 import pickle
-
+import winsound
+from playsound import playsound
 
 class TriviaGUI(Canvas):
 
@@ -47,27 +48,35 @@ class TriviaGUI(Canvas):
         if not os.path.isfile("saved_game"):
             messagebox.showinfo(title='Error', message="You have no saved games.")
             return
-
-        game_file = open('saved_game', 'rb')
-        game = pickle.load(game_file)
-        game_file.close()
-        self.board = game
-        self.show_board()
-        self.show_cell()
-        messagebox.showinfo(title='Game Loaded', message="Welcome back, Captain.")
+        mbox = messagebox.askquestion('Load saved game?', icon='warning')
+        if mbox == 'yes':
+            game_file = open('saved_game', 'rb')
+            game = pickle.load(game_file)
+            game_file.close()
+            self.board = game
+            self.show_board()
+            self.show_cell()
+            messagebox.showinfo(title='Game Loaded', message="Welcome back, Captain.")
+        else:
+            return
 
     def save(self):
-        game = self.board
-        game_file = open('saved_game', 'wb')
-        pickle.dump(game, game_file)
-        game_file.close()
-        messagebox.showinfo(title='Game Saved', message="We'll be floating in space.... waiting.")
+        mbox = messagebox.askquestion('Save game?', icon='warning')
+        if mbox == 'yes':
+            game = self.board
+            game_file = open('saved_game', 'wb')
+            pickle.dump(game, game_file)
+            game_file.close()
+            messagebox.showinfo(title='Game Saved', message="We'll be floating in space.... waiting.")
+        else:
+            return
 
     def help(self):
         intro = View.display_welcome_msg()
         messagebox.showinfo(title='Directions', message=intro)
 
     def quit(self):
+        self.sound_quit()
         mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
         if mbox == 'yes':
             # self.destroy()
@@ -350,18 +359,22 @@ class TriviaGUI(Canvas):
                 self.canvas.create_image((x2 + x3) / 2, (y3 + y4) / 2, image=self.paths_blocked)
 
     def plan_to_move_up(self):
+        self.sound_click()
         self.moving_to = 1
         self.show_question()
 
     def plan_to_move_down(self):
+        self.sound_click()
         self.moving_to = 2
         self.show_question()
 
     def plan_to_move_left(self):
+        self.sound_click()
         self.moving_to = 3
         self.show_question()
 
     def plan_to_move_right(self):
+        self.sound_click()
         self.moving_to = 4
         self.show_question()
 
@@ -439,9 +452,11 @@ class TriviaGUI(Canvas):
                 self.board.cell_at(x, y).remove_path(self.board.cell_at(x - 1, y), "W")
             elif self.moving_to == 4:  # right
                 self.board.cell_at(x, y).remove_path(self.board.cell_at(x + 1, y), "E")
+
+            self.show_board()
+            self.show_cell()
             self.losing()
 
-        # update canvas whether the answer correct or not
         self.show_board()
         self.show_cell()
 
@@ -450,6 +465,7 @@ class TriviaGUI(Canvas):
         if y - 1 < 0:
             return
         self.board.move_to(x, y - 1)
+        self.show_board()
         self.winning()
 
     def now_move_down(self):
@@ -457,6 +473,7 @@ class TriviaGUI(Canvas):
         if y + 1 >= self.board.get_ny():
             return
         self.board.move_to(x, y + 1)
+        self.show_board()
         self.winning()
 
     def now_move_left(self):
@@ -464,6 +481,7 @@ class TriviaGUI(Canvas):
         if x - 1 < 0:
             return
         self.board.move_to(x - 1, y)
+        self.show_board()
         self.winning()
 
     def now_move_right(self):
@@ -471,19 +489,38 @@ class TriviaGUI(Canvas):
         if x + 1 >= self.board.get_nx():
             return
         self.board.move_to(x + 1, y)
+        self.show_board()
         self.winning()
 
     # check for exit
     def winning(self):
         x, y = self.board.current_cell()
         if self.board.cell_at(x, y).get_exit() is True:
+            self.sound_win()
             messagebox.showinfo(title='You made it to Mars!', message="Congratulations,"
                                                                       "you won the game!")
+
 
     def losing(self):
         x, y = self.board.current_cell()
         if self.board.traverse(x, y) is False:
+            self.sound_lose()
             messagebox.showinfo(title='GAME OVER', message="Sorry, you lose!")
+
+    def sound_click(self):
+        winsound.Beep(300, 200)
+
+    def menu_click(self):
+        winsound.Beep(100, 200)
+
+    def sound_quit(self):
+        playsound('houston.mp3')
+
+    def sound_win(self):
+        playsound('winning.mp3')
+
+    def sound_lose(self):
+        playsound('lose.mp3')
 
     # def menu_bar(self):
     #     menubar = Menu(self)
