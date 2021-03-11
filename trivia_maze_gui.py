@@ -528,20 +528,21 @@ class TriviaGUI(Canvas):
     def sound_hidden(self):
         playsound('space_odyssey.mp3', False)
 
-    # def menu_bar(self):
-    #     menubar = Menu(self)
-    #     file_menu = Menu(menubar, tearoff=0)
-    #     file_menu.add_command(label="New")
-    #     file_menu.add_command(label="Load")
-    #     file_menu.add_command(label="Save")
-    #     file_menu.add_command(label="Exit")
-    #     file_menu.add_cascade(label="File", menu=file_menu)
-    #
-    #     help_menu = Menu(self)
-    #     help_menu.add_command(label="Help")
-    #     help_menu.add_command(label="About")
-    #     help_menu.add_cascade(label="Help", menu=help_menu)
-    #     self.config(file_menu, menu=menubar)
+    def menu_bar(self):
+        # menubar = Menu(self)
+        # file_menu = Menu(menubar, tearoff=0)
+        # file_menu.add_command(label="New")
+        # file_menu.add_command(label="Load")
+        # file_menu.add_command(label="Save")
+        # file_menu.add_command(label="Exit")
+        # file_menu.add_cascade(label="File", menu=file_menu)
+        #
+        # help_menu = Menu(self)
+        # help_menu.add_command(label="Help")
+        # help_menu.add_command(label="About")
+        # help_menu.add_cascade(label="Help", menu=help_menu)
+        # self.config(file_menu, menu=menubar)
+        pass
 
 
 def start_main():
