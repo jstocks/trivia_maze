@@ -400,8 +400,9 @@ class TriviaGUI(Canvas):
         Randomly selects a new question from the database.
         :return: Int
         """
+        count = get_question_count(self.database)
         while True:
-            rand_q = random.randint(1, 62)
+            rand_q = random.randint(1, count)
             if stat[rand_q - 1] == 0:
                 return rand_q
 
@@ -433,7 +434,7 @@ class TriviaGUI(Canvas):
 
         if question.__class__.__name__ == "MultipleChoiceQuestion":
             label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1',
-                           font="bold", wraplength=375, justify="center", anchor="e")
+                           font="bold", wraplength=375, justify="left")
             widget_holder.append(label1)
 
             def get_ans():
