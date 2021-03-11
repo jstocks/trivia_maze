@@ -102,18 +102,28 @@ class TriviaGUI(Canvas):
         self.hidden.place(x=780, y=4)
 
     def move_widgets(self):
+
         self.move_up = Button(self, text="MOVE UP", height=1, width=10, bg="gold",
-                              fg="black", relief="raised", command=self.plan_to_move_up)
+                              fg="black", relief="raised", state=NORMAL, command=self.plan_to_move_up)
         self.move_up.place(x=585, y=140)
         self.move_down = Button(self, text="MOVE DOWN", height=1, width=10, bg="gold",
-                                fg="black", relief="raised", command=self.plan_to_move_down)
+                                fg="black", relief="raised", state=NORMAL,command=self.plan_to_move_down)
         self.move_down.place(x=585, y=340)
         self.move_left = Button(self, text="MOVE\nLEFT", height=2, width=6, bg="gold",
-                                fg="black", relief="raised", command=self.plan_to_move_left)
+                                fg="black", relief="raised", state=NORMAL,command=self.plan_to_move_left)
         self.move_left.place(x=490, y=230)
         self.move_right = Button(self, text="MOVE\nRIGHT", height=2, width=6, bg="gold",
-                                 fg="black", relief="raised", command=self.plan_to_move_right)
+                                 fg="black", relief="raised", state=NORMAL, command=self.plan_to_move_right)
         self.move_right.place(x=710, y=230)
+
+    # def disable(self):
+    #     self.move_widgets["state"] = "DISABLED"
+    #
+    # def enable():
+    #     self.move_up["state"] = "NORMAL"
+    #     self.move_down["state"] = "NORMAL"
+    #     self.move_left["state"] = "NORMAL"
+    #     self.move_right["state"] = "NORMAL"
 
     def legend(self):
         label = Label(self.canvas, text='LEGEND', fg='black', bg='lightskyblue1', font="bold")
