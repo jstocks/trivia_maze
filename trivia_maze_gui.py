@@ -13,6 +13,7 @@ import pickle
 import winsound
 from playsound import playsound
 
+
 class TriviaGUI(Canvas):
 
     def __init__(self, dimension, master=None, gameboard=None, controller=None):
@@ -101,7 +102,7 @@ class TriviaGUI(Canvas):
                            fg="black", relief="raised", command=self.quit)
         self.exit.place(x=184, y=4)
         self.hidden = Button(self, text=" ", height=1, width=2, bg="lightskyblue1",
-                           fg="lightskyblue1", relief="flat", command=self.sound_hidden)
+                             fg="lightskyblue1", relief="flat", command=self.sound_hidden)
         self.hidden.place(x=780, y=4)
 
     def move_widgets(self):
@@ -109,16 +110,14 @@ class TriviaGUI(Canvas):
                               fg="black", relief="raised", command=self.plan_to_move_up)
         self.move_up.place(x=585, y=140)
         self.move_down = Button(self, text="MOVE DOWN", height=1, width=10, bg="gold",
-                              fg="black", relief="raised", command=self.plan_to_move_down)
+                                fg="black", relief="raised", command=self.plan_to_move_down)
         self.move_down.place(x=585, y=340)
         self.move_left = Button(self, text="MOVE\nLEFT", height=2, width=6, bg="gold",
-                              fg="black", relief="raised", command=self.plan_to_move_left)
+                                fg="black", relief="raised", command=self.plan_to_move_left)
         self.move_left.place(x=490, y=230)
         self.move_right = Button(self, text="MOVE\nRIGHT", height=2, width=6, bg="gold",
-                              fg="black", relief="raised", command=self.plan_to_move_right)
+                                 fg="black", relief="raised", command=self.plan_to_move_right)
         self.move_right.place(x=710, y=230)
-
-
 
     def legend(self):
         label = Label(self.canvas, text='LEGEND', fg='black', bg='lightskyblue1', font="bold")
@@ -218,7 +217,7 @@ class TriviaGUI(Canvas):
         cell_10 = self.canvas.create_rectangle(x3, y5, x4, y6, fill='ivory2', outline="")
         path_10_11 = self.canvas.create_rectangle(x4, y5, x5, y6, fill='lightskyblue1', outline="")
         cell_11 = self.canvas.create_rectangle(x5, y5, x6, y6, fill='ivory2', outline="")
-        path_11_12= self.canvas.create_rectangle(x6, y5, x7, y6, fill='lightskyblue1', outline="")
+        path_11_12 = self.canvas.create_rectangle(x6, y5, x7, y6, fill='lightskyblue1', outline="")
         cell_12 = self.canvas.create_rectangle(x7, y5, x8, y6, fill='ivory2', outline="")
 
         # # Row 6
@@ -260,7 +259,7 @@ class TriviaGUI(Canvas):
         self.paths_blocked = ImageTk.PhotoImage(file="blocked.png")
         for a in range(0, self.board.get_nx(), 2):
             for b in range(0, self.board.get_ny(), 2):
-                if a-1 >= 0:
+                if a - 1 >= 0:
                     if self.board.cell_at(a, b).has_west_path():
                         self.canvas.create_image(50 + a * 100, 100 + b * 100, image=self.paths_horizontal)
                     else:
@@ -308,7 +307,6 @@ class TriviaGUI(Canvas):
         label = Label(self.canvas, text='CURRENT LOCATION', fg='black', bg='lightskyblue1', font="bold")
         self.canvas.create_window(625, 100, window=label)
 
-
         origin_x = 550
         origin_y = 175
         size = 50
@@ -332,7 +330,7 @@ class TriviaGUI(Canvas):
             else:
                 self.canvas.create_image((x2 + x3) / 2, (y1 + y2) / 2, image=self.paths_blocked)
 
-        #self.canvas.create_image((x2 + x3) / 2, (y1 + y2) / 2, image=self.paths_blocked2)
+        # self.canvas.create_image((x2 + x3) / 2, (y1 + y2) / 2, image=self.paths_blocked2)
 
         # Row 2
         w = self.canvas.create_rectangle(x1, y2, x2, y3, fill='lightskyblue1', outline="")
@@ -344,7 +342,7 @@ class TriviaGUI(Canvas):
 
         center = self.canvas.create_rectangle(x2, y2, x3, y3, fill='ivory2', outline="")
         self.img_token = ImageTk.PhotoImage(file="player_token.png")
-        self.canvas.create_image((x2+x3)/2, (y2+y3)/2, image=self.img_token)
+        self.canvas.create_image((x2 + x3) / 2, (y2 + y3) / 2, image=self.img_token)
 
         e = self.canvas.create_rectangle(x3, y2, x4, y3, fill='lightskyblue1', outline="")
         if a + 1 <= self.board.get_nx() - 1:
@@ -441,6 +439,7 @@ class TriviaGUI(Canvas):
             label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=400,
                            justify="center")
             widget_holder.append(label1)
+
             def get_ans():
                 ans = (str(var.get()))
                 self.verify_answer(question.verify_ans(ans))
@@ -464,7 +463,6 @@ class TriviaGUI(Canvas):
             widget_holder.append(r3)
             widget_holder.append(r4)
 
-
         elif question.__class__.__name__ == "TrueFalseQuestion":
             label1 = Label(self.canvas, text=q[0], fg='black', bg='lightskyblue1', font="bold", wraplength=400,
                            justify="center")
@@ -477,14 +475,13 @@ class TriviaGUI(Canvas):
                     widget.destroy()
 
             r1 = Radiobutton(self.canvas, text=q[1][0], padx=20, fg='black', bg='lightskyblue1',
-                        font="bold", variable=var, value=q[1][0], command=get_ans)
+                             font="bold", variable=var, value=q[1][0], command=get_ans)
             r1.place(x=400, y=600)
             r2 = Radiobutton(self.canvas, text=q[1][1], padx=20, fg='black', bg='lightskyblue1',
-                        font="bold", variable=var, value=q[1][1], command=get_ans)
+                             font="bold", variable=var, value=q[1][1], command=get_ans)
             r2.place(x=400, y=625)
             widget_holder.append(r1)
             widget_holder.append(r2)
-
 
         else:
             label1 = Label(self.canvas, text=q, fg='black', bg='lightskyblue1', font="bold", wraplength=400,
@@ -577,7 +574,6 @@ class TriviaGUI(Canvas):
             self.sound_win()
             messagebox.showinfo(title='You made it to Mars!', message="Congratulations,"
                                                                       "you won the game!")
-
 
     def losing(self):
         x, y = self.board.current_cell()
