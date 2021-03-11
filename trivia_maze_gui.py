@@ -33,7 +33,6 @@ class TriviaGUI(Canvas):
         self.move_widgets()
         self.legend()
         self.question()
-        self.move_up["state"] = "normal"
 
 
     def new(self):
@@ -251,6 +250,7 @@ class TriviaGUI(Canvas):
 
         # draw the current position of the player
         x, y = self.board.current_cell()
+
         self.img6 = ImageTk.PhotoImage(file="player_token.png")
         self.canvas.create_image(100 + x * 100, 100 + y * 100, image=self.img6)
 
@@ -584,8 +584,14 @@ class TriviaGUI(Canvas):
         x, y = self.board.current_cell()
         if self.board.cell_at(x, y).get_exit() is True:
             self.sound_win()
-            messagebox.showinfo(title='You made it to Mars!', message="Congratulations,"
-                                                                      "you won the game!")
+            mbox1 = messagebox.askquestion(title='You made it to Mars!',
+                                        message="Congratulations, you won the game!\n\n"
+                                        "Play again?")
+            if mbox1 == 'yes':
+                program = sys.executable
+                os.execl(program, program, *sys.argv)
+            else:
+                return
 
     def losing(self):
         x, y = self.board.current_cell()
