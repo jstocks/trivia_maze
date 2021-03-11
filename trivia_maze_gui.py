@@ -44,6 +44,10 @@ class TriviaGUI(Canvas):
             return
 
     def load(self):
+        if not os.path.isfile("saved_game"):
+            messagebox.showinfo(title='Error', message="You have no saved games.")
+            return
+
         game_file = open('saved_game', 'rb')
         game = pickle.load(game_file)
         game_file.close()
