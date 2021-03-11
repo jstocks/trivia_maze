@@ -100,6 +100,9 @@ class TriviaGUI(Canvas):
         self.exit = Button(self, text="EXIT", height=1, width=5, bg="gold",
                            fg="black", relief="raised", command=self.quit)
         self.exit.place(x=184, y=4)
+        self.hidden = Button(self, text=" ", height=1, width=2, bg="lightskyblue1",
+                           fg="lightskyblue1", relief="flat", command=self.sound_hidden)
+        self.hidden.place(x=780, y=4)
 
     def move_widgets(self):
         self.move_up = Button(self, text="MOVE UP", height=1, width=10, bg="gold",
@@ -521,6 +524,9 @@ class TriviaGUI(Canvas):
 
     def sound_lose(self):
         playsound('lose.mp3')
+
+    def sound_hidden(self):
+        playsound('space_odyssey.mp3', False)
 
     # def menu_bar(self):
     #     menubar = Menu(self)
