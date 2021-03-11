@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk
 from view import View
-from controller import Controller
 from gameboard import GameBoard
 import os
 from db_access import *
@@ -10,6 +9,7 @@ import random
 from multiple_choice_question import MultipleChoiceQuestion
 from short_ans_question import ShortAnsQuestion
 from true_false_question import TrueFalseQuestion
+import pickle
 
 
 class TriviaGUI(Canvas):
@@ -44,10 +44,20 @@ class TriviaGUI(Canvas):
             return
 
     def load(self):
-        pass
+        game_file = open('saved_game', 'rb')
+        game = pickle.load(game_file)
+        game_file.close()
+        self.board = game
+        self.show_board()
+        self.show_cell()
+        messagebox.showinfo(title='Game Loaded', message="Welcome back, Captain.")
 
     def save(self):
-        pass
+        game = self.board
+        game_file = open('saved_game', 'wb')
+        pickle.dump(game, game_file)
+        game_file.close()
+        messagebox.showinfo(title='Game Saved', message="We'll be floating in space.... waiting.")
 
     def help(self):
         intro = View.display_welcome_msg()
@@ -502,6 +512,3 @@ def start_main():
 
 if __name__ == '__main__':
     start_main()
-
-
-
