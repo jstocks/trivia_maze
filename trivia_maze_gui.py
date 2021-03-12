@@ -21,7 +21,7 @@ class TriviaGUI(Canvas):
     def __init__(self, dimension, master=None, gameboard=None):
         Canvas.__init__(self, master)
         Pack.config(self)
-        self.master.title("Rocket Man Trivia Game")
+        self.master.title("Get to Mars!")
         self.pack()
         self.board = gameboard
         self.dimension = dimension
