@@ -15,12 +15,13 @@ from playsound import playsound
 
 
 class TriviaGUI(Canvas):
-
+    """
+    Initializes the Canvas - widgets and visible items
+    """
     def __init__(self, dimension, master=None, gameboard=None):
         Canvas.__init__(self, master)
         Pack.config(self)
         self.master.title("Rocket Man Trivia Game")
-        # self.master = master
         self.pack()
         self.board = gameboard
         self.dimension = dimension
@@ -37,6 +38,9 @@ class TriviaGUI(Canvas):
         self.init_menu()
 
     def init_menu(self):
+        """
+        Displays the Text Menu at top of screen.
+        """
         menu = Menu(self.master)
         self.master.config(menu=menu)
 
@@ -53,6 +57,7 @@ class TriviaGUI(Canvas):
         menu.add_cascade(label="Help", menu=help_menu)
 
     def new(self):
+        """ Method to start a new game"""
         mbox = messagebox.askquestion('Start a new game?', icon='warning')
         if mbox == 'yes':
             program = sys.executable
@@ -61,6 +66,9 @@ class TriviaGUI(Canvas):
             return
 
     def load(self):
+        """
+        Method to load the previously saved game
+        """
         if not os.path.isfile("saved_game"):
             messagebox.showinfo(title='Error', message="You have no saved games.")
             return
@@ -77,6 +85,9 @@ class TriviaGUI(Canvas):
             return
 
     def save(self):
+        """
+        Method to save the current game.
+        """
         mbox = messagebox.askquestion('Save game?', icon='warning')
         if mbox == 'yes':
             game = self.board
@@ -88,10 +99,16 @@ class TriviaGUI(Canvas):
             return
 
     def help(self):
+        """
+        Displays the instructions for the game.
+        """
         intro = View.display_welcome_msg()
         messagebox.showinfo(title='Directions', message=intro)
 
     def about(self):
+        """
+        Displays information about the game creators and course.
+        """
         messagebox.showinfo(title='Directions', message="Rocket Man Trivia Game\n\n"
                                                         "Created by Sriba Rajendran & "
                                                         "Jeff Stockman\n\n"
@@ -101,6 +118,9 @@ class TriviaGUI(Canvas):
                                                         "Core requirement for TCSS504 - March 2021 ")
 
     def quit(self):
+        """
+        Method to quit the game.
+        """
         self.sound_quit()
         mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
         if mbox == 'yes':
@@ -109,6 +129,9 @@ class TriviaGUI(Canvas):
             return
 
     def menu_widgets(self):
+        """
+        Displays the top menu buttons
+        """
         self.bnew = Button(self, text="NEW", height=1, width=5, bg="gold",
                           fg="black", relief="raised", command=self.new)
         self.bnew.place(x=4, y=4)
@@ -129,6 +152,9 @@ class TriviaGUI(Canvas):
         self.bhidden.place(x=780, y=4)
 
     def move_widgets(self):
+        """
+        Displays the move buttons.
+        """
 
         self.move_up = Button(self, text="MOVE UP", height=1, width=10, bg="gold",
                               fg="black", relief="raised", state=NORMAL, command=self.plan_to_move_up)
@@ -144,18 +170,27 @@ class TriviaGUI(Canvas):
         self.move_right.place(x=710, y=230)
 
     def disable(self):
+        """
+        Helper method to disable the move buttons between turns.
+        """
         self.move_up["state"] = "disabled"
         self.move_down["state"] = "disabled"
         self.move_left["state"] = "disabled"
         self.move_right["state"] = "disabled"
 
     def enable(self):
+        """
+        Helper method to enable the move buttons after turns.
+        """
         self.move_up["state"] = "normal"
         self.move_down["state"] = "normal"
         self.move_left["state"] = "normal"
         self.move_right["state"] = "normal"
 
     def legend(self):
+        """
+        Displays the legend widgets.
+        """
         label = Label(self.canvas, text='LEGEND', fg='black', bg='lightskyblue1', font="bold")
         self.canvas.create_window(168, 490, window=label)
         # player token
@@ -182,6 +217,9 @@ class TriviaGUI(Canvas):
         self.canvas.create_window(160, 720, window=label4)
 
     def question(self):
+        """
+        Displays the Question Widget.
+        """
         # question box
         label = Label(self.canvas, text='QUESTION', fg='black', bg='lightskyblue1', font="bold")
         self.canvas.create_window(550, 490, window=label)
@@ -189,6 +227,9 @@ class TriviaGUI(Canvas):
         self.canvas.create_rectangle(360, 525, 750, 750, fill='lightskyblue1')
 
     def show_board(self):
+        """
+        Displays the game board, player token, and available paths / blocked paths.
+        """
         self.canvas.create_rectangle(70, 70, 430, 430, fill='')
 
         origin_x = 75
@@ -341,6 +382,9 @@ class TriviaGUI(Canvas):
                         self.canvas.create_image(100 + a * 100, 50 + b * 100, image=self.paths_blocked)
 
     def show_cell(self):
+        """
+        Displays the current cell and available options.
+        """
         label = Label(self.canvas, text='CURRENT LOCATION', fg='black', bg='lightskyblue1', font="bold")
         self.canvas.create_window(625, 100, window=label)
 
@@ -397,6 +441,9 @@ class TriviaGUI(Canvas):
                 self.canvas.create_image((x2 + x3) / 2, (y3 + y4) / 2, image=self.paths_blocked)
 
     def plan_to_move_up(self):
+        """
+        Helper move function that stores movement until after question is answered.
+        """
         self.sound_click()
         self.moving_to = 1
         x, y = self.board.current_cell()
@@ -407,6 +454,9 @@ class TriviaGUI(Canvas):
             self.question()
 
     def plan_to_move_down(self):
+        """
+        Helper move function that stores movement until after question is answered.
+        """
         self.sound_click()
         self.moving_to = 2
         x, y = self.board.current_cell()
@@ -417,6 +467,9 @@ class TriviaGUI(Canvas):
             self.question()
 
     def plan_to_move_left(self):
+        """
+        Helper move function that stores movement until after question is answered.
+        """
         self.sound_click()
         self.moving_to = 3
         x, y = self.board.current_cell()
@@ -427,6 +480,9 @@ class TriviaGUI(Canvas):
             self.question()
 
     def plan_to_move_right(self):
+        """
+        Helper move function that stores movement until after question is answered.
+        """
         self.sound_click()
         self.moving_to = 4
         x, y = self.board.current_cell()
@@ -543,7 +599,9 @@ class TriviaGUI(Canvas):
         self.canvas.create_window(550, 570, window=label1)
 
     def verify_answer(self, answer):
-
+        """
+        Determines if player moves or path is blocked, based on answer.
+        """
         x, y = self.board.current_cell()
         # simulate the question system
         if answer is True:
@@ -574,6 +632,10 @@ class TriviaGUI(Canvas):
         self.enable()
 
     def now_move_up(self):
+        """
+        Method to move player to correct position if question answered correctly.
+        Determines if player has won the game.
+        """
         x, y = self.board.current_cell()
         if y - 1 < 0:
             return
@@ -582,6 +644,10 @@ class TriviaGUI(Canvas):
         self.winning()
 
     def now_move_down(self):
+        """
+        Method to move player to correct position if question answered correctly.
+        Determines if player has won the game.
+        """
         x, y = self.board.current_cell()
         if y + 1 >= self.board.get_ny():
             return
@@ -590,6 +656,10 @@ class TriviaGUI(Canvas):
         self.winning()
 
     def now_move_left(self):
+        """
+        Method to move player to correct position if question answered correctly.
+        Determines if player has won the game.
+        """
         x, y = self.board.current_cell()
         if x - 1 < 0:
             return
@@ -598,6 +668,10 @@ class TriviaGUI(Canvas):
         self.winning()
 
     def now_move_right(self):
+        """
+        Method to move player to correct position if question answered correctly.
+        Determines if player has won the game.
+        """
         x, y = self.board.current_cell()
         if x + 1 >= self.board.get_nx():
             return
@@ -605,8 +679,10 @@ class TriviaGUI(Canvas):
         self.show_board()
         self.winning()
 
-    # check for exit
     def winning(self):
+        """
+        Determines if player reaches the exit.
+        """
         x, y = self.board.current_cell()
         if self.board.cell_at(x, y).get_exit() is True:
             self.sound_win()
@@ -620,32 +696,54 @@ class TriviaGUI(Canvas):
                 return
 
     def losing(self):
+        """Checks to see if all paths are blocked / can't traverse board.
+        """
         x, y = self.board.current_cell()
         if self.board.traverse(x, y) is False:
             self.sound_lose()
             messagebox.showinfo(title='GAME OVER', message="Sorry, you lose!")
 
     def sound_click(self):
+        """
+        Sound.
+        """
         winsound.Beep(300, 200)
 
     def menu_click(self):
+        """
+        Sound.
+        """
         winsound.Beep(100, 200)
 
     def sound_quit(self):
+        """
+        Quit Sound.
+        """
         playsound('houston.mp3')
 
     def sound_win(self):
+        """
+        Win Sound.
+        """
         playsound('winning.mp3')
 
     def sound_lose(self):
+        """
+        Lose Sound.
+        """
         playsound('lose.mp3')
 
     def sound_hidden(self):
+        """
+        Easter Egg - Thanks for all your help, Major Tom!!!
+        """
         playsound('space_odyssey.mp3', False)
 
 
 def start_main():
-    # initiate the game board
+    """
+    Initializes a new game board and the GUI.
+    """
     game = GameBoard()
     game.place_entrance_exit()
     game.update_border_paths()
