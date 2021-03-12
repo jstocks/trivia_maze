@@ -102,7 +102,7 @@ TRUE / FALSE, The center of a comet is called the nucleus, True, False
 
 TRUE / FALSE, A pulsar is a type of star that sends out electromagnetic energy, True, False
 
-TRUE / FALSE, Is it true or false that most of the space debris around our planet is not originally from space?, True, False
+TRUE / FALSE, Is it true or false that most of the space debris around our planet is not originally from space?, True
 
 TRUE / FALSE, Sir Issac Newton was the first to suggest the idea of an artificial satellite?, True, False
 

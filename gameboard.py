@@ -76,56 +76,6 @@ class GameBoard:
         # set the current room to the right coordinate
         self.__current_cell = x, y
 
-    # def find_neighbors(self, cell):
-    #     """Return a list of unvisited neighbors to cell.
-    #     Helper function for make_dungeon"""
-    #     # options to go to find neighbors
-    #     delta = [('W', (-1, 0)),
-    #              ('E', (1, 0)),
-    #              ('S', (0, 1)),
-    #              ('N', (0, -1))]
-    #     neighbors = []
-    #     for direction, (dx, dy) in delta:
-    #         x2, y2 = room.x + dx, room.y + dy
-    #         if (0 <= x2 < self.__nx) and (0 <= y2 < self.__ny):
-    #             neighbour = self.room_at(x2, y2)
-    #             if neighbour.has_all_walls():
-    #                 neighbors.append((direction, neighbour))
-    #     return neighbors
-
-    # def make_game_board(self):
-    #     """creating game board will all open paths"""
-    #     # Total number of cells
-    #     n = self.__nx * self.__ny
-    #     room_stack = []
-    #     current_room = self.room_at(self.__ix, self.__iy)
-    #     # Total number of visited rooms during maze construction
-    #     nv = 1
-    #
-    #     # iterate over all rooms of dungeon
-    #     while nv < n:
-    #         neighbors = self.find_neighbors(current_room)
-    #
-    #         if not neighbors:
-    #             # We've reached a dead end: backtrack.
-    #             current_room = room_stack.pop()
-    #             continue
-    #
-    #         # Choose a random neighboring room and move to it
-    #         direction, next_room = random.choice(neighbors)
-    #         current_room.remove_path(next_room, direction)
-    #         room_stack.append(current_room)
-    #         current_room = next_room
-    #         nv += 1
-
-    # def place_entrance(self):
-    #     """places entrance on game board; currently at the 0,0 index of dungeon"""
-    #     x = random.randint(0, (self.__nx - 1))
-    #     y = random.randint(0, (self.__ny - 1))
-    #     self.__current_room = x, y  # places adventurer in dungeon at start of game
-    #     self.__entrance_room = x, y
-    #     self.__maze[x][y].set_entrance(True)
-
     def place_entrance_exit(self):
         """set exit in game board"""
         x = 0
@@ -267,31 +217,3 @@ class GameBoard:
                             current_cell.remove_path(next_cell, direction)
                     except IndexError:
                         pass
-
-
-# Test for update_border_paths
-# game_board = GameBoard()
-# game_board.place_entrance_exit()
-# game_board.update_border_paths()
-# print("0,0")
-# print(game_board.cell_at(0, 0))
-# print("0,1")
-# print(game_board.cell_at(0, 1))
-# print("0,2")
-# print(game_board.cell_at(0, 2))
-# print("0,3")
-# print(game_board.cell_at(0, 3))
-# print("1,0")
-# print(game_board.cell_at(1, 0))
-# print("2,0")
-# print(game_board.cell_at(2, 0))
-# print("3,0")
-# print(game_board.cell_at(3, 0))
-# print("3,0")
-# print(game_board.cell_at(3, 0))
-# print("3,1")
-# print(game_board.cell_at(3, 1))
-# print("3,2")
-# print(game_board.cell_at(3, 2))
-# print("3,3")
-# print(game_board.cell_at(3, 3))

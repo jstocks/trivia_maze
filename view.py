@@ -4,7 +4,7 @@ INTRO = "Find your way to Mars by answering questions along the game board. \n\n
         "Correct answers allow you to continue along your journey.  Wrong answers "\
         "require you to seek an alternate orbit.  If you find yourself without a "\
         "path to Mars, you will run out of oxygen and meet your ultimate demise...\n\n"\
-        "So, are you as smart as a Rocket Scientist.... let's find out!"
+        "So, are you as smart as a Rocket Scientist...? Let's find out!"
 
 
 class View:
