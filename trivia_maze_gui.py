@@ -20,7 +20,8 @@ class TriviaGUI(Canvas):
         Canvas.__init__(self, master)
         Pack.config(self)
         self.master.title("Rocket Man Trivia Game")
-        self.master = master
+        # self.master = master
+        self.pack(fill=BOTH, expand=1)
         self.board = gameboard
         self.dimension = dimension
         self.database = r"python_sqlite.db"
@@ -33,7 +34,23 @@ class TriviaGUI(Canvas):
         self.move_widgets()
         self.legend()
         self.question()
+        self.init_menu()
 
+    def init_menu(self):
+        menu = Menu(self.master)
+        self.master.config(menu=menu)
+
+        file_menu = Menu(menu)
+        file_menu.add_command(label="New", command=self.new)
+        file_menu.add_command(label="Load", command=self.load)
+        file_menu.add_command(label="Save", command=self.save)
+        file_menu.add_command(label="Exit", command=self.quit)
+        menu.add_cascade(label="File", menu=file_menu)
+
+        help_menu = Menu(menu)
+        help_menu.add_command(label="Help", command=self.help)
+        help_menu.add_command(label="About", command=self.about)
+        menu.add_cascade(label="Help", menu=help_menu)
 
     def new(self):
         mbox = messagebox.askquestion('Start a new game?', icon='warning')
@@ -74,6 +91,15 @@ class TriviaGUI(Canvas):
         intro = View.display_welcome_msg()
         messagebox.showinfo(title='Directions', message=intro)
 
+    def about(self):
+        messagebox.showinfo(title='Directions', message="Rocket Man Trivia Game\n\n"
+                                                        "Created by Sriba Rajendran & "
+                                                        "Jeff Stockman\n\n"
+                                                        "University of Washington Graduate "
+                                                        "Certificate Program for Software "
+                                                        "Development Engineering\n\n"
+                                                        "Core requirement for TCSS504 - March 2021 ")
+
     def quit(self):
         self.sound_quit()
         mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
@@ -83,24 +109,24 @@ class TriviaGUI(Canvas):
             return
 
     def menu_widgets(self):
-        self.new = Button(self, text="NEW", height=1, width=5, bg="gold",
+        self.bnew = Button(self, text="NEW", height=1, width=5, bg="gold",
                           fg="black", relief="raised", command=self.new)
-        self.new.place(x=4, y=4)
-        self.load = Button(self, text="LOAD", height=1, width=5, bg="gold",
+        self.bnew.place(x=4, y=4)
+        self.bload = Button(self, text="LOAD", height=1, width=5, bg="gold",
                            fg="black", relief="raised", command=self.load)
-        self.load.place(x=49, y=4)
-        self.save = Button(self, text="SAVE", height=1, width=5, bg="gold",
+        self.bload.place(x=49, y=4)
+        self.bsave = Button(self, text="SAVE", height=1, width=5, bg="gold",
                            fg="black", relief="raised", command=self.save)
-        self.save.place(x=94, y=4)
-        self.help = Button(self, text="HELP", height=1, width=5, bg="gold",
+        self.bsave.place(x=94, y=4)
+        self.bhelp = Button(self, text="HELP", height=1, width=5, bg="gold",
                            fg="black", relief="raised", command=self.help)
-        self.help.place(x=139, y=4)
-        self.exit = Button(self, text="EXIT", height=1, width=5, bg="gold",
+        self.bhelp.place(x=139, y=4)
+        self.bexit = Button(self, text="EXIT", height=1, width=5, bg="gold",
                            fg="black", relief="raised", command=self.quit)
-        self.exit.place(x=184, y=4)
-        self.hidden = Button(self, text=" ", height=1, width=2, bg="lightskyblue1",
+        self.bexit.place(x=184, y=4)
+        self.bhidden = Button(self, text=" ", height=1, width=2, bg="lightskyblue1",
                              fg="lightskyblue1", relief="flat", command=self.sound_hidden)
-        self.hidden.place(x=780, y=4)
+        self.bhidden.place(x=780, y=4)
 
     def move_widgets(self):
 
@@ -617,25 +643,9 @@ class TriviaGUI(Canvas):
     def sound_hidden(self):
         playsound('space_odyssey.mp3', False)
 
-    def menu_bar(self):
-        # menubar = Menu(self)
-        # file_menu = Menu(menubar, tearoff=0)
-        # file_menu.add_command(label="New")
-        # file_menu.add_command(label="Load")
-        # file_menu.add_command(label="Save")
-        # file_menu.add_command(label="Exit")
-        # file_menu.add_cascade(label="File", menu=file_menu)
-        #
-        # help_menu = Menu(self)
-        # help_menu.add_command(label="Help")
-        # help_menu.add_command(label="About")
-        # help_menu.add_cascade(label="Help", menu=help_menu)
-        # self.config(file_menu, menu=menubar)
-        pass
-
 
 def start_main():
-    # initiate the game board with blocked paths
+    # initiate the game board
     game = GameBoard()
     game.place_entrance_exit()
     game.update_border_paths()
