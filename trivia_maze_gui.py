@@ -21,7 +21,7 @@ class TriviaGUI(Canvas):
         Pack.config(self)
         self.master.title("Rocket Man Trivia Game")
         # self.master = master
-        self.pack(fill=BOTH, expand=1)
+        self.pack()
         self.board = gameboard
         self.dimension = dimension
         self.database = r"python_sqlite.db"
