@@ -44,14 +44,14 @@ class TriviaGUI(Canvas):
         menu = Menu(self.master)
         self.master.config(menu=menu)
 
-        file_menu = Menu(menu)
+        file_menu = Menu(menu, tearoff=False)
         file_menu.add_command(label="New", command=self.new)
         file_menu.add_command(label="Load", command=self.load)
         file_menu.add_command(label="Save", command=self.save)
         file_menu.add_command(label="Exit", command=self.quit)
         menu.add_cascade(label="File", menu=file_menu)
 
-        help_menu = Menu(menu)
+        help_menu = Menu(menu, tearoff=False)
         help_menu.add_command(label="Help", command=self.help)
         help_menu.add_command(label="About", command=self.about)
         menu.add_cascade(label="Help", menu=help_menu)
