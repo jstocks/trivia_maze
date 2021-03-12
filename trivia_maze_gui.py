@@ -104,7 +104,7 @@ class TriviaGUI(Canvas):
         self.sound_quit()
         mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
         if mbox == 'yes':
-            self.destroy()
+            self.master.destroy()
         else:
             return
 
