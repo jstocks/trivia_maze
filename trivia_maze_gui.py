@@ -594,6 +594,10 @@ class TriviaGUI(Canvas):
             widget_holder.append(inputtxt)
             b = Button(self.canvas, height=1, width=10, text="Enter", command=lambda: take_input())
             b.place(x=400, y=680)
+
+            # binds Enter key for short answer question
+            self.master.bind('<Return>', lambda event=None: b.invoke())
+
             widget_holder.append(b)
 
         self.canvas.create_window(550, 570, window=label1)
