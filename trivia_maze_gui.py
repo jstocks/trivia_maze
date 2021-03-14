@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk
-from view import View
 from gameboard import GameBoard
 import os
 from db_access import *
@@ -106,7 +105,11 @@ class TriviaGUI(Canvas):
         """
         Displays the instructions for the game.
         """
-        intro = View.display_welcome_msg()
+        intro = "Find your way to Mars by answering questions along the game board. \n\n Correct answers allow you to " \
+                "continue along your journey. Wrong answers require you to seek an alternate orbit.  If you find " \
+                "yourself without a path to Mars, you will run out of oxygen and meet your ultimate demise...\n\n So, " \
+                "are you as smart as a Rocket Scientist...? Let's find out! "
+
         messagebox.showinfo(title='Directions', message=intro)
 
     def about(self):

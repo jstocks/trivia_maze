@@ -1,11 +1,12 @@
 from gameboard import GameBoard
-from view import View
+from view import View, INTRO
 from db_access import *
 import random
 from multiple_choice_question import MultipleChoiceQuestion
 from short_ans_question import ShortAnsQuestion
 from true_false_question import TrueFalseQuestion
-
+import pickle
+import os
 
 class Controller:
     def __init__(self):
@@ -72,7 +73,7 @@ class Controller:
         options.append("s")  # save game
         options.append("o")  # load game
         options.append("q")  # quit
-        print(options)
+        # print(options)
         # return options
 
         keystroke = input("What would you like to do? Press \"1\" for all options: ")
@@ -82,18 +83,33 @@ class Controller:
 
         # exit, save, load a game
         elif keystroke == "q":  # option to exit the game
-            a = input("Houston, you have a problem. Do you really want to exit? (y or n): ")
+            a = View.quit()
             if a == "y":
                 return "***GAME OVER***", False
-                # place 'exit game' method here
             elif a == "n":
                 return "\nCarry on, space cowboy!\n", True
             else:
                 return "That is not a valid command. Try again.", True
+
         elif keystroke == "s":
-            pass  # insert 'save game' method here
+            if self.__game_board:
+                game = self.__game_board
+                game_file = open('saved_game', 'wb')
+                pickle.dump(game, game_file)
+                game_file.close()
+                return "Game saved.", False
+            else:
+                return "No game to save. Choose another option.", True
+
         elif keystroke == "o":
-            pass  # insert 'load game' method here
+            if not os.path.isfile("saved_game"):
+                View.display_msg('Error, You have no saved games.')
+            else:
+                game_file = open('saved_game', 'rb')
+                game = pickle.load(game_file)
+                game_file.close()
+                self.__game_board = game
+                return 'Game Loaded, Welcome back, Captain.', True
 
         # move commands
         elif keystroke == "u":
@@ -106,6 +122,7 @@ class Controller:
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
+
         elif keystroke == "d":
             if "d" in options:
                 if self.prompt_question(self.__game_board) is True:
@@ -117,6 +134,7 @@ class Controller:
                            "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
+
         elif keystroke == "l":
             if "l" in options:
                 if self.prompt_question(self.__game_board) is True:
@@ -127,6 +145,7 @@ class Controller:
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
+
         elif keystroke == "r":
             if "r" in options:
                 if self.prompt_question(self.__game_board) is True:
@@ -146,36 +165,51 @@ class Controller:
         Gets the game level. Initialises the game board.
         :return: None
         """
-        # View.display_welcome_msg()
-        # menu_option = View.get_menu_option()
-        # if menu_option == "1":
-        #     file_option = View.get_file_option()
-        #     if file_option == "1":
-        self.set_game_board(4, 4)
-        self.__game_board.place_entrance_exit()
-        self.__game_board.update_border_paths()
-        self.play_game()
+        View.display_welcome_msg()
+        menu_option = View.get_menu_option()
+        if menu_option == "1":
+            file_option = View.get_file_option()
+            if file_option == "1":
+                self.set_game_board(4, 4)
+                self.__game_board.place_entrance_exit()
+                self.__game_board.update_border_paths()
+                self.play_game()
 
-            # elif file_option == 2:
-            #     if self.__saved_game_board:
-            #         self.__game_board = self.__saved_game_board
-            #         self.__play_game()
-            #     else:
-            #         self.__view.display_msg("No saved game. Choose another option.")
-            #         self.__view.get_menu_option()
-            #
-            # elif file_option == 3:
-            #     if self.__game_board:
-            #         self.__saved_game_board = self.__game_board
-            #         self.__view.display_msg("Game saved.")
-            #         self.init_game()
-            #     else:
-            #         self.__view.display_msg("No game to save. Choose another option.")
-            #         self.__view.get_menu_option()
-            # ADD code for file option 4 - Exit
-        # ADD code for menu option 2 -  Help
-        # else:
-        #     pass
+            elif file_option == "2":
+                if not os.path.isfile("saved_game"):
+                    View.display_msg('Error, You have no saved games.')
+                    View.display_msg("No saved game. Choose another option.")
+                    self.init_game()
+                else:
+                    game_file = open('saved_game', 'rb')
+                    game = pickle.load(game_file)
+                    game_file.close()
+                    self.__game_board = game
+                    View.display_msg('Game Loaded, Welcome back, Captain.')
+                    self.play_game()
+
+            elif file_option == "3":
+                if self.__game_board:
+                    game = self.__game_board
+                    game_file = open('saved_game', 'wb')
+                    pickle.dump(game, game_file)
+                    game_file.close()
+                    View.display_msg("Game saved.")
+                    self.init_game()
+                else:
+                    View.display_msg("No game to save. Choose another option.")
+                    self.init_game()
+            # file option 4 - Exit
+            elif file_option == "4":
+                a = View.quit()
+                if a == "y":
+                    View.display_closing_msg()
+                elif a == "n":
+                    View.display_msg("\nCarry on, space cowboy!\n")
+                    self.init_game()
+        elif menu_option == "2":
+            View.display_msg(INTRO)
+            self.init_game()
 
     def play_game(self):
         """
@@ -184,34 +218,34 @@ class Controller:
         user would like to play again.
         """
         play = True
-        # while play:
-        #     x, y = self.__game_board.current_cell()
-        #     current_cell = self.__game_board.cell_at(x, y)
-        #     # Display game board and current room
-        #     View.display_gameboard_map(self.__game_board)
-        #     View.display_current_location(current_cell)
-        #     # if current room is exit You won!! else continue
-        #     if current_cell.get_exit() is True:
-        #         View.display_game_won()
-        #         play = False
-        #     else:
-        #         statement, play = self.player_input(self.__game_board)
-        #         View.display_msg(statement)
-        #         # check if exit is reachable from current loc
-        #         if self.__game_board.traverse(x, y) is False:
-        #             # game lost as theres no way out!!
-        #             View.display_game_lost()
-        #             play = False
+        while play:
+            x, y = self.__game_board.current_cell()
+            current_cell = self.__game_board.cell_at(x, y)
+            # Display game board and current room
+            View.display_gameboard_map(self.__game_board)
+            View.display_current_location(current_cell)
+            # if current room is exit You won!! else continue
+            if current_cell.get_exit() is True:
+                View.display_game_won()
+                play = False
+            else:
+                statement, play = self.player_input(self.__game_board)
+                View.display_msg(statement)
+                # check if exit is reachable from current loc
+                if self.__game_board.traverse(x, y) is False:
+                    # game lost as theres no way out!!
+                    View.display_game_lost()
+                    play = False
 
-        # while True:
-        #     user_input = View.replay()
-        #     if user_input == 'y' or user_input == 'yes':
-        #         self.init_game()
-        #     else:
-        #         # print Thanks for playing.
-        #         View.display_closing_msg()
-        #         break
+        while True:
+            user_input = View.replay()
+            if user_input == 'y' or user_input == 'yes':
+                self.init_game()
+            else:
+                # print Thanks for playing.
+                View.display_closing_msg()
+                break
 
 
-# new = Controller()
-# new.init_game()
+new = Controller()
+new.init_game()

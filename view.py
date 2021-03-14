@@ -1,9 +1,9 @@
 WELCOME = "Welcome to the Trivia Space Adventure game. \n"
 
 INTRO = "Find your way to Mars by answering questions along the game board. \n\n" \
-        "Correct answers allow you to continue along your journey.  Wrong answers "\
-        "require you to seek an alternate orbit.  If you find yourself without a "\
-        "path to Mars, you will run out of oxygen and meet your ultimate demise...\n\n"\
+        "Correct answers allow you to continue along your journey.  Wrong answers " \
+        "require you to seek an alternate orbit.  If you find yourself without a " \
+        "path to Mars, you will run out of oxygen and meet your ultimate demise...\n\n" \
         "So, are you as smart as a Rocket Scientist...? Let's find out!"
 
 
@@ -61,7 +61,7 @@ class View:
                                    f" menu options by entering "
                                    f"the corresponding number \n {FILE} : ")
                 if file_input in FILE:
-                    print(file_input)
+                    # print(file_input)
                     return file_input
                 else:
                     print("Error: Invalid option")
@@ -91,7 +91,7 @@ class View:
             except ValueError:
                 print("Error: Invalid option")
 
-##########
+    ##########
     @staticmethod
     def display_gameboard_map(gameboard):
         """
@@ -144,10 +144,10 @@ class View:
     @staticmethod
     def ask_m_question(question):
         OPTIONS = {
-            "1" : question[1][0],
-            "2" : question[1][1],
-            "3" : question[1][2],
-            "4" : question[1][3]
+            "1": question[1][0],
+            "2": question[1][1],
+            "3": question[1][2],
+            "4": question[1][3]
         }
         while True:
             try:
@@ -183,3 +183,9 @@ class View:
                 return answer_input
             except ValueError:
                 print("Error: Invalid option")
+
+    @staticmethod
+    def quit():
+        user_input = (str(input('\nHouston, you have a problem. Do you really want to exit? (y or n):'))
+                      .lower())
+        return user_input
