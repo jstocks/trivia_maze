@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk
-from view import View
 from gameboard import GameBoard
 import os
 from db_access import *
@@ -18,12 +17,13 @@ class TriviaGUI(Canvas):
     """
     Initializes the Canvas - widgets and visible items
     """
-    def __init__(self, dimension, master=None, gameboard=None):
+    def __init__(self, dimension, master=None, gameboard=None, sound=True):
         Canvas.__init__(self, master)
         Pack.config(self)
         self.master.title("Get to Mars!")
         self.pack()
         self.board = gameboard
+        self.sound = sound
         self.dimension = dimension
         self.database = r"python_sqlite.db"
         self.moving_to = 0  # 1 up 2 down 3 left 4 right
@@ -105,7 +105,11 @@ class TriviaGUI(Canvas):
         """
         Displays the instructions for the game.
         """
-        intro = View.display_welcome_msg()
+        intro = "Find your way to Mars by answering questions along the game board. \n\n Correct answers allow you to " \
+                "continue along your journey. Wrong answers require you to seek an alternate orbit.  If you find " \
+                "yourself without a path to Mars, you will run out of oxygen and meet your ultimate demise...\n\n So, " \
+                "are you as smart as a Rocket Scientist...? Let's find out! "
+
         messagebox.showinfo(title='Directions', message=intro)
 
     def about(self):
@@ -124,6 +128,7 @@ class TriviaGUI(Canvas):
         """
         Method to quit the game.
         """
+
         self.sound_quit()
         mbox = messagebox.askquestion('Exit... Are you sure?', icon='warning')
         if mbox == 'yes':
@@ -714,37 +719,43 @@ class TriviaGUI(Canvas):
         """
         Sound.
         """
-        winsound.Beep(300, 200)
+        if self.sound is True:
+            winsound.Beep(300, 200)
 
     def menu_click(self):
         """
         Sound.
         """
-        winsound.Beep(100, 200)
+        if self.sound is True:
+            winsound.Beep(100, 200)
 
     def sound_quit(self):
         """
         Quit Sound.
         """
-        playsound('houston.mp3')
+        if self.sound is True:
+            playsound('houston.mp3')
 
     def sound_win(self):
         """
         Win Sound.
         """
-        playsound('winning.mp3')
+        if self.sound is True:
+            playsound('winning.mp3')
 
     def sound_lose(self):
         """
         Lose Sound.
         """
-        playsound('lose.mp3')
+        if self.sound is True:
+            playsound('lose.mp3')
 
     def sound_hidden(self):
         """
         Easter Egg - Thanks for all your help, Major Tom!!!
         """
-        playsound('space_odyssey.mp3', False)
+        if self.sound is True:
+            playsound('space_odyssey.mp3', False)
 
 
 def start_main():
@@ -757,7 +768,7 @@ def start_main():
 
     # initialize a new game
     # ctrl = Controller()
-    root = TriviaGUI(800, gameboard=game)
+    root = TriviaGUI(800, gameboard=game, sound=False)
 
     root.mainloop()
 
