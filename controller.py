@@ -37,9 +37,12 @@ class Controller:
 
     def prompt_question(self, __game_board):
         """
-        Initializes the question status list of the game board depending on the number of questions
-        in the database. Based on the random question type picked instantiates the Question class.
-        Displays and question by calling the appropriate method in the View and gets user input.
+        Initializes the question status list of the game board
+        depending on the number of questions in the database.
+        Based on the random question type picked instantiates
+        the Question class.
+        Displays and question by calling the appropriate method
+        in the View and gets user input.
         Verifies the user in put to check for correct answer
         and returns Bool to indicate if the answer is correct.
         """
@@ -76,13 +79,17 @@ class Controller:
         cell = __game_board.cell_at(x, y)
         options = []
         # movement options based on available paths
-        if self.__game_board.is_valid_cell(x, y - 1) is True and cell.has_north_path() is True:
+        if self.__game_board.is_valid_cell(x, y - 1) is True \
+                and cell.has_north_path() is True:
             options.append("u")
-        if self.__game_board.is_valid_cell(x, y + 1) is True and cell.has_south_path() is True:
+        if self.__game_board.is_valid_cell(x, y + 1) is True \
+                and cell.has_south_path() is True:
             options.append("d")
-        if self.__game_board.is_valid_cell(x + 1, y) is True and cell.has_east_path() is True:
+        if self.__game_board.is_valid_cell(x + 1, y) is True \
+                and cell.has_east_path() is True:
             options.append("r")
-        if self.__game_board.is_valid_cell(x - 1, y) is True and cell.has_west_path() is True:
+        if self.__game_board.is_valid_cell(x - 1, y) is True \
+                and cell.has_west_path() is True:
             options.append("l")
         # save, load, quit options
         options.append("s")  # save game
@@ -91,7 +98,8 @@ class Controller:
         # print(options)
         # return options
 
-        keystroke = input("What would you like to do? Press \"1\" for all options: ")
+        keystroke = input("What would you like to do? "
+                          "Press \"1\" for all options: ")
 
         if keystroke == "1":  # all available user options
             return options, True
@@ -104,7 +112,8 @@ class Controller:
             elif a == "n":
                 return "\nCarry on, space cowboy!\n", True
             else:
-                return "That is not a valid command. Try again.", True
+                return "That is not a valid command. " \
+                       "Try again.", True
 
         elif keystroke == "s":
             if self.__game_board:
@@ -133,10 +142,12 @@ class Controller:
                     self.__game_board.move_to(x, y - 1)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y - 1), "N")
+                    self.__game_board.cell_at(x, y).\
+                        remove_path(self.__game_board.cell_at(x, y - 1), "N")
                     return "Wrong!!", True
             else:
-                return "That is not a valid command.  Try again.", True
+                return "That is not a valid command.  " \
+                       "Try again.", True
 
         elif keystroke == "d":
             if "d" in options:
@@ -144,7 +155,8 @@ class Controller:
                     self.__game_board.move_to(x, y + 1)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x, y + 1), "S")
+                    self.__game_board.cell_at(x, y).\
+                        remove_path(self.__game_board.cell_at(x, y + 1), "S")
                     return "" \
                            "Wrong!!", True
             else:
@@ -156,7 +168,8 @@ class Controller:
                     self.__game_board.move_to(x - 1, y)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x - 1, y), "W")
+                    self.__game_board.cell_at(x, y).\
+                        remove_path(self.__game_board.cell_at(x - 1, y), "W")
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
@@ -167,7 +180,8 @@ class Controller:
                     self.__game_board.move_to(x + 1, y)
                     return "Correct!!", True
                 else:
-                    self.__game_board.cell_at(x, y).remove_path(self.__game_board.cell_at(x + 1, y), "E")
+                    self.__game_board.cell_at(x, y).\
+                        remove_path(self.__game_board.cell_at(x + 1, y), "E")
                     return "Wrong!!", True
             else:
                 return "That is not a valid command.  Try again.", True
@@ -176,7 +190,8 @@ class Controller:
 
     def init_game(self):
         """
-        Initialises the game. Displays welcome message. Gets the menu option. Loads a new or saved game.
+        Initialises the game. Displays welcome message.
+        Gets the menu option. Loads a new or saved game.
         Gets the game level. Initialises the game board.
         :return: None
         """

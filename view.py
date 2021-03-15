@@ -1,10 +1,15 @@
 WELCOME = "Welcome to the Trivia Space Adventure game. \n"
 
-INTRO = "Find your way to Mars by answering questions along the game board. \n\n" \
-        "Correct answers allow you to continue along your journey.  Wrong answers " \
-        "require you to seek an alternate orbit.  If you find yourself without a " \
-        "path to Mars, you will run out of oxygen and meet your ultimate demise...\n\n" \
-        "So, are you as smart as a Rocket Scientist...? Let's find out!"
+INTRO = "Find your way to Mars by answering questions " \
+        "along the game board. \n\n" \
+        "Correct answers allow you to continue along your journey.  " \
+        "Wrong answers " \
+        "require you to seek an alternate orbit.  If you find " \
+        "yourself without a " \
+        "path to Mars, you will run out of oxygen and meet " \
+        "your ultimate demise...\n\n" \
+        "So, are you as smart as a Rocket Scientist...? " \
+        "Let's find out!"
 
 
 class View:
@@ -128,12 +133,14 @@ class View:
 
     @staticmethod
     def get_user_command(moves):
-        user_input = str(input(f'\nPossible paths: {moves} \n Enter your command :'))
+        user_input = str(input(f'\nPossible paths: {moves} \n '
+                               f'Enter your command :'))
         return user_input
 
     @staticmethod
     def replay():
-        user_input = (str(input('\nEnter \'y\' or \'yes\' to play again >>> '))
+        user_input = (str(input('\nEnter \'y\' or \'yes\' '
+                                'to play again >>> '))
                       .lower())
         return user_input
 
@@ -151,7 +158,9 @@ class View:
         }
         while True:
             try:
-                answer_input = input(f"Answer the following question: \n {question[0]} \n {OPTIONS}")
+                answer_input = input(f"Answer the following "
+                                     f"question: \n {question[0]} "
+                                     f"\n {OPTIONS}")
                 if answer_input in OPTIONS:
                     return OPTIONS[answer_input]
                 else:
@@ -167,7 +176,9 @@ class View:
         }
         while True:
             try:
-                answer_input = input(f"Answer the following question: \n {question[0]} \n {OPTIONS}")
+                answer_input = input(f"Answer the following "
+                                     f"question: \n {question[0]} "
+                                     f"\n {OPTIONS}")
                 if answer_input in OPTIONS:
                     return OPTIONS[answer_input]
                 else:
@@ -179,13 +190,16 @@ class View:
     def ask_short_ans_question(question):
         while True:
             try:
-                answer_input = input(f"Answer the following question: \n {question}")
+                answer_input = input(f"Answer the following "
+                                     f"question: \n {question}")
                 return answer_input
             except ValueError:
                 print("Error: Invalid option")
 
     @staticmethod
     def quit():
-        user_input = (str(input('\nHouston, you have a problem. Do you really want to exit? (y or n):'))
+        user_input = (str(input('\nHouston, you have a problem. '
+                                'Do you really want to exit? '
+                                '(y or n):'))
                       .lower())
         return user_input

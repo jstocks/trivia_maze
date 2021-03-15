@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import csv
 
+
 def create_connection(db_file):
     """ create a database connection to the SQLite database
         specified by db_file
@@ -15,6 +16,7 @@ def create_connection(db_file):
         print(e)
     return conn
 
+
 def create_table(conn, create_table_sql):
     """ create a table from the create_table_sql statement
     :param conn: Connection object
@@ -26,6 +28,7 @@ def create_table(conn, create_table_sql):
         c.execute(create_table_sql)
     except Error as e:
         print(e)
+
 
 if __name__ == '__main__':
     database = r"python_sqlite.db"

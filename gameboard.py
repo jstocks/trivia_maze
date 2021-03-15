@@ -3,8 +3,9 @@ import random
 
 
 class GameBoard:
-    """class creates an instance of a game board, creates 2D matrix, adds entrance
-    & exit, and stores all of the locations and string representations"""
+    """class creates an instance of a game board, creates 2D matrix,
+    adds entrance & exit, and stores all of the locations
+    and string representations"""
 
     def __init__(self, nx=4, ny=4, ix=0, iy=0):
         """initialize game board 2D matrix at (0,0)"""
@@ -13,7 +14,8 @@ class GameBoard:
         self.__ix = ix
         self.__iy = iy
         self.__current_cell = 0, 0
-        self.__game_board = [[Cell(x, y) for y in range(ny)] for x in range(nx)]
+        self.__game_board = \
+            [[Cell(x, y) for y in range(ny)] for x in range(nx)]
         self.__entrance_cell = 0, 0
         self.__exit_cell = 0, 0
         self.original_map = ""
@@ -21,7 +23,8 @@ class GameBoard:
 
     def set_question_stat(self, c):
         """
-        Initializes the question_stat to keep track of what questions have been previously asked.
+        Initializes the question_stat to keep track of what questions
+        have been previously asked.
         :param c: Int - Number of questions
         :return: None
         """
@@ -143,13 +146,14 @@ class GameBoard:
         return '\n'.join(board_rows)
 
     def is_valid_cell(self, x, y):
-        """helper method to keep cell pointer inside the confines of the board"""
+        """helper method to check if the cell at x, y
+        is valid ie: inside the confines of the board"""
         return 0 <= x < self.__nx and 0 <= y < self.__ny
 
     def traverse(self, row, col):
         """
-        Performs a DFS of the maze and checks exit is reachable from
-        the cell at row, col position.
+        Performs a DFS of the maze and checks exit is reachable
+        from the cell at row, col position.
         To avoid going in cycles we maintain two colors
         grey(indicates nodes in process) and
         black(indicates nodes completed processing).
@@ -174,17 +178,25 @@ class GameBoard:
             # north cell is not in grey(to avoid cycles) and
             # not in black(to avoid traversing a previously exhausted path)
             # we add it to the trav_neighbors list for processing
-            if self.is_valid_cell(node[0] - 1, node[1]) and self.cell_at(node[0], node[1]).has_west_path() is True:
-                if (node[0] - 1, node[1]) not in grey and (node[0] - 1, node[1]) not in black:
+            if self.is_valid_cell(node[0] - 1, node[1]) \
+                    and self.cell_at(node[0], node[1]).has_west_path() is True:
+                if (node[0] - 1, node[1]) not in grey \
+                        and (node[0] - 1, node[1]) not in black:
                     trav_neighbors.append((node[0] - 1, node[1]))
-            if self.is_valid_cell(node[0] + 1, node[1]) and self.cell_at(node[0], node[1]).has_east_path() is True:
-                if (node[0] + 1, node[1]) not in grey and (node[0] + 1, node[1]) not in black:
+            if self.is_valid_cell(node[0] + 1, node[1]) \
+                    and self.cell_at(node[0], node[1]).has_east_path() is True:
+                if (node[0] + 1, node[1]) not in grey \
+                        and (node[0] + 1, node[1]) not in black:
                     trav_neighbors.append((node[0] + 1, node[1]))
-            if self.is_valid_cell(node[0], node[1] - 1) and self.cell_at(node[0], node[1]).has_north_path() is True:
-                if (node[0], node[1] - 1) not in grey and (node[0], node[1] - 1) not in black:
+            if self.is_valid_cell(node[0], node[1] - 1) and \
+                    self.cell_at(node[0], node[1]).has_north_path() is True:
+                if (node[0], node[1] - 1) not in grey \
+                        and (node[0], node[1] - 1) not in black:
                     trav_neighbors.append((node[0], node[1] - 1))
-            if self.is_valid_cell(node[0], node[1] + 1) and self.cell_at(node[0], node[1]).has_south_path() is True:
-                if (node[0], node[1] + 1) not in grey and (node[0], node[1] + 1) not in black:
+            if self.is_valid_cell(node[0], node[1] + 1) and \
+                    self.cell_at(node[0], node[1]).has_south_path() is True:
+                if (node[0], node[1] + 1) not in grey \
+                        and (node[0], node[1] + 1) not in black:
                     trav_neighbors.append((node[0], node[1] + 1))
 
             if len(trav_neighbors) > 0:

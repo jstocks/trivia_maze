@@ -22,6 +22,7 @@ def get_question_count(database):
             conn.close()
             # print("The Sqlite connection is closed")
 
+
 def getallquestions(database):
     """
     Prints all the rows(questions) in the database table questions.
@@ -43,6 +44,7 @@ def getallquestions(database):
             conn.close()
             # print("The Sqlite connection is closed")
 
+
 def get_q_a(database, val):
     """
     Returns a list containing the question, correct answer and the option with
@@ -53,11 +55,14 @@ def get_q_a(database, val):
         # to access the individual items of a row by position or keyword value.
         # conn.row_factory = sqlite3.Row
         c = conn.cursor()
-        c.execute("SELECT id, question_type, question FROM questions where id=?", (val,))
+        c.execute("SELECT id, question_type, "
+                  "question FROM questions where id=?", (val,))
         q = c.fetchone()[1:]
-        c.execute("SELECT id, answer FROM answers where question_id=?", (val,))
+        c.execute("SELECT id, answer FROM answers "
+                  "where question_id=?", (val,))
         a = c.fetchall()
-        c.execute("SELECT answer_id FROM answerkey where question_id=?", (val,))
+        c.execute("SELECT answer_id FROM answerkey "
+                  "where question_id=?", (val,))
         result = c.fetchone()[0]
         for ans in a:
             if ans[0] == result:
@@ -71,6 +76,7 @@ def get_q_a(database, val):
         if conn:
             conn.close()
             # print("The Sqlite connection is closed")
+
 
 if __name__ == '__main__':
     database = r"python_sqlite.db"
