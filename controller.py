@@ -8,6 +8,7 @@ from true_false_question import TrueFalseQuestion
 import pickle
 import os
 
+
 class Controller:
     def __init__(self):
         # self.__view = view
@@ -25,7 +26,7 @@ class Controller:
         """
         while True:
             rand_q = random.randint(1, self.q_count)
-            if stat[rand_q-1] == 0:
+            if stat[rand_q - 1] == 0:
                 return rand_q
 
     def prompt_question(self, __game_board):
@@ -38,6 +39,8 @@ class Controller:
             __game_board.set_question_stat(self.q_count)
         else:
             rand_question = self.pick_question(__game_board.question_stat)
+            __game_board.update_question_stat(rand_question - 1, 1)
+
             q_a = get_q_a(self.database, rand_question)
             if q_a[0][0] == 'MULTIPLE CHOICE':
                 question = MultipleChoiceQuestion(q_a[0][1], q_a[1], q_a[2])
@@ -48,7 +51,6 @@ class Controller:
             elif q_a[0][0] == 'SHORT ANSWER':
                 question = ShortAnsQuestion(q_a[0][1], q_a[1])
                 ans = View.ask_short_ans_question(question.get_question())
-            __game_board.update_question_stat(rand_question - 1, 1)
             return question.verify_ans(ans)
 
     def player_input(self, __game_board):
@@ -247,5 +249,6 @@ class Controller:
                 break
 
 
-new = Controller()
-new.init_game()
+if __name__ == '__main__':
+    new = Controller()
+    new.init_game()

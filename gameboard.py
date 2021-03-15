@@ -78,13 +78,18 @@ class GameBoard:
 
     def place_entrance_exit(self):
         """set exit in game board"""
-        x = 0
-        y = 0
+        x = random.randrange(0, self.__nx)
+        y = random.randrange(0, self.__ny)
         self.__game_board[x][y].set_current_cell(True)
-        a = self.__nx - 1
-        b = self.__ny - 1
-        self.__exit_cell = a, b
-        self.__game_board[a][b].set_exit(True)
+        self.__current_cell = x, y
+        self.__entrance_cell = x, y
+        while True:
+            a = random.randrange(0, self.__nx)
+            b = random.randrange(0, self.__ny)
+            if (a, b) != (x, y):
+                self.__exit_cell = a, b
+                self.__game_board[a][b].set_exit(True)
+                break
 
     def __repr__(self):
         """Return a visual string representation of the game board."""
