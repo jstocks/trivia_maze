@@ -4,7 +4,8 @@ from gameboard import GameBoard
 
 def set_up():
     gameboard = GameBoard(4, 4)
-    gameboard.place_entrance_exit()
+    gameboard.set_entrance(0, 0)
+    gameboard.set_exit(3, 3)
     gameboard.update_border_paths()
     return gameboard
 
@@ -13,14 +14,21 @@ class GameBoardTests(unittest.TestCase):
     """
     Tests for GameBoard class
     """
-    def test_update_border_paths(self):
-        pass
 
-    def test_place_entrance_exit(self):
-        pass
+    def test_update_border_paths(self):
+        game = GameBoard(2, 2)
+        game.update_border_paths()
+        self.assertEqual(False, game.cell_at(0, 0).has_north_path(), "Error: Border path not updated right.")
+        self.assertEqual(False, game.cell_at(1, 0).has_north_path(), "Error: Border path not updated right.")
+        self.assertEqual(False, game.cell_at(0, 1).has_south_path(), "Error: Border path not updated right.")
+        self.assertEqual(False, game.cell_at(1, 1).has_south_path(), "Error: Border path not updated right.")
+        self.assertEqual(False, game.cell_at(0, 0).has_west_path(), "Error: Border path not updated right.")
+        self.assertEqual(False, game.cell_at(1, 0).has_east_path(), "Error: Border path not updated right.")
+        self.assertEqual(False, game.cell_at(0, 1).has_west_path(), "Error: Border path not updated right.")
+        self.assertEqual(False, game.cell_at(1, 1).has_east_path(), "Error: Border path not updated right.")
 
     def test_traverse_path_exists(self):
-        #path exists
+        # path exists
         gameboard = set_up()
         gameboard.cell_at(3, 3).remove_path(gameboard.cell_at(3, 2), "N")
         self.assertEqual(True, gameboard.traverse(0, 0), "Error: Unknown Bug in Traverse method")

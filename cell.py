@@ -7,7 +7,7 @@ class Cell:
         self.__exit = False
         # self.__entrance = False
         self.__current_cell = False
-        self.__impassable = False
+        # self.__impassable = False
         # self.__visited = False
         self.x = x
         self.y = y
@@ -37,22 +37,21 @@ class Cell:
         """setter for current cell"""
         self.__current_cell = update_current_cell
 
-    def set_visited(self, add_visited):
-        """setter for visited room, used for maze creation"""
-        self.__visited = add_visited
-
-    def reset_visited(self):
-        """setter for visited"""
-        self.__visited = False
-
-    def is_visited(self):
-        """getter for visited"""
-        return self.__visited is True
+    # def set_visited(self, add_visited):
+    #     """setter for visited room, used for maze creation"""
+    #     self.__visited = add_visited
+    #
+    # def reset_visited(self):
+    #     """setter for visited"""
+    #     self.__visited = False
+    #
+    # def is_visited(self):
+    #     """getter for visited"""
+    #     return self.__visited is True
 
     def __repr__(self):
         return "Paths: " + str(self.paths) + "\n" \
-            + "Exit: " + str(self.__exit) + "\n" \
-            + "Impassable: " + str(self.__impassable) + "\n"
+            + "Exit: " + str(self.__exit) + "\n"
 
     def has_all_paths(self):
         """returns True if Room has all 4 paths"""

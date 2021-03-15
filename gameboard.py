@@ -61,6 +61,20 @@ class GameBoard:
         """current cell pointer"""
         return self.__current_cell
 
+    def set_entrance(self, x, y):
+        """
+        Sets the entrance
+        """
+        self.__entrance_cell = x, y
+        self.__game_board[x][y].set_current_cell(True)
+
+    def set_exit(self, x, y):
+        """
+        Sets the entrance
+        """
+        self.__exit_cell = x, y
+        self.__game_board[x][y].set_exit(True)
+
     # def entrance_cell(self):
     #     """entrance getter"""
     #     return self.__entrance_cell
