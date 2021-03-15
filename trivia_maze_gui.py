@@ -9,8 +9,8 @@ from multiple_choice_question import MultipleChoiceQuestion
 from short_ans_question import ShortAnsQuestion
 from true_false_question import TrueFalseQuestion
 import pickle
-# import winsound
-# from playsound import playsound
+import winsound
+from playsound import playsound
 
 
 class TriviaGUI(Canvas):
@@ -1012,7 +1012,7 @@ def start_main():
 
     # initialize a new game
     # ctrl = Controller()
-    root = TriviaGUI(800, gameboard=game, sound=False)
+    root = TriviaGUI(800, gameboard=game, sound=True)
 
     root.mainloop()
 
