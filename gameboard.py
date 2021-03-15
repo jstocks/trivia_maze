@@ -94,14 +94,14 @@ class GameBoard:
         self.__current_cell = x, y
 
     def place_entrance_exit(self):
-        """set a random entrance and exit in game board"""
-        x = random.randrange(0, self.__nx)
+        """set a random entrance(first column) and exit(last column) in game board"""
+        x = 0
         y = random.randrange(0, self.__ny)
         self.__game_board[x][y].set_current_cell(True)
         self.__current_cell = x, y
         self.__entrance_cell = x, y
         while True:
-            a = random.randrange(0, self.__nx)
+            a = self.__nx - 1
             b = random.randrange(0, self.__ny)
             if (a, b) != (x, y):
                 self.__exit_cell = a, b
