@@ -2,6 +2,9 @@ import sqlite3
 
 
 def get_question_count(database):
+    """
+    Returns the number of questions in the database.
+    """
     try:
         conn = sqlite3.connect(database)
         c = conn.cursor()
@@ -20,6 +23,9 @@ def get_question_count(database):
             # print("The Sqlite connection is closed")
 
 def getallquestions(database):
+    """
+    Prints all the rows(questions) in the database table questions.
+    """
     try:
         conn = sqlite3.connect(database)
         # to access the individual items of a row by position or keyword value.
@@ -38,6 +44,10 @@ def getallquestions(database):
             # print("The Sqlite connection is closed")
 
 def get_q_a(database, val):
+    """
+    Returns a list containing the question, correct answer and the option with
+    the primary key - val in the database.
+    """
     try:
         conn = sqlite3.connect(database)
         # to access the individual items of a row by position or keyword value.

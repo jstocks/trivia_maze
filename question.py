@@ -22,9 +22,15 @@ class Question(ABC):
 
     @abstractmethod
     def get_question(self):
+        """
+        Returns the question string.
+        """
         return self.question
 
     def verify_ans(self, ans):
+        """
+        Returns Bool (to check ans is the correct answer)
+        """
         return ans.lower().strip() == self.__correct_ans.lower().strip()
 
     @classmethod

@@ -512,6 +512,11 @@ class TriviaGUI(Canvas):
                 return rand_q
 
     def prompt_question(self, __game_board):
+        """
+        Initializes the question status list of the gameboard depending on the number of questions
+        in the database. Based on the random question type picked instantiates the Question class
+        and return the question object.
+        """
         # initialize question stat for a new gameboard
         if len(__game_board.question_stat) == 0:
             __game_board.set_question_stat(65)
@@ -532,6 +537,10 @@ class TriviaGUI(Canvas):
             return question
 
     def show_question(self):
+        """
+        Displays the question and gets user input - answer. Calls the verify answer method
+        to check if its the correct answer.
+        """
         self.disable()
         question = self.prompt_question(self.board)
         q = question.get_question()

@@ -77,7 +77,7 @@ class GameBoard:
         self.__current_cell = x, y
 
     def place_entrance_exit(self):
-        """set exit in game board"""
+        """set a random entrance and exit in game board"""
         x = random.randrange(0, self.__nx)
         y = random.randrange(0, self.__ny)
         self.__game_board[x][y].set_current_cell(True)
@@ -200,6 +200,9 @@ class GameBoard:
         return found_Exit
 
     def update_border_paths(self):
+        """
+        Updates the path of the cells in the border of the game board.
+        """
         delta = [('W', (-1, 0)),
                  ('E', (1, 0)),
                  ('S', (0, 1)),

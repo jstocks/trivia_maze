@@ -11,12 +11,18 @@ import os
 
 class Controller:
     def __init__(self):
+        """
+        Initializes the database, question count and game board fields.
+        """
         # self.__view = view
         self.__game_board = None
         self.database = r"python_sqlite.db"
         self.q_count = get_question_count(self.database)
 
     def set_game_board(self, x, y):
+        """
+        Sets the gameboard to be of a specific size based on the parameters.
+        """
         self.__game_board = GameBoard(x, y)
 
     def pick_question(self, stat):
@@ -30,6 +36,13 @@ class Controller:
                 return rand_q
 
     def prompt_question(self, __game_board):
+        """
+        Initializes the question status list of the game board depending on the number of questions
+        in the database. Based on the random question type picked instantiates the Question class.
+        Displays and question by calling the appropriate method in the View and gets user input.
+        Verifies the user in put to check for correct answer
+        and returns Bool to indicate if the answer is correct.
+        """
         # initialize question stat for a new gameboard
         if len(__game_board.question_stat) == 0:
             __game_board.set_question_stat(self.q_count)
